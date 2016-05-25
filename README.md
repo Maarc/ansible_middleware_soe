@@ -4,26 +4,26 @@ This project is an example showing how to implemented a Red Hat JBoss middleware
 
 ## Setup
 
-To get started quickly with your SOE, you will need to install Ansible, Vagrant and VirtualBox locally. In addition to this, you will have to download and copy the Red Hat JBoss binaries from the https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html[Red Hat Customer Support Portal]
+To get started quickly with your SOE, you will need to install Ansible, Vagrant and VirtualBox locally. In addition to this, you will have to download and copy the Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html)
 
 ### Ansible
 
 Ansible 2 or newer is required.
 
 Centos / RHEL / Other::
-Please follow https://docs.ansible.com/ansible/intro_installation.html[the official] instructions.
+Please follow [the official](https://docs.ansible.com/ansible/intro_installation.html) instructions.
 
 MacOS::
-Please follow https://valdhaus.co/writings/ansible-mac-osx/[those instructions] to install Ansible.
+Please follow [those instructions](https://valdhaus.co/writings/ansible-mac-osx/) to install Ansible.
 
 ### Vagrant
 
-Please follow https://www.vagrantup.com/docs/installation/[those instructions] to setup https://www.vagrantup.com/[Vagrant].
+Please follow [those instructions](https://www.vagrantup.com/docs/installation/) to setup [Vagrant](https://www.vagrantup.com/).
 
 
 ### Red Hat JBoss binaries
 
-Please download the following Red Hat JBoss binaries from the https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html[Red Hat Customer Support Portal]
+Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html)
 
 * jboss-eap-6.4.0.zip
 * jboss-eap-6.4.7-patch.zip
@@ -64,8 +64,8 @@ Here is a brief description of the structure of this projects:
 * *bin* contains all binaries necessary for the SOE.
 ** *bin/java_applications* contains the java applications retrieved and built for the SOE.
 ** *bin/rh_jboss_golden_images* contains everything required to build automatically a set of golden images for the versioned middleware platforms that are in the book of standards of your organization.
-** *bin/rh_jboss_binaries* contains the Red Hat JBoss binaries from the https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html[Red Hat Customer Support Portal].
-* *group_vars* contains the ansible https://docs.ansible.com/ansible/playbooks_variables.html[group variables].
+** *bin/rh_jboss_binaries* contains the Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html).
+* *group_vars* contains the ansible [group variables](https://docs.ansible.com/ansible/playbooks_variables.html).
 * *inventory* contains the https://docs.ansible.com/ansible/intro_inventory.html[ansible inventory]. "hosts-dev" lists the host for the development environment. At the same level, you can add a "host-int" or "host-prod" file listing your orchestrated hosts in the integration or production staging environments.
 * *roles* contains the main roles of this SOE implementations:
 ** *roles/rh_jboss_core* is the core role for all managed hosts
