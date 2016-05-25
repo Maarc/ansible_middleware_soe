@@ -1,6 +1,6 @@
 # Ansible-based Red Hat JBoss EAP SOE
 
-This project is an example showing how to implemented a Red Hat JBoss middleware Standard Operating Environment (SOE) using Ansible.
+This project is an example showing how to implement a Red Hat JBoss middleware Standard Operating Environment (SOE) using Ansible.
 
 ## Setup
 
