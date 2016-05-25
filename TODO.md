@@ -13,6 +13,7 @@ Here is a short todo-list:
 * Add rh_jboss_web_server ... and a web application
 
 * Prepare an example over several environments (dev/int/prod) on different types of machines
+  -> different icons / images / colors for each environment (different properties files / static files / ...)
 
 * Find other applications and cool use-cases over several application servers (cf. quick-start)
 
@@ -24,3 +25,5 @@ Here is a short todo-list:
 * Add monitoring and log centralization capabilities
 
 * Integration with Ansible Tower
+
+* Consider a standard format for generic applications to be transformed into ansible roles easily ...
