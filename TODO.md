@@ -21,5 +21,6 @@ Here is a short todo-list:
   alias eap_{{ jboss_eap_instance_name }}_log='less {{ jboss_eap_instance_log_dir }}/server.log'
   alias eap_{{ jboss_eap_instance_name }}_ports='netstat -tulpn | grep java'
 
+* Add monitoring and log centralization capabilities
 
 * Integration with Ansible Tower
