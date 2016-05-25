@@ -7,6 +7,3 @@
 
 # Disables the deployment scanner
 /subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-interval,value=0)
-
-# Enables native connectors
-/subsystem=web/:write-attribute(name=native,value=true)
