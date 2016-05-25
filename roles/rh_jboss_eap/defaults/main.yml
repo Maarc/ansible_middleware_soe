@@ -1,0 +1,25 @@
+---
+
+jboss_eap_user: jboss
+jboss_eap_group: jboss
+jboss_eap_group_id: 500
+
+# Value for the xms and xmx (both are equal)
+jvm_xm: 512
+
+# Name of the separate JBoss EAP instance
+jboss_eap_instance_name: default
+# Port offset for the JBoss EAP instance
+jboss_eap_instance_port_offset: 0
+
+# Standalone file used
+jboss_eap_instance_standalone_file: standalone-full.xml
+
+jboss_eap_instance_bind_web_interface: true
+jboss_eap_instance_bind_management_interface: true
+
+jboss_eap_zip_artifact_name: jboss-eap.zip
+jboss_eap_zip_artifact_dir: bin/rh_jboss_golden_images/builds
+
+# Todo: add a swith for selecting xml/cli/combined configuration
+jboss_eap_instance_cli_file_name: jboss_standalone.cli

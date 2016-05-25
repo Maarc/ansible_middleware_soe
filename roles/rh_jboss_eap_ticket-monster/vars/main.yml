@@ -1,0 +1,4 @@
+---
+
+jboss_eap_instance_name: ticket_monster
+jboss_eap_instance_port_offset: 1000

@@ -1,0 +1,13 @@
+---
+
+# Timezone for the hosts and the logs
+timezone: Europe/Berlin
+
+# Directory containing all downloaded artifacts on the remote host
+download_dir: '/tmp'
+
+# Used java version: Java 8 JDK. See recommendation https://access.redhat.com/solutions/18259
+eap_java_pkg_name: java-1.8.0-openjdk-devel
+
+# All instances use the specified JBoss EAP golden image
+jboss_eap_zip_artifact_name: jboss-eap-6.4.7_golden_image.zip

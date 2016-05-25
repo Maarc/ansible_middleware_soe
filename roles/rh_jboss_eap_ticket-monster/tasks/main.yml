@@ -1,0 +1,22 @@
+---
+
+- name: (05) Replicate the monster
+  sudo: true
+  copy:
+    owner: "{{ jboss_eap_user }}"
+    group: "{{ jboss_eap_group }}"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - src: deployments/ticket-monster.war
+      dest: "{{ jboss_eap_instance_deployment_dir }}"
+  notify: Restart JBoss EAP
+
+
+- name: (99) Ensure JBoss EAP is running
+  sudo: yes
+  service:
+    name: "{{ jboss_eap_instance_service_name }}"
+    state: started
+    enabled: yes
+  register: jboss_eap_started

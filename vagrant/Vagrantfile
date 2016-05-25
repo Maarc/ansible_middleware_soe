@@ -1,0 +1,35 @@
+# Note: no port forwarding is needed when using a private network. The VMs are reacheable directly.
+
+vm_01_name = 'host-dev-eap-01'
+vm_01_ip = '192.168.0.100'
+
+name=''
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "centos/7"
+  config.vm.box_check_update = false
+
+  config.vm.define vm_01_name, primary: true do |node|
+    name = vm_01_name
+    node.vm.hostname = name
+    node.vm.network "private_network", ip: vm_01_ip
+    node.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh"
+  end
+
+  #config.vm.define "tower", primary: false do |node|
+  #  config.vm.box = "http://vms.ansible.com/ansible-tower-2.4.5-virtualbox.box"
+  #  name = 'tower'
+  #  node.vm.hostname = name;
+  #  node.vm.network :forwarded_port, guest: 22, host: 2522, id: "ssh"
+  #end
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = name
+    # 50% of the CPU from the host
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    # 2048 MB RAM
+    vb.memory = 2048
+  end
+
+end

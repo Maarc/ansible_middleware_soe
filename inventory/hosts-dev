@@ -1,0 +1,11 @@
+host-dev-eap-01 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_private_key_file=vagrant/.vagrant/machines/host-dev-eap-01/virtualbox/private_key ansible_ssh_user=vagrant
+
+[dev:children]
+ticket-monster-group
+pet-clinic-group
+
+[ticket-monster-group]
+host-dev-eap-01
+
+[pet-clinic-group]
+host-dev-eap-01

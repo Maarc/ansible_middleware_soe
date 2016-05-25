@@ -1,0 +1,20 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+alias ll='ls -all'
+alias la='ll -all'
+alias l='ll'
+
+alias sb='source ~/.bashrc'
+alias vb='vi ~/.bashrc'
+
+# User specific aliases and functions
+ulimit -u 4096
+
+JBOSS_HOME="{{ jboss_eap_home }}"
+JAVA_HOME="/etc/alternatives/java_sdk"
+export JBOSS_HOME JAVA_HOME

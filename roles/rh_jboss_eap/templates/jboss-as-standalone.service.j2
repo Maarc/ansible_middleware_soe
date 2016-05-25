@@ -1,0 +1,12 @@
+[Unit]
+Description=JBoss EAP instance ({{ jboss_eap_instance_name }})
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart={{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh start
+ExecStop={{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh stop
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target

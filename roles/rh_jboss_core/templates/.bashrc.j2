@@ -1,0 +1,17 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+alias ll='ls -all'
+alias la='ll -all'
+alias l='ll'
+
+alias sb='source ~/.bashrc'
+alias vb='vi ~/.bashrc'
+
+# Todo: dirty ...
+alias j='sudo su - jboss'
+alias r="sudo rm -Rf /opt/jboss {{ download_dir }}/jboss*"

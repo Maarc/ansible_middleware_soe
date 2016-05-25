@@ -1,0 +1,73 @@
+---
+# borrowed from
+# http://www.opensourcerers.org/how-to-setup-jboss-eap-with-rhel-7-systemd-linuxes/
+# http://www.dmartin.es/2014/07/jboss-eap-6-as-rhel-7-service/
+
+- name: (03) Generate JBoss EAP service conf file
+  sudo: true
+  template:
+    owner: "{{ jboss_eap_user }}"
+    group: "{{ jboss_eap_group }}"
+    src: jboss-as.conf.j2
+    dest: "{{ jboss_eap_service_conf_file }}"
+    mode: "755"
+  notify: Restart JBoss EAP
+
+- name: (03) Generate JBoss EAP systemd unit file
+  sudo: true
+  template:
+    owner: "{{ jboss_eap_user }}"
+    group: "{{ jboss_eap_group }}"
+    src: jboss-as-standalone.service.j2
+    dest: "{{ jboss_eap_instance_service_file }}"
+    mode: "755"
+  notify: Reload systemd
+
+- name: (03) Check existence of the init.d script
+  sudo: true
+  stat:
+    path: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
+  register: jboss_as_standalone_sh
+
+- name: (03) Copy init.d script
+  when: jboss_as_standalone_sh.stat.exists == False
+  sudo: true
+  copy:
+    remote_src: true
+    owner: "{{ jboss_eap_user }}"
+    group: "{{ jboss_eap_group }}"
+    src: "{{ jboss_eap_home }}/bin/init.d/jboss-as-standalone.sh"
+    dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
+    mode: "755"
+  notify: Restart JBoss EAP
+
+# Setting the correct JBOSS_CONF file
+- name: (03) Update init.d script (1/3)
+  sudo: true
+  lineinfile:
+    dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
+    regexp: '^(.*)JBOSS_CONF=(.*)$'
+    line: "\\1JBOSS_CONF=\"{{ jboss_eap_service_conf_file }}\""
+    backrefs: yes
+  notify: Restart JBoss EAP
+
+# Setting the correct base directory
+- name: (03) Update init.d script (2/3)
+  sudo: true
+  lineinfile:
+    dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
+    regexp: '^JBOSS_SCRIPT=(.*)standalone.sh$'
+    line: "JBOSS_SCRIPT=\"\\1standalone.sh -Djboss.server.base.dir={{ jboss_eap_instance_dir }}\""
+    backrefs: yes
+  notify: Restart JBoss EAP
+
+# Changing the "JBOSS_CONSOLE_LOG" to "JBOSS_SERVER_LOG" (prevents hanging at startup while the console log has been disabled)
+# grep 'JBAS015874:' $JBOSS_CONSOLE_LOG > /dev/null
+- name: (03) Update init.d script (3/3)
+  sudo: true
+  lineinfile:
+    dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
+    regexp: '^(.*)JBAS015874(.*)\$JBOSS_CONSOLE_LOG(.*)$'
+    line: "\\1JBAS015874\\2{{ jboss_eap_instance_log_dir }}/server.log\\3"
+    backrefs: yes
+  notify: Restart JBoss EAP

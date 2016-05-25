@@ -1,0 +1,13 @@
+---
+# This playbook deploys a simple standalone JBoss server.
+
+- hosts: "ticket-monster-group"
+  remote_user: "{{ user }}"
+  roles:
+    - { role: "rh_jboss_eap_ticket-monster", tags: ['tm'] }
+
+
+- hosts: "pet-clinic-group"
+  remote_user: "{{ user }}"
+  roles:
+    - { role: "rh_jboss_eap_pet-clinic", tags: ['pc'] }
