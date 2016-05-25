@@ -11,4 +11,3 @@ roles/rh_jboss_web_server
 roles/rh_jboss_eap_pet-clinic/files/deployments/petclinic-2.3.0.war
 roles/rh_jboss_eap_ticket-monster/files/deployments/ticket-monster.war
 site.retry
-TODO.md
