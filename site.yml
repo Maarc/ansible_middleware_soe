@@ -6,7 +6,6 @@
   roles:
     - { role: "rh_jboss_eap_ticket-monster", tags: ['tm'] }
 
-
 - hosts: "pet-clinic-group"
   remote_user: "{{ user }}"
   roles:

@@ -56,8 +56,8 @@
   sudo: true
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
-    regexp: '^JBOSS_SCRIPT=(.*)standalone.sh$'
-    line: "JBOSS_SCRIPT=\"\\1standalone.sh -Djboss.server.base.dir={{ jboss_eap_instance_dir }}\""
+    regexp: '(.*)JBOSS_SCRIPT=(.*)standalone.sh$'
+    line: "\\1JBOSS_SCRIPT=\"\\2standalone.sh -Djboss.server.base.dir={{ jboss_eap_instance_dir }}\""
     backrefs: yes
   notify: Restart JBoss EAP
 

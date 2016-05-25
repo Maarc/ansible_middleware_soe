@@ -4,12 +4,12 @@
 
 - name: (00) Set JBoss EAP facts 1/4
   set_fact:
-    jboss_eap_zip_artifact_dl_dest: "{{ download_dir + '/' + jboss_eap_zip_artifact_name }}"
+    jboss_eap_zip_artifact_dl_dest: "{{ download_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
     jboss_eap_user_home: "/opt/{{ jboss_eap_user }}"
 
 - name: (00) Set JBoss EAP facts 2/4
   set_fact:
-    jboss_eap_home: "{{ jboss_eap_user_home}}/jboss-eap"
+    jboss_eap_home: "{{ jboss_eap_user_home}}/{{ jboss_eap_zip_artifact_name }}"
     jboss_eap_instance_dir: "{{ jboss_eap_user_home}}/standalone_{{ jboss_eap_instance_name }}"
     jboss_eap_instance_cli_file: "{{ download_dir }}/{{ jboss_eap_instance_name + '___' + jboss_eap_instance_cli_file_name }}"
 

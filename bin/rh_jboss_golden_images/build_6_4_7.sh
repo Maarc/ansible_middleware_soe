@@ -5,7 +5,7 @@
 
 readonly PATCH_VERSION="jboss-eap-6.4.7"
 
-readonly TARGET_EAP="jboss-eap"
+readonly TARGET_EAP="jboss-eap-6.4.7_GI"
 readonly DIR_IN_ZIP="jboss-eap-6.4"
 
 readonly DIR_CURRENT=`pwd`
@@ -19,7 +19,7 @@ readonly DIR_TARGET="${DIR_CURRENT}/target"
 readonly FILE_LOG="${DIR_CURRENT}/build.log"
 readonly SEPARATOR="==============================================================================================="
 readonly DIR_TARGET_EAP="${DIR_TARGET}/${TARGET_EAP}"
-readonly FILE_TARGET_EAP="${PATCH_VERSION}_golden_image.zip"
+readonly FILE_TARGET_EAP="${TARGET_EAP}.zip"
 readonly FILE_CLI="${DIR_CURRENT}/${PATCH_VERSION}_golden_image.cli"
 readonly CMD_JBOSS_CLI="${DIR_TARGET_EAP}/bin/jboss-cli.sh"
 

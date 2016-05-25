@@ -14,12 +14,13 @@ jboss_eap_instance_port_offset: 0
 
 # Standalone file used
 jboss_eap_instance_standalone_file: standalone-full.xml
+jboss_eap_zip_artifact_name: jboss-eap-9.9.9_GI
+
+jboss_eap_zip_artifact_dir: bin/rh_jboss_golden_images/builds
 
 jboss_eap_instance_bind_web_interface: true
 jboss_eap_instance_bind_management_interface: true
 
-jboss_eap_zip_artifact_name: jboss-eap.zip
-jboss_eap_zip_artifact_dir: bin/rh_jboss_golden_images/builds
 
-# Todo: add a swith for selecting xml/cli/combined configuration
+# Todo: add a swith for selecting xml/cli/combined configuration (not used currently)
 jboss_eap_instance_cli_file_name: jboss_standalone.cli

@@ -11,4 +11,4 @@ CURRENT=$(pwd)
 ./build_6_4_7.sh
 
 # Build the Red Hat JBoss EAP 7_0_0 golden image
-#./build_7_0_0.sh
+./build_7_0_0.sh

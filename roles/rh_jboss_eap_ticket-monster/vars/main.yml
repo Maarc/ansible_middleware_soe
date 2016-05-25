@@ -2,3 +2,6 @@
 
 jboss_eap_instance_name: ticket_monster
 jboss_eap_instance_port_offset: 1000
+
+jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI
+jboss_eap_instance_standalone_file: standalone-full-ha.xml

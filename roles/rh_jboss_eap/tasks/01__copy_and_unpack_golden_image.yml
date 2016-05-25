@@ -8,7 +8,7 @@
 
 - name: (01) Copy zipped JBoss EAP distribution
   copy:
-    src: "{{ jboss_eap_zip_artifact_dir + '/' + jboss_eap_zip_artifact_name }}"
+    src: "{{ jboss_eap_zip_artifact_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
     dest: "{{ jboss_eap_zip_artifact_dl_dest }}"
   register: copy_zip_state
 

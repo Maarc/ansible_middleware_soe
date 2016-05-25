@@ -7,7 +7,8 @@
 
 readonly PATCH_VERSION="jboss-eap-7.0.0"
 
-readonly TARGET_EAP="jboss-eap"
+readonly TARGET_EAP="jboss-eap-7.0.0_GI"
+
 readonly DIR_IN_ZIP="jboss-eap-7.0"
 
 readonly DIR_CURRENT=`pwd`
@@ -19,7 +20,7 @@ readonly DIR_TARGET="${DIR_CURRENT}/target"
 readonly FILE_LOG="${DIR_CURRENT}/build.log"
 readonly SEPARATOR="==============================================================================================="
 readonly DIR_TARGET_EAP="${DIR_TARGET}/${TARGET_EAP}"
-readonly FILE_TARGET_EAP="${PATCH_VERSION}_golden_image.zip"
+readonly FILE_TARGET_EAP="${TARGET_EAP}.zip"
 readonly FILE_CLI="${DIR_CURRENT}/${PATCH_VERSION}_golden_image.cli"
 readonly CMD_JBOSS_CLI="${DIR_TARGET_EAP}/bin/jboss-cli.sh"
 
@@ -51,6 +52,10 @@ rm -Rf ${DIR_TARGET_EAP}/domain 2>&1 >> ${FILE_LOG}
 rm -Rf ${DIR_TARGET_EAP}/standalone/configuration/logging.properties 2>&1 >> ${FILE_LOG}
 # Folder cleanup
 rm -Rf ${DIR_TARGET_EAP}/standalone/log/* ${DIR_TARGET_EAP}/standalone/data/* ${DIR_TARGET_EAP}/standalone/deployments/*  ${DIR_TARGET_EAP}/standalone/configuration/standalone_xml_history
+
+# Renaming for staying consistent with EAP 6.x
+mv ${DIR_TARGET_EAP}/bin/init.d/jboss-eap-rhel.sh ${DIR_TARGET_EAP}/bin/init.d/jboss-as-standalone.sh
+
 # Packing the EAP golden image
 cd ${DIR_TARGET}; zip -r ${FILE_TARGET_EAP} ${TARGET_EAP} 2>&1 >> ${FILE_LOG}; mv ${FILE_TARGET_EAP} ${DIR_CURRENT}/builds
 
