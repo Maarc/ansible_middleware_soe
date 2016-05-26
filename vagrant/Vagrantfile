@@ -1,13 +1,13 @@
 # Note: no port forwarding is needed when using a private network. The VMs are reacheable directly.
 
-vm_01_name = 'host-dev-eap-01'
+vm_01_name = 'nexus'
 vm_01_ip = '192.168.0.100'
 
-vm_02_name = 'nexus'
+vm_02_name = 'host-dev-eap-01'
 vm_02_ip = '192.168.0.101'
 
 vm_03_name = 'tower'
-vm_03_ip = '192.168.0.102'
+vm_03_ip = '192.168.0.200'
 
 name=''
 
@@ -20,17 +20,17 @@ Vagrant.configure(2) do |config|
     name = vm_01_name
     node.vm.hostname = name
     node.vm.network "private_network", ip: vm_01_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh"
+    node.vm.network :forwarded_port, guest: 22, host: 2221, id: "ssh"
+    node.vm.provision "ansible" do |ansible|
+      ansible.playbook = "nexus/nexus_3.yml"
+    end
   end
 
   config.vm.define vm_02_name, primary: true do |node|
     name = vm_02_name
     node.vm.hostname = name
     node.vm.network "private_network", ip: vm_02_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2223, id: "ssh"
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "nexus/nexus_3.yml"
-    end
+    node.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh"
   end
 
   config.vm.define vm_03_name, primary: false do |node|
@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
     name = vm_03_name
     node.vm.hostname = name;
     node.vm.network "private_network", ip: vm_03_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2224, id: "ssh"
+    node.vm.network :forwarded_port, guest: 22, host: 2223, id: "ssh"
   end
 
   config.vm.provider "virtualbox" do |vb|
