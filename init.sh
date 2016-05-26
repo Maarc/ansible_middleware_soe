@@ -2,26 +2,31 @@
 
 # Initializes the Red Hat JBoss middleware SOE
 
-set -x
+#set -x
 
 CURRENT=$(pwd)
 
-# Build Red Hat Golden Images
+echo "======================================================================================================"
+echo " Build Red Hat Golden Images ..."
 cd ${CURRENT}/bin/rh_jboss_golden_images
 ./build.sh
 
-# Downloand and build Java applications
+echo "======================================================================================================"
+echo " Download and build Java applications ..."
 cd ${CURRENT}/bin/java_applications
 ./build.sh
 
-# Create and start the virtualmachine
+echo "======================================================================================================"
+echo " Create and start the virtual machine(s) ..."
 cd ${CURRENT}/vagrant
 vagrant up host-dev-eap-01
+vagrant up nexus
 
 # Backup and removes the ssh known_hosts (prevents issues with ssh)
 mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
 
-# Provision the virtual machine
+echo "======================================================================================================"
+echo " Provision the virtual machine(s) with ansible..."
 cd ${CURRENT}
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i inventory/hosts-dev site.yml
