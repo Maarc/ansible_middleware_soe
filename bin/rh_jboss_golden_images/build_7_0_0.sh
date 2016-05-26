@@ -40,8 +40,11 @@ echo "\nCustomizing\n${SEPARATOR}"
 
 # Iteration on a "CLI" directory is optional / A separate profile might have to be chosen
 #COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -P /tmp/app.props --admin-only 2>/dev/null 1>/dev/null &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} && killall java"
-bash -c "nohup ${JBOSS_HOME}/bin/standalone.sh -c standalone-full.xml --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && killall java
-bash -c "nohup ${JBOSS_HOME}/bin/standalone.sh -c standalone.xml --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && killall java
+bash -c "nohup ${JBOSS_HOME}/bin/standalone.sh -c standalone-full.xml --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG}
+killall java
+bash -c "nohup ${JBOSS_HOME}/bin/standalone.sh -c standalone.xml --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG}
+killall java
+
 cp -Rfp ${DIR_MODULES}/ojdbc_modules/* ${JBOSS_HOME}/modules/.
 
 echo "\nPackaging and cleanup\n${SEPARATOR}"
