@@ -27,10 +27,11 @@ Please download the following Red Hat JBoss binaries from the [Red Hat Customer 
 
 * jboss-eap-6.4.0.zip
 * jboss-eap-6.4.7-patch.zip
+* jboss-eap-6.4.8-patch.zip
 * jboss-eap-native-6.4.0-RHEL6-x86_64.zip
 * jboss-eap-7.0.0.zip
 
-... and copy them in
+... and copy them into
 
 	./bin/rh_jboss_binaries
 
@@ -50,6 +51,24 @@ The deployed "ticket-monster" application can be accessed here:
 
 * http://192.168.0.100:9080/ticket-monster/
 * http://192.168.0.100:8080/petclinic-2.3.0/
+
+
+## Troubleshooting
+
+
+If you encounter an error looking like ...
+
+	fatal: [host-dev-eap-01]: UNREACHABLE! => {"changed": false, "msg": "SSH encountered an unknown error during the connection. We recommend you re-run the command using -vvvv, which will enable SSH debugging output to help diagnose the issue", "unreachable": true}
+
+... either your virtual machine is down and you need to start it:
+
+  cd vagrant; vagrant up host-dev-eap-01; cd ..
+
+
+... or you need to cleanup your .ssh/known_hosts file. For example like that:
+
+  mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
+
 
 
 ## Extend

@@ -3,9 +3,17 @@
 # This script builds the company specific Red Hat JBoss EAP gold-master distribution.
 #
 
-readonly PATCH_VERSION="jboss-eap-6.4.7"
+if [ "$#" -ne 1 ]
+then
+  echo "Usage: $0 <JBOSS_EAP_6_VERSION>"
+  echo "Example: $0 6.4.8"
+  exit 1
+fi
 
-readonly TARGET_EAP="jboss-eap-6.4.7_GI"
+
+readonly PATCH_VERSION="jboss-eap-${1}"
+
+readonly TARGET_EAP="${PATCH_VERSION}_GI"
 readonly DIR_IN_ZIP="jboss-eap-6.4"
 
 readonly DIR_CURRENT=`pwd`
