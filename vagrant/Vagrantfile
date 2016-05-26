@@ -3,6 +3,12 @@
 vm_01_name = 'host-dev-eap-01'
 vm_01_ip = '192.168.0.100'
 
+vm_02_name = 'nexus'
+vm_02_ip = '192.168.0.101'
+
+vm_03_name = 'tower'
+vm_03_ip = '192.168.0.102'
+
 name=''
 
 Vagrant.configure(2) do |config|
@@ -17,17 +23,28 @@ Vagrant.configure(2) do |config|
     node.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh"
   end
 
-  #config.vm.define "tower", primary: false do |node|
-  #  config.vm.box = "http://vms.ansible.com/ansible-tower-2.4.5-virtualbox.box"
-  #  name = 'tower'
-  #  node.vm.hostname = name;
-  #  node.vm.network :forwarded_port, guest: 22, host: 2522, id: "ssh"
-  #end
+  config.vm.define vm_02_name, primary: true do |node|
+    name = vm_02_name
+    node.vm.hostname = name
+    node.vm.network "private_network", ip: vm_02_ip
+    node.vm.network :forwarded_port, guest: 22, host: 2223, id: "ssh"
+    node.vm.provision "ansible" do |ansible|
+      ansible.playbook = "nexus/nexus_3.yml"
+    end
+  end
+
+  config.vm.define vm_03_name, primary: false do |node|
+    config.vm.box = "http://vms.ansible.com/ansible-tower-2.4.5-virtualbox.box"
+    name = vm_03_name
+    node.vm.hostname = name;
+    node.vm.network "private_network", ip: vm_03_ip
+    node.vm.network :forwarded_port, guest: 22, host: 2224, id: "ssh"
+  end
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = name
-    # 50% of the CPU from the host
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    # 33% of the CPU from the host
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "33"]
     # 2048 MB RAM
     vb.memory = 2048
   end

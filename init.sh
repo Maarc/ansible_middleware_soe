@@ -16,7 +16,7 @@ cd ${CURRENT}/bin/java_applications
 
 # Create and start the virtualmachine
 cd ${CURRENT}/vagrant
-vagrant up
+vagrant up host-dev-eap-01
 
 # Backup and removes the ssh known_hosts (prevents issues with ssh)
 mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}

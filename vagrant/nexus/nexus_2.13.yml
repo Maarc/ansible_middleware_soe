@@ -1,0 +1,93 @@
+# Inspired from http://eduardsi.blogspot.de/2014/01/installing-nexus-with-ansible.html
+# and from https://books.sonatype.com/nexus-book/3.0/reference/install.html#installation-archive
+# Nexus OSS: http://www.sonatype.com/download-oss-sonatype
+# This is installating Nexus v2 (access URL: http://hostname:8081/nexus/)
+
+- hosts: nexus
+  vars:
+    nexus_download_url: http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
+    nexus_download_dest: /tmp/nexus-latest-bundle.tar.gz
+    nexus_extracted_dir: /tmp/nexus_extracted_dir
+    nexus_dir: /opt/nexus
+
+  tasks:
+
+  - name: Install required RPM dependencies
+    sudo: true
+    yum: name={{ item }} state=present
+    with_items:
+     - unzip
+     - wget
+     - rsync
+     - java-1.8.0-openjdk-devel
+     - net-tools
+
+  - name: Create "nexus" group
+    sudo: true
+    group: name="nexus" system="yes" state="present" gid="500"
+
+  - name: Create "nexus" user
+    sudo: true
+    user: name="nexus" comment="nexus user" uid="500" group="nexus" shell="/bin/bash"
+
+  - name: Download nexus
+    get_url: url={{nexus_download_url}} dest={{nexus_download_dest}}
+    register: nexus_download
+
+  - name: Create {{nexus_extracted_dir}} directory
+    when: nexus_download.changed
+    sudo: true
+    file: path={{nexus_extracted_dir}} state=directory owner=nexus group=nexus
+
+  - name: Unpack nexus
+    when: nexus_download.changed
+    sudo: true
+    unarchive: src={{ nexus_download_dest }} dest={{ nexus_extracted_dir }} copy=no owner=nexus group=nexus
+
+  - name: Move nexus to {{nexus_dir}} directory
+    when: nexus_download.changed
+    sudo: true
+    command: cp -af {{nexus_extracted_dir}}/nexus-2.13.0-01/. {{nexus_dir}}
+
+  - name: Remove {{nexus_extracted_dir}} directory
+    when: nexus_download.changed
+    sudo: true
+    command: rm -rf {{nexus_extracted_dir}}
+
+  - name: Make {{nexus_dir}} directory property of "nexus" user/group
+    sudo: true
+    file: path={{nexus_dir}} group=nexus owner=nexus recurse=true
+
+  - name: Make nexus runned by "nexus" user
+    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="#RUN_AS_USER=" line="RUN_AS_USER=nexus" backrefs=true
+    sudo: true
+
+  - name: Set NEXUS_HOME
+    sudo: true
+    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="^NEXUS_HOME" line="NEXUS_HOME={{nexus_dir}}" backrefs=true
+
+  - name: Create nexus piddir
+    sudo: true
+    file: path=/var/run/nexus state=directory group=nexus owner=nexus
+
+  - name: Set nexus pidir
+    sudo: true
+    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="^#PIDDIR=" line="PIDDIR=/var/run/nexus" backrefs=true
+
+  - name: Set nexus working directory
+    sudo: true
+    lineinfile: dest={{nexus_dir}}/conf/nexus.properties regexp="^nexus-work=" line="nexus-work=${bundleBasedir}/work/nexus"
+
+  - name: Create systemd unit file
+    sudo: true
+    copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="755"
+    register: nexus_service
+
+  - name: Reload systemd
+    when: nexus_service.changed
+    sudo: yes
+    command: systemctl daemon-reload
+
+  - name: Start Nexus
+    sudo: yes
+    service: name="nexus" state="started" enabled="yes"
