@@ -61,16 +61,14 @@ eval ${COMMAND}
 
 echo "\n[${VERSION}] Apply customizations\n${SEPARATOR}"
 
-# Iteration on a "CLI" directory is optional / A separate profile might have to be chosen
-EAP_CONFIG="standalone.xml"
-COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && killall java"
-echo ${COMMAND}
-eval ${COMMAND}
-
-EAP_CONFIG="standalone-full.xml"
-COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && killall java"
-echo ${COMMAND}
-eval ${COMMAND}
+EAP_CONFIGURATIONS=( "standalone.xml" "standalone-full.xml" )
+for EAP_CONFIG in "${EAP_CONFIGURATIONS[@]}"
+do
+  # Iteration on a "CLI" directory is optional / A separate profile might have to be chosen
+  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && killall java"
+  echo ${COMMAND}
+  eval ${COMMAND}
+done
 
 COMMAND="cp -Rfp ${DIR_MODULES}/ojdbc_modules/* ${JBOSS_HOME}/modules/. 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND}
