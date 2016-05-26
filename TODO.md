@@ -25,6 +25,8 @@ Here is a short todo-list:
 
 * Add monitoring and log centralization capabilities
 
-* Integration with Ansible Tower
+* Integration with Nexus (retrieving applications and application configuration as maven bundles)
+  - Use https://docs.ansible.com/ansible/maven_artifact_module.html to retrieve applications
+  - Consider a standard format for generic applications to be transformed into ansible roles easily ...
 
-* Consider a standard format for generic applications to be transformed into ansible roles easily ...
+* Integration with Ansible Tower
