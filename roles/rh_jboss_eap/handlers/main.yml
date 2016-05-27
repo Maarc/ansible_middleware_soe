@@ -1,10 +1,10 @@
 - name: Reload systemd
-  sudo: yes
+  become: true
   command: systemctl daemon-reload
 
 - name: Restart JBoss EAP
   when: jboss_eap_started is undefined or jboss_eap_started.changed == False
-  sudo: yes
+  become: true
   service:
     name: "{{ jboss_eap_instance_service_name }}"
     state: restarted

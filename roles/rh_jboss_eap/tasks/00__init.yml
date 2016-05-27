@@ -3,7 +3,7 @@
 #### Create the dedicated JBoss EAP user and group
 
 - name: "(00) Create \"{{ jboss_eap_group }}\" group for JBoss EAP"
-  sudo: true
+  become: true
   group:
     name: "{{ jboss_eap_group }}"
     system: yes
@@ -11,7 +11,7 @@
     gid: "{{ jboss_eap_group_id }}"
 
 - name: "(00) Create \"{{ jboss_eap_user }}\" user for JBoss EAP"
-  sudo: true
+  become: true
   user:
     name: "{{ jboss_eap_user }}"
     comment: "JBoss EAP User"
@@ -21,7 +21,7 @@
     shell: "/bin/bash"
 
 - name: (00) Create .bashrc file for JBoss EAP user
-  sudo: true
+  become: true
   template:
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"

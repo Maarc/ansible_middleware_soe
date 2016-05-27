@@ -1,14 +1,14 @@
 ---
 
 - name: (02) Check existence of the JBoss EAP instance
-  sudo: true
+  become: true
   stat:
     path: "{{ jboss_eap_instance_dir }}"
   register: instance_dir
 
 #### Copies a CLI file for configuring the target JBoss instance.
 - name: (02) Copy custom JBoss EAP CLI file
-  sudo: true
+  become: true
   copy:
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
@@ -26,13 +26,13 @@
 # Todo ... graceful shutdow of exising instance
 - name: (02) Recreate JBoss EAP standalone directory for "{{ jboss_eap_instance_name }}"
   when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  sudo: true
+  become: true
   shell: "rm -Rf {{ jboss_eap_instance_dir }} ; cp -Rfp {{ jboss_eap_home }}/standalone {{ jboss_eap_instance_dir }}"
   notify: Restart JBoss EAP
 
 - name: (02) Create service directory
   when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  sudo: true
+  become: true
   file:
     path: "{{ item }}"
     owner: "{{ jboss_eap_user }}"
@@ -45,7 +45,7 @@
 
 - name: (02) Copy instance specific standalone.conf
   when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  sudo: true
+  become: true
   copy:
     remote_src: true
     owner: "{{ jboss_eap_user }}"
@@ -57,7 +57,7 @@
 #### Various other configurations done to the server
 # Todo ... check while not immutable
 - name: (02) Copying the management users properties files
-  sudo: true
+  become: true
   copy:
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
@@ -70,7 +70,7 @@
   notify: Restart JBoss EAP
 
 - name: (02) Set default binding address
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address={{ jboss_eap_bind_ip_address_public }}"
@@ -78,7 +78,7 @@
   notify: Restart JBoss EAP
 
 - name: (02) Set management binding address
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address.management={{ jboss_eap_bind_ip_address_management }}"
@@ -87,14 +87,14 @@
 
 
 - name: (02) Set port offset and time zone
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: "JAVA_OPTS=\"$JAVA_OPTS -Duser.timezone={{ timezone }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }}\""
   notify: Restart JBoss EAP
 
 - name: (02) Set JVM Xms
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xms(\d+)m(.*)$'
@@ -103,7 +103,7 @@
   notify: Restart JBoss EAP
 
 - name: (02) Set JVM Xmx
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xmx(\d+)m(.*)$'
@@ -112,7 +112,7 @@
   notify: Restart JBoss EAP
 
 - name: (02) Remove JVM MaxPermSize
-  sudo: true
+  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*) -XX:MaxPermSize=(\d+)m(.*)$'

@@ -13,7 +13,7 @@
   tasks:
 
   - name: Install required RPM dependencies
-    sudo: true
+    become: true
     yum: name={{ item }} state=present
     with_items:
      - unzip
@@ -23,11 +23,11 @@
      - net-tools
 
   - name: Create "nexus" group
-    sudo: true
+    become: true
     group: name="nexus" system="yes" state="present" gid="500"
 
   - name: Create "nexus" user
-    sudo: true
+    become: true
     user: name="nexus" comment="nexus user" uid="500" group="nexus" shell="/bin/bash"
 
   - name: Download nexus
@@ -36,34 +36,34 @@
 
   - name: Create {{nexus_extracted_dir}} directory
     when: nexus_download.changed
-    sudo: true
+    become: true
     file: path={{nexus_extracted_dir}} state=directory owner=nexus group=nexus
 
   - name: Unpack nexus
     when: nexus_download.changed
-    sudo: true
+    become: true
     unarchive: src={{ nexus_download_dest }} dest={{ nexus_extracted_dir }} copy=no owner=nexus group=nexus
 
   - name: Move nexus to {{nexus_dir}} directory
     when: nexus_download.changed
-    sudo: true
+    become: true
     command: cp -af {{nexus_extracted_dir}}/nexus-3.0.0-03/. {{nexus_dir}}
 
   - name: Remove {{nexus_extracted_dir}} directory
     when: nexus_download.changed
-    sudo: true
+    become: true
     command: rm -rf {{nexus_extracted_dir}}
 
   - name: Create systemd unit file
-    sudo: true
+    become: true
     copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="755"
     register: nexus_service
 
   - name: Reload systemd
     when: nexus_service.changed
-    sudo: yes
+    become: true
     command: systemctl daemon-reload
 
   - name: Start Nexus
-    sudo: yes
+    become: true
     service: name="nexus" state="started" enabled="yes"

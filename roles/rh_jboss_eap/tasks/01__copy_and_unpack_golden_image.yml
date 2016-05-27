@@ -1,7 +1,7 @@
 ---
 
 - name: (01) Check existence of an installation
-  sudo: true
+  become: true
   stat:
     path: "{{ jboss_eap_home + '/version.txt'}}"
   register: jboss_eap_exists
@@ -15,7 +15,7 @@
 - name: (01) Extract JBoss EAP zipped distribution
   # new version or no installation so far
   when: jboss_eap_exists.stat.exists == false or copy_zip_state.changed == true
-  sudo: true
+  become: true
   unarchive:
     src: "{{ jboss_eap_zip_artifact_dl_dest }}"
     dest: "{{ jboss_eap_user_home }}"

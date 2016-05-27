@@ -1,23 +1,25 @@
 ---
 
 - name: (00) Install Java and basic RPM dependencies
-  sudo: true
+  become: true
   yum: name={{ item }} state=present
   with_items:
    - unzip
    - "{{ eap_java_pkg_name }}"
    - rsync
 
+# Set in the DEV environment during the first setup
 - name: (00) DEV - Copy .bashrc
-  # executed only for dev environment
   when: env == "dev"
   template:
     src: .bashrc.j2
     dest: "/home/{{ user }}/.bashrc"
+    owner: "{{ user }}"
+    group: "{{ group }}"
   register: bashrc_uploaded
 
+# Set in the DEV environment during the first setup
 - name: (00) DEV - Set server timezone
-  # executed only for dev environment during the first setup
+  become: true
   when: bashrc_uploaded.changed == True and env == "dev"
-  sudo: true
   shell: "timedatectl set-timezone {{ timezone }}"

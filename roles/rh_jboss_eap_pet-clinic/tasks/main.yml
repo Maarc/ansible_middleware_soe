@@ -1,7 +1,7 @@
 ---
 
 - name: (05) Replicate the clinic
-  sudo: true
+  become: true
   copy:
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
@@ -13,7 +13,7 @@
   notify: Restart JBoss EAP
 
 - name: (99) Ensure JBoss EAP is running
-  sudo: yes
+  become: true
   service:
     name: "{{ jboss_eap_instance_service_name }}"
     state: started
