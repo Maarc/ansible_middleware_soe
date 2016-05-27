@@ -9,7 +9,7 @@
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
     src: jboss-as.conf.j2
-    dest: "{{ jboss_eap_service_conf_file }}"
+    dest: "{{ jboss_eap_instance_service_conf_file }}"
     mode: "755"
   notify: Restart JBoss EAP
 
@@ -47,7 +47,7 @@
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     regexp: '^(.*)JBOSS_CONF=(.*)$'
-    line: "\\1JBOSS_CONF=\"{{ jboss_eap_service_conf_file }}\""
+    line: "\\1JBOSS_CONF=\"{{ jboss_eap_instance_service_conf_file }}\""
     backrefs: yes
   notify: Restart JBoss EAP
 

@@ -1,32 +1,5 @@
 ---
 
-#### Set facts successively (due to dependencies between them)
-
-- name: (00) Set JBoss EAP facts 1/4
-  set_fact:
-    jboss_eap_zip_artifact_dl_dest: "{{ download_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
-    jboss_eap_user_home: "/opt/{{ jboss_eap_user }}"
-
-- name: (00) Set JBoss EAP facts 2/4
-  set_fact:
-    jboss_eap_home: "{{ jboss_eap_user_home}}/{{ jboss_eap_zip_artifact_name }}"
-    jboss_eap_instance_dir: "{{ jboss_eap_user_home}}/standalone_{{ jboss_eap_instance_name }}"
-    jboss_eap_instance_cli_file: "{{ download_dir }}/{{ jboss_eap_instance_name + '___' + jboss_eap_instance_cli_file_name }}"
-
-- name: (00) Set JBoss EAP facts 3/4
-  set_fact:
-    jboss_eap_instance_runtime_conf_dir: "{{ jboss_eap_instance_dir }}/configuration"
-    jboss_eap_instance_service_dir: "{{ jboss_eap_instance_dir }}/service"
-    jboss_eap_instance_log_dir: "{{ jboss_eap_instance_dir }}/log"
-    jboss_eap_instance_service_name: "jboss_{{ jboss_eap_instance_name }}"
-    jboss_eap_instance_deployment_dir: "{{ jboss_eap_instance_dir }}/deployments"
-
-- name: (00) Set JBoss EAP facts 4/4
-  set_fact:
-    jboss_eap_service_conf_file: "{{ jboss_eap_instance_service_dir}}/jboss-as.conf"
-    jboss_eap_instance_runtime_conf_file: "{{ jboss_eap_instance_runtime_conf_dir }}/standalone.conf"
-    jboss_eap_instance_service_file: "/etc/systemd/system/{{ jboss_eap_instance_service_name }}.service"
-
 #### Create the dedicated JBoss EAP user and group
 
 - name: "(00) Create \"{{ jboss_eap_group }}\" group for JBoss EAP"
