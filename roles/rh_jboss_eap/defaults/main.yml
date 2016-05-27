@@ -12,9 +12,11 @@ jboss_eap_instance_name: default
 # Port offset for the JBoss EAP instance
 jboss_eap_instance_port_offset: 0
 
-# Standalone file used
+# Default value for the used standane xml file
 jboss_eap_instance_standalone_file: standalone-full.xml
-jboss_eap_zip_artifact_name: jboss-eap-9.9.9_GI
+
+# Default value for the used JBoss EAP distribution
+jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI
 
 jboss_eap_zip_artifact_dir: bin/rh_jboss_golden_images/builds
 
