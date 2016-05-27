@@ -47,7 +47,7 @@ It might takes a while to create all virtual machines and provision them.
 
 ## Test
 
-The deployed "ticket-monster" application can be accessed here:
+The deployed test applications can be accessed here:
 
 * http://192.168.0.101:9080/ticket-monster/
 * http://192.168.0.101:8080/petclinic-2.3.0/
