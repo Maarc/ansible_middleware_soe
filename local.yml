@@ -1,0 +1,7 @@
+---
+
+# Setup the controller machine
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: "rh_controller_soe" }

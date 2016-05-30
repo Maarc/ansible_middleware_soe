@@ -1,0 +1,7 @@
+---
+
+java_bin_dir: "./bin/java_binaries"
+java_code_dir: "./bin/java_code"
+
+rh_jboss_bin_dir: "./bin/rh_jboss_binaries"
+rh_jboss_gi_dir: "./bin/rh_jboss_golden_images"

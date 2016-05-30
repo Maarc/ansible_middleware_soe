@@ -8,10 +8,9 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - src: deployments/ticket-monster.war
+    - src: "bin/java_binaries/ticket-monster.war"
       dest: "{{ jboss_eap_instance_deployment_dir }}"
   notify: Restart JBoss EAP
-
 
 - name: (99) Ensure JBoss EAP is running
   become: true

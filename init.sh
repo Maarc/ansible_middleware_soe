@@ -7,20 +7,22 @@
 CURRENT=$(pwd)
 
 echo "======================================================================================================"
+echo " Create and start the virtual machine(s) ..."
+cd ${CURRENT}/vagrant
+vagrant up host-dev-eap-01
+vagrant up nexus
+
+
+echo "======================================================================================================"
 echo " Build Red Hat Golden Images ..."
-cd ${CURRENT}/bin/rh_jboss_golden_images
-./build.sh
+ansible-playbook local.yml
+
 
 echo "======================================================================================================"
 echo " Download and build Java applications ..."
 cd ${CURRENT}/bin/java_applications
 ./build.sh
 
-echo "======================================================================================================"
-echo " Create and start the virtual machine(s) ..."
-cd ${CURRENT}/vagrant
-vagrant up host-dev-eap-01
-vagrant up nexus
 
 # Backup and removes the ssh known_hosts (prevents issues with ssh)
 mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}

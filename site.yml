@@ -1,12 +1,19 @@
 ---
-# This playbook deploys a simple standalone JBoss server.
 
-- hosts: "ticket-monster-group"
+# Deploy the ticket-monster application
+- hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-    - { role: "rh_jboss_eap_ticket-monster", tags: ['tm'] }
+    - { role: "rh_jboss_eap_ticket-monster", tags: ['tm'], jboss_eap_instance_port_offset: 0, jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI}
 
-- hosts: "pet-clinic-group"
+# Deploy the petclinic application
+- hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-    - { role: "rh_jboss_eap_pet-clinic", tags: ['pc'] }
+    - { role: "rh_jboss_eap_pet-clinic", tags: ['pc'], jboss_eap_instance_port_offset: 1000 }
+
+# Deploy jenkins
+- hosts: "dev-group"
+  remote_user: "{{ user }}"
+  roles:
+    - { role: "rh_jboss_eap_jenkins", tags: ['jk'], jboss_eap_instance_port_offset: 2000, jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI}

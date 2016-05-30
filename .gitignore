@@ -3,7 +3,8 @@ bin/rh_jboss_golden_images/target
 bin/rh_jboss_golden_images/builds/*.zip
 bin/rh_jboss_binaries/*.zip
 bin/rh_jboss_golden_images/eap_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar
-bin/java_applications/ticket-monster
+bin/java_binaries
+bin/java_code
 vagrant/.vagrant
 vagrant/nexus/*.retry
 roles/ZZZZ_jboss_eap
