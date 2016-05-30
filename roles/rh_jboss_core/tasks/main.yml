@@ -7,6 +7,7 @@
    - unzip
    - "{{ eap_java_pkg_name }}"
    - rsync
+   - net-tools
 
 # Set in the DEV environment during the first setup
 - name: (00) DEV - Copy .bashrc
