@@ -30,3 +30,5 @@ Here is a short todo-list:
   - Consider a standard format for generic applications to be transformed into ansible roles easily ...
 
 * Integration with Ansible Tower
+
+* Integrate with the ansible variable vault (https://docs.ansible.com/ansible/playbooks_best_practices.html)
