@@ -16,13 +16,14 @@ Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
   config.vm.box_check_update = false
 
+  # Nexus 2.13 instead of 3 as currently recommended by Sonatype
   config.vm.define vm_01_name, primary: true do |node|
     name = vm_01_name
     node.vm.hostname = name
     node.vm.network "private_network", ip: vm_01_ip
     node.vm.network :forwarded_port, guest: 22, host: 2221, id: "ssh"
     node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "nexus/nexus_3.yml"
+      ansible.playbook = "nexus/nexus_2.13.yml"
     end
   end
 
