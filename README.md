@@ -49,8 +49,9 @@ It might takes a while to create all virtual machines and provision them.
 
 The deployed test applications can be accessed here:
 
-* http://192.168.0.101:9080/ticket-monster/
-* http://192.168.0.101:8080/petclinic-2.3.0/
+* http://192.168.0.101:8080/ticket-monster/
+* http://192.168.0.101:9080/petclinic/
+* http://192.168.0.101:10080/jenkins/
 
 
 ## Troubleshooting
@@ -82,7 +83,7 @@ Here is a brief description of the structure of this projects:
 
 * **bin** contains all binaries necessary for the SOE.
  - **bin/java_binaries** contains the java applications retrieved and built for the SOE.
- - **bin/java_code** contains the java code retrieved and built for the SOE. 
+ - **bin/java_code** contains the java code retrieved and built for the SOE.
  - **bin/rh_jboss_golden_images** contains everything required to build automatically a set of golden images for the versioned middleware platforms that are in the book of standards of your organization.
  - **bin/rh_jboss_binaries** contains the Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html).
 * **group_vars** contains the ansible [group variables](https://docs.ansible.com/ansible/playbooks_variables.html).
