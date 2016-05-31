@@ -12,6 +12,6 @@ alias l='ll'
 alias sb='source ~/.bashrc'
 alias vb='vi ~/.bashrc'
 
-# Todo: dirty ...
+# TODO: cleanup properly
 alias j='sudo su - jboss'
-alias r="sudo rm -Rf /opt/jboss {{ download_dir }}/jboss*"
+alias r="sudo rm -Rf /opt/jboss {{ download_dir }}/jboss_* /tmp/* /etc/systemd/system/jboss*"
