@@ -13,6 +13,7 @@ jboss_eap_instance_deployment_dir: "{{ jboss_eap_instance_dir }}/deployments"
 jboss_eap_instance_runtime_conf_dir: "{{ jboss_eap_instance_dir }}/configuration"
 jboss_eap_instance_service_dir: "{{ jboss_eap_instance_dir }}/service"
 jboss_eap_instance_log_dir: "{{ jboss_eap_instance_dir }}/log"
+jboss_eap_instance_tmp_dir: "{{ jboss_eap_instance_dir }}/tmp"
 jboss_eap_instance_runtime_conf_file: "{{ jboss_eap_instance_runtime_conf_dir }}/standalone.conf"
 
 # Service
