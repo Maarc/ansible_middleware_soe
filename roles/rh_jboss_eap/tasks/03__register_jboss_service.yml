@@ -21,7 +21,7 @@
     src: jboss-as-standalone.service.j2
     dest: "{{ jboss_eap_instance_service_file }}"
     mode: "755"
-  notify: Reload systemd
+  register: systemd_service_file
 
 - name: (03) Check existence of the init.d script
   become: true
@@ -71,3 +71,9 @@
     line: "\\1JBAS015874\\2{{ jboss_eap_instance_log_dir }}/server.log\\3"
     backrefs: yes
   notify: Restart JBoss EAP
+
+# Reloading systemd. Should be executed here and not as a handler.
+- name: (03) Reload systemd
+  when: systemd_service_file.changed == true
+  become: true
+  command: systemctl daemon-reload
