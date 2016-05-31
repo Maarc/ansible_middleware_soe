@@ -1,9 +1,10 @@
 ---
 
-# Deploy the ticket-monster application
 - hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
+
+    # JBoss EAP 7 instance for the ticket-monster application
     - {
         role: "rh_jboss_eap__app__direct_copy",
         jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
@@ -14,10 +15,8 @@
         tags: ['tm']
       }
 
-# Deploy the petclinic application (toggle role and app to deploy over jenkins)
-- hosts: "dev-group"
-  remote_user: "{{ user }}"
-  roles:
+    # JBoss EAP 6 instance for the petclinic application
+    # Note: toggle role and app to deploy from Nexus
     - {
 #        role: "rh_jboss_eap__app__nexus",
         role: "rh_jboss_eap__app__direct_copy",
@@ -32,10 +31,7 @@
         tags: "['pc']"
       }
 
-# Deploy jenkins
-- hosts: "dev-group"
-  remote_user: "{{ user }}"
-  roles:
+    # JBoss EAP 7 instance for the jenkins application
     - {
         role: "rh_jboss_eap__app__direct_copy",
         jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
