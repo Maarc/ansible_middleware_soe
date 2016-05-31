@@ -8,3 +8,12 @@ download_dir: '/tmp'
 
 # Used java version: Java 8 JDK. See recommendation https://access.redhat.com/solutions/18259
 eap_java_pkg_name: java-1.8.0-openjdk-devel
+
+# Nexus server
+nexus_user: "admin"
+nexus_password: "admin123"
+nexus_host: 192.168.0.100:8081
+nexus_repository_id: "releases"
+nexus_base_url: "http://{{nexus_host}}/nexus/service/local"
+nexus_upload_url: "{{nexus_base_url}}/artifact/maven/content"
+nexus_download_url: "{{nexus_base_url}}/repositories/{{nexus_repository_id}}/content"

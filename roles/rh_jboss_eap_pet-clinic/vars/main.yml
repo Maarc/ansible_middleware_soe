@@ -1,4 +1,0 @@
----
-
-jboss_eap_instance_name: pet_clinic
-jboss_eap_instance_standalone_file: standalone.xml

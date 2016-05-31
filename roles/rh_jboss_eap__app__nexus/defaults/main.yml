@@ -1,0 +1,7 @@
+---
+
+# mvn GAV and extension
+app_mvn_g: com.redhat.jboss
+app_mvn_a: my-app.war
+app_mvn_v: 1.0
+app_mvn_e: war

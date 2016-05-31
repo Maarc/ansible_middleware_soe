@@ -1,0 +1,23 @@
+---
+
+- name: (05) Retrieve application from Nexus ("{{app_mvn_g}}:{{app_mvn_a}}:{{app_mvn_v}})
+  maven_artifact: group_id={{app_mvn_g}} artifact_id={{app_mvn_a}} extension={{app_mvn_e}} version={{app_mvn_v}} repository_url={{nexus_download_url}} dest={{ download_dir }}/{{app_mvn_a}} username="{{nexus_user}}" password="{{nexus_password}}"
+  register: app_nexus
+
+- name: (05) Copy the application to the deployment directory ("{{app_mvn_a}}")
+  become: true
+  copy:
+    remote_src: true
+    owner: "{{ jboss_eap_user }}"
+    group: "{{ jboss_eap_group }}"
+    src: "{{ download_dir }}/{{app_mvn_a}}"
+    dest: "{{ jboss_eap_instance_deployment_dir }}/{{app_mvn_a}}"
+  notify: Restart JBoss EAP
+
+- name: (99) Ensure JBoss EAP is running
+  become: true
+  service:
+    name: "{{ jboss_eap_instance_service_name }}"
+    state: started
+    enabled: yes
+  register: jboss_eap_started

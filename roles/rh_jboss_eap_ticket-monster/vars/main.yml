@@ -1,4 +1,0 @@
----
-
-jboss_eap_instance_name: ticket_monster
-jboss_eap_instance_standalone_file: standalone-full-ha.xml

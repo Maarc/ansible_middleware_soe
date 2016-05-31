@@ -1,4 +1,0 @@
----
-
-dependencies:
-    - { role: rh_jboss_eap }

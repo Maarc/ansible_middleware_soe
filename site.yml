@@ -4,16 +4,44 @@
 - hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-    - { role: "rh_jboss_eap_ticket-monster", tags: ['tm'], jboss_eap_instance_port_offset: 0, jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI}
+    - {
+        role: "rh_jboss_eap__app__direct_copy",
+        jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
+        jboss_eap_instance_name: "ticket_monster",
+        jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
+        jboss_eap_instance_port_offset: 0,
+        app: "bin/java_binaries/ticket-monster.war",
+        tags: ['tm']
+      }
 
-# Deploy the petclinic application
+# Deploy the petclinic application (toggle role and app to deploy over jenkins)
 - hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-    - { role: "rh_jboss_eap_pet-clinic", tags: ['pc'], jboss_eap_instance_port_offset: 1000 }
+    - {
+#        role: "rh_jboss_eap__app__nexus",
+        role: "rh_jboss_eap__app__direct_copy",
+        jboss_eap_instance_name: "petclinic",
+        jboss_eap_instance_standalone_file: "standalone.xml",
+        jboss_eap_instance_port_offset: "1000",
+        app: "bin/java_binaries/petclinic.war",
+#        app_mvn_g: "com.redhat.jboss",
+#        app_mvn_a: "petclinic.war",
+#        app_mvn_v: "1.0",
+#        app_mvn_e: "war",
+        tags: "['pc']"
+      }
 
 # Deploy jenkins
 - hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-    - { role: "rh_jboss_eap_jenkins", tags: ['jk'], jboss_eap_instance_port_offset: 2000, jboss_eap_zip_artifact_name: jboss-eap-7.0.0_GI}
+    - {
+        role: "rh_jboss_eap__app__direct_copy",
+        jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
+        jboss_eap_instance_name: "jenkins",
+        jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
+        jboss_eap_instance_port_offset: 2000,
+        app: "bin/java_binaries/jenkins.war",
+        tags: ['jk']
+      }
