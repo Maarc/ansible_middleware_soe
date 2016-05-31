@@ -11,7 +11,7 @@
     src: jboss-as.conf.j2
     dest: "{{ jboss_eap_instance_service_conf_file }}"
     mode: "755"
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 - name: (03) Generate JBoss EAP systemd unit file
   become: true
@@ -39,7 +39,7 @@
     src: "{{ jboss_eap_home }}/bin/init.d/jboss-as-standalone.sh"
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     mode: "755"
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 # Setting the correct JBOSS_CONF file
 - name: (03) Update init.d script - Set JBOSS_CONF (1/4)
@@ -49,7 +49,7 @@
     regexp: '^(.*)JBOSS_CONF=(.*)$'
     line: "\\1JBOSS_CONF=\"{{ jboss_eap_instance_service_conf_file }}\""
     backrefs: yes
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 # Setting the correct base directory
 - name: (03) Update init.d script - Set jboss.server.base.dir (2/4)
@@ -59,7 +59,7 @@
     regexp: '(.*)JBOSS_SCRIPT=(.*)standalone.sh$'
     line: "\\1JBOSS_SCRIPT=\"\\2standalone.sh -Djboss.server.base.dir={{ jboss_eap_instance_dir }}\""
     backrefs: yes
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 # Specific to the reload mechanism of JBoss EAP 6
 # Changing the "JBOSS_CONSOLE_LOG" to "JBOSS_SERVER_LOG" (prevents hanging at startup while the console log has been disabled)
@@ -71,7 +71,7 @@
     regexp: '^(.*)JBAS015874(.*)\$JBOSS_CONSOLE_LOG(.*)$'
     line: "\\1JBAS015874\\2{{ jboss_eap_instance_log_dir }}/server.log\\3"
     backrefs: yes
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 # Specific to the reload mechanism of JBoss EAP 7
 # Set the startup-marker file to the instance specific folder
@@ -82,7 +82,7 @@
     regexp: '^(.*)\$JBOSS_HOME/standalone/tmp/startup-marker(.*)$'
     line: "\\1{{jboss_eap_instance_tmp_dir}}/startup-marker\\2"
     backrefs: yes
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 # Reloading systemd. Should be executed here and not as a handler.
 - name: (03) Reload systemd

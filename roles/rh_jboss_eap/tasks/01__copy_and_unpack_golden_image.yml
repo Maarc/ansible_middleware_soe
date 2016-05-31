@@ -22,4 +22,4 @@
     copy: no
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP

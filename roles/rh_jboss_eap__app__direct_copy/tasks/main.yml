@@ -1,18 +1,17 @@
 ---
 
-- name: (05) Coppy the application ("{{ app }}")
+- name: (05) Copy the application(s)
   become: true
   copy:
     owner: "{{ jboss_eap_user }}"
     group: "{{ jboss_eap_group }}"
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - src: "{{ app }}"
-      dest: "{{ jboss_eap_instance_deployment_dir }}"
-  notify: Restart JBoss EAP
+    src: "{{ item }}"
+    dest: "{{ jboss_eap_instance_deployment_dir }}"
+  with_items: "{{ app_list }}"
 
-- name: (99) Ensure JBoss EAP is running
+  #notify: Restart JBoss EAP
+
+- name: (99) Ensure JBoss EAP is running ("{{ jboss_eap_instance_service_name }}")
   become: true
   service:
     name: "{{ jboss_eap_instance_service_name }}"

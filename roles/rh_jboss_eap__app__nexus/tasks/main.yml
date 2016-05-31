@@ -12,7 +12,7 @@
     group: "{{ jboss_eap_group }}"
     src: "{{ download_dir }}/{{app_mvn_a}}"
     dest: "{{ jboss_eap_instance_deployment_dir }}/{{app_mvn_a}}"
-  notify: Restart JBoss EAP
+  #notify: Restart JBoss EAP
 
 - name: (99) Ensure JBoss EAP is running
   become: true

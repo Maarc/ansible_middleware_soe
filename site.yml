@@ -3,7 +3,6 @@
 - hosts: "dev-group"
   remote_user: "{{ user }}"
   roles:
-
     # JBoss EAP 7 instance for the ticket-monster application
     - {
         role: "rh_jboss_eap__app__direct_copy",
@@ -11,10 +10,13 @@
         jboss_eap_instance_name: "ticket_monster",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 0,
-        app: "bin/java_binaries/ticket-monster.war",
+        app_list: { "bin/java_binaries/ticket-monster.war" },
         tags: ['tm']
       }
 
+- hosts: "dev-group"
+  remote_user: "{{ user }}"
+  roles:
     # JBoss EAP 6 instance for the petclinic application
     # Note: toggle role and app to deploy from Nexus
     - {
@@ -23,7 +25,7 @@
         jboss_eap_instance_name: "petclinic",
         jboss_eap_instance_standalone_file: "standalone.xml",
         jboss_eap_instance_port_offset: "1000",
-        app: "bin/java_binaries/petclinic.war",
+        app_list: { "bin/java_binaries/petclinic.war" },
 #        app_mvn_g: "com.redhat.jboss",
 #        app_mvn_a: "petclinic.war",
 #        app_mvn_v: "1.0",
@@ -31,6 +33,9 @@
         tags: "['pc']"
       }
 
+- hosts: "dev-group"
+  remote_user: "{{ user }}"
+  roles:
     # JBoss EAP 7 instance for the jenkins application
     - {
         role: "rh_jboss_eap__app__direct_copy",
@@ -38,6 +43,6 @@
         jboss_eap_instance_name: "jenkins",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 2000,
-        app: "bin/java_binaries/jenkins.war",
+        app_list: { "bin/java_binaries/jenkins.war" },
         tags: ['jk']
       }
