@@ -4,4 +4,4 @@
 - hosts: localhost
   connection: local
   roles:
-    - { role: "rh_controller_soe" }
+    - { role: "rh_controller" }
