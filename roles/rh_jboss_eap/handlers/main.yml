@@ -1,4 +1,4 @@
-
+---
 - name: Restart JBoss EAP
   when: jboss_eap_started is undefined or jboss_eap_started.changed == False
   become: true
