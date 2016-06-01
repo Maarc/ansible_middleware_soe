@@ -1,0 +1,18 @@
+---
+
+- name: (02) JWS Tomcat configure admin user
+  template:
+    owner: "{{ jws_tomcat.user }}"
+    group: "{{ jws_tomcat.group }}"
+    src: tomcat-users.xml.j2
+    dest: "{{ jws_tomcat.home}}/conf/tomcat-users.xml"
+    mode: "755"
+  notify: Restart JWS Tomcat
+
+- name: (02) Set JWS Tomcat port ({{ jws_tomcat.port_http }})
+  lineinfile:
+    dest: "{{ jws_tomcat.home}}/conf/server.xml"
+    regexp: '^(.*)port="8080" protocol="HTTP/1.1"(.*)$'
+    line: "\\1port=\"{{ jws_tomcat.port_http }}\" protocol=\"HTTP/1.1\"\\2"
+    backrefs: yes
+  notify: Restart JWS Tomcat

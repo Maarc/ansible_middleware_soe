@@ -1,0 +1,12 @@
+---
+
+jws_tomcat:
+  user: jws_tomcat
+  group: "jws_tomcat"
+  group_id: 700
+  user_home: "/opt/jws_tomcat"
+  home: "/opt/jws_tomcat/jws-3.0/tomcat8"
+  service: "jws_tomcat"
+  admin_username: "admin"
+  admin_password: "admin123"
+  port_http: 8000
