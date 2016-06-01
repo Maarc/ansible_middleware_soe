@@ -1,7 +1,19 @@
 ---
 
-- hosts: "dev-group"
-  remote_user: "{{ user }}"
+- hosts: "dev-jws-group"
+  roles:
+    # Red Hat JWS Tomcat instance
+    - {
+        role: "rh_jboss_web_server__tomcat",
+        tags: ['jws_tomcat']
+      }
+    # Red Hat JWS Apache instance
+    - {
+        role: "rh_jboss_web_server__apache",
+        tags: ['jws_apache']
+      }
+
+- hosts: "dev-eap-group"
   roles:
     # JBoss EAP 7 instance for the ticket-monster application
     - {
@@ -14,7 +26,7 @@
         tags: ['tm']
       }
 
-- hosts: "dev-group"
+- hosts: "dev-eap-group"
   remote_user: "{{ user }}"
   roles:
     # JBoss EAP 6 instance for the petclinic application
@@ -33,7 +45,7 @@
         tags: "['pc']"
       }
 
-- hosts: "dev-group"
+- hosts: "dev-eap-group"
   remote_user: "{{ user }}"
   roles:
     # JBoss EAP 7 instance for the jenkins application

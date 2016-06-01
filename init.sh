@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # Initializes the Red Hat JBoss middleware SOE
 
 #set -x
@@ -30,8 +29,8 @@ mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
 echo "======================================================================================================"
 echo " Provision the virtual machine(s) with ansible..."
 cd ${CURRENT}
-export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -i inventory/hosts-dev site.yml
+ansible-playbook site.yml
+
 
 echo "======================================================================================================"
 echo " Congratulations, you just setup your Red Hat JBoss middleware successfully!"
@@ -42,5 +41,5 @@ echo "    http://192.168.0.101:9080/petclinic/"
 echo "    http://192.168.0.101:10080/jenkins/"
 echo " "
 echo " Execute this command for running Ansible again:"
-echo "     $ ansible-playbook -i inventory/hosts-dev site.yml"
+echo "     $ ansible-playbook site.yml"
 echo "======================================================================================================"
