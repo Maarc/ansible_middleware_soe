@@ -1,0 +1,9 @@
+---
+
+jws_apache:
+  user: jws_apache
+  group: jws_apache
+  group_id: 600
+  user_home: "/opt/jws_apache"
+  home: "/opt/jws_apache/jws-3.0/httpd"
+  service: "jws_apache"

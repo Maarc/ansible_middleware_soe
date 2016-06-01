@@ -1,0 +1,8 @@
+---
+- name: Restart JWS HTTPD
+  when: jws_tomcat_start.changed == false
+  become: true
+  service:
+    name: "{{ jws_httpd.service }}"
+    state: restarted
+    enabled: yes

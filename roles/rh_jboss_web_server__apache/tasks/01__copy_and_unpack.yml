@@ -1,0 +1,22 @@
+---
+
+- name: (01) Copy zipped JBoss Web Server HTTPD installation
+  copy:
+    src: "{{ jws_httpd_zip_artifact_dl_src }}"
+    dest: "{{ jws_httpd_zip_artifact_dl_dst }}"
+
+- name: (01) Extract JBoss Web Server HTTPD
+  become: true
+  unarchive:
+    src: "{{ jws_httpd_zip_artifact_dl_dst }}"
+    dest: "{{ jws_apache.user_home }}"
+    copy: no
+    creates: "{{ jws_apache.home }}"
+    owner: "{{ jws_apache.user }}"
+    group: "{{ jws_apache.group }}"
+
+- name: (01) Updating owners
+  become: true
+  file: path={{item.user_home}}/jws-3.0 owner={{item.user}} group={{item.group}}
+  with_items:
+    - "{{jws_apache}}"

@@ -1,0 +1,31 @@
+---
+
+- name: "(00) Create groups for JWS"
+  group:
+    name: "{{ item.group }}"
+    system: yes
+    state: present
+    gid: "{{ item.group_id }}"
+  with_items:
+    - "{{ jws_apache }}"
+
+- name: "(00) Create users for JWS"
+  user:
+    name: "{{ item.user }}"
+    comment: "{{ item.user }} user"
+    uid: "{{ item.group_id }}"
+    group: "{{ item.group }}"
+    home: "{{ item.user_home }}"
+    shell: "/bin/sh"
+  with_items:
+    - "{{ jws_apache }}"
+
+- name: (00) Create .bashrc file for the JWS users
+  template:
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+    src: .bashrc.j2
+    dest: "{{ item.user_home }}/.bashrc"
+    mode: "644"
+  with_items:
+    - "{{ jws_apache }}"

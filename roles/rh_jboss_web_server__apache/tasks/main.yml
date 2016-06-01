@@ -1,0 +1,18 @@
+---
+
+# Installation following: https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Server/3/html/Installation_Guide/sect-ZIP_Installation.html
+
+#### Create user
+- include: 00__prepare.yml
+  become: true
+
+#### Copy binaries
+- include: 01__copy_and_unpack.yml
+
+#### Configure JWS
+- include: 02__configure.yml
+  become: true
+
+#### Create Service Account
+- include: 03__register_service.yml
+  become: true

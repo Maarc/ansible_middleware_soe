@@ -1,0 +1,5 @@
+---
+
+jws_httpd_zip_artifact_name: "jws-httpd-3.0.3-RHEL7-x86_64"
+jws_httpd_zip_artifact_dl_src: "{{ 'bin/rh_jboss_binaries/' + jws_httpd_zip_artifact_name + '.zip' }}"
+jws_httpd_zip_artifact_dl_dst: "{{ download_dir + '/' + jws_httpd_zip_artifact_name + '.zip' }}"

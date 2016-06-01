@@ -1,0 +1,4 @@
+---
+# Depends from core
+dependencies:
+    - { role: rh_jboss_core }
