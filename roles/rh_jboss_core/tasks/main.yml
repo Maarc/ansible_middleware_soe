@@ -5,7 +5,7 @@
   yum: name={{ item }} state=present
   with_items:
    - unzip
-   - "{{ eap_java_pkg_name }}"
+   - "{{ java_pkg_name }}"
    - rsync
    # for netstat
    - net-tools
@@ -26,4 +26,4 @@
 - name: (00) DEV - Set server timezone
   become: true
   when: bashrc_uploaded.changed == True and env == "dev"
-  shell: "timedatectl set-timezone {{ timezone }}"
+  command: "timedatectl set-timezone {{ timezone }}"

@@ -7,7 +7,7 @@ timezone: Europe/Berlin
 download_dir: '/tmp'
 
 # Used java version: Java 8 JDK. See recommendation https://access.redhat.com/solutions/18259
-eap_java_pkg_name: java-1.8.0-openjdk-devel
+java_pkg_name: java-1.8.0-openjdk-devel
 
 # Nexus server
 nexus_user: "admin"
