@@ -1,8 +1,10 @@
 ---
 
-jboss_eap_user: jboss
-jboss_eap_group: jboss
-jboss_eap_group_id: 500
+jboss:
+  user: jboss
+  group: jboss
+  group_id: 500
+  user_home: "/opt/jboss"
 
 # Value for the xms and xmx (both are equal)
 jvm_xm: 512

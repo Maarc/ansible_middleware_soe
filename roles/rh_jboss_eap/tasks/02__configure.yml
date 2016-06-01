@@ -1,121 +1,97 @@
 ---
 
 - name: (02) Check existence of the JBoss EAP instance
-  become: true
   stat:
     path: "{{ jboss_eap_instance_dir }}"
   register: instance_dir
 
 #### Copies a CLI file for configuring the target JBoss instance.
 - name: (02) Copy custom JBoss EAP CLI file
-  become: true
   copy:
-    owner: "{{ jboss_eap_user }}"
-    group: "{{ jboss_eap_group }}"
+    owner: "{{ jboss.user }}"
+    group: "{{ jboss.group }}"
     src: "{{ jboss_eap_instance_cli_file_name }}"
     dest: "{{ jboss_eap_instance_cli_file }}"
     mode: 0600
   register: jboss_eap_custom_cli_upload
   #notify: Restart JBoss EAP
 
+- block:
+  # A change in the copied CLI file implies the instance to be newly created
+  # Note: in a future version of ansible (2.0), this could be replaced by the "copy" module
+  # Todo ... extend CLI file to configuration and EAR files => immutable infrastructure
+  # Todo ... add task configuring the server
+  # Todo ... graceful shutdow of exising instance
+  - name: (02) Recreate JBoss EAP standalone directory for "{{ jboss_eap_instance_name }}"
+    shell: "rm -Rf {{ jboss_eap_instance_dir }} ; cp -Rfp {{ jboss_home }}/standalone {{ jboss_eap_instance_dir }}"
 
-# A change in the copied CLI file implies the instance to be newly created
-# Note: in a future version of ansible (2.0), this could be replaced by the "copy" module
-# Todo ... extend CLI file to configuration and EAR files => immutable infrastructure
-# Todo ... add task configuring the server
-# Todo ... graceful shutdow of exising instance
-- name: (02) Recreate JBoss EAP standalone directory for "{{ jboss_eap_instance_name }}"
-  when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  become: true
-  shell: "rm -Rf {{ jboss_eap_instance_dir }} ; cp -Rfp {{ jboss_eap_home }}/standalone {{ jboss_eap_instance_dir }}"
-  #notify: Restart JBoss EAP
+  - name: (02) Create service directory
+    file:
+      path: "{{ jboss_eap_instance_service_dir }}"
+      owner: "{{ jboss.user }}"
+      group: "{{ jboss.group }}"
+      state: directory
+      mode: "755"
 
-- name: (02) Create service directory
-  when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  become: true
-  file:
-    path: "{{ item }}"
-    owner: "{{ jboss_eap_user }}"
-    group: "{{ jboss_eap_group }}"
-    state: directory
-    mode: "755"
-  with_items:
-    - "{{ jboss_eap_instance_service_dir }}"
-  #notify: Restart JBoss EAP
+  - name: (02) Copy instance specific standalone.conf
+    copy:
+      remote_src: true
+      owner: "{{ jboss.user }}"
+      group: "{{ jboss.group }}"
+      src: "{{ jboss_home }}/bin/standalone.conf"
+      dest: "{{ jboss_eap_instance_runtime_conf_file }}"
 
-- name: (02) Copy instance specific standalone.conf
   when: jboss_eap_custom_cli_upload.changed == True or instance_dir.stat.isdir is undefined or instance_dir.stat.isdir == False
-  become: true
-  copy:
-    remote_src: true
-    owner: "{{ jboss_eap_user }}"
-    group: "{{ jboss_eap_group }}"
-    src: "{{ jboss_eap_home }}/bin/standalone.conf"
-    dest: "{{ jboss_eap_instance_runtime_conf_file }}"
-  #notify: Restart JBoss EAP
+
 
 #### Various other configurations done to the server
 # Todo ... check while not immutable
 - name: (02) Copying the management users properties files
-  become: true
   copy:
-    owner: "{{ jboss_eap_user }}"
-    group: "{{ jboss_eap_group }}"
+    owner: "{{ jboss.user }}"
+    group: "{{ jboss.group }}"
     src: "{{ item }}"
     dest: "{{ jboss_eap_instance_runtime_conf_dir }}"
     mode: 0600
   with_items:
     - mgmt-groups.properties
     - mgmt-users.properties
-  #notify: Restart JBoss EAP
 
 - name: (02) Set default binding address
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address={{ jboss_eap_bind_ip_address_public }}"
   when: jboss_eap_instance_bind_web_interface
-  #notify: Restart JBoss EAP
 
 - name: (02) Set management binding address
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address.management={{ jboss_eap_bind_ip_address_management }}"
   when: jboss_eap_instance_bind_management_interface
-  #notify: Restart JBoss EAP
 
 
 - name: (02) Set port offset and time zone
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: "JAVA_OPTS=\"$JAVA_OPTS -Duser.timezone={{ timezone }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }}\""
-  #notify: Restart JBoss EAP
 
 - name: (02) Set JVM Xms
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xms(\d+)m(.*)$'
     line: "\\1Xms{{ jvm_xm }}m\\3"
     backrefs: yes
-  #notify: Restart JBoss EAP
 
 - name: (02) Set JVM Xmx
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xmx(\d+)m(.*)$'
     line: "\\1Xmx{{ jvm_xm }}m\\3"
     backrefs: yes
-  #notify: Restart JBoss EAP
 
 - name: (02) Remove JVM MaxPermSize
-  become: true
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*) -XX:MaxPermSize=(\d+)m(.*)$'
     line: "\\1\\3"
     backrefs: yes
-  #notify: Restart JBoss EAP

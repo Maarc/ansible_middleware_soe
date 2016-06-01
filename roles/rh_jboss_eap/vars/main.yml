@@ -1,14 +1,14 @@
 
 # Downloads
-jboss_eap_zip_artifact_dl_dest: "{{ download_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
+jboss_eap_zip_artifact_dl_src: "{{ jboss_eap_zip_artifact_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
+jboss_eap_zip_artifact_dl_dst: "{{ download_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
 jboss_eap_instance_cli_file: "{{ download_dir }}/{{ jboss_eap_instance_name + '___' + jboss_eap_instance_cli_file_name }}"
 
-# JBoss EAP global
-jboss_eap_user_home: "/opt/{{ jboss_eap_user }}"
-jboss_eap_home: "{{ jboss_eap_user_home}}/{{ jboss_eap_zip_artifact_name }}"
+# JBoss global
+jboss_home: "{{ jboss.user_home}}/{{ jboss_eap_zip_artifact_name }}"
 
 # JBoss EAP instance-specific
-jboss_eap_instance_dir: "{{ jboss_eap_user_home}}/standalone_{{ jboss_eap_instance_name }}"
+jboss_eap_instance_dir: "{{ jboss.user_home}}/standalone_{{ jboss_eap_instance_name }}"
 jboss_eap_instance_deployment_dir: "{{ jboss_eap_instance_dir }}/deployments"
 jboss_eap_instance_runtime_conf_dir: "{{ jboss_eap_instance_dir }}/configuration"
 jboss_eap_instance_service_dir: "{{ jboss_eap_instance_dir }}/service"

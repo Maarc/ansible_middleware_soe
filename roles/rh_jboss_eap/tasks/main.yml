@@ -1,17 +1,17 @@
 ---
 
-#### Defensive Programming
-# https://github.com/openshift/openshift-ansible/blob/master/docs/best_practices_guide.adoc
-
-#### Set Facts
-- include: 00__init.yml
+#### Create user
+- include: 00__prepare.yml
+  become: true
 
 #### Copy binaries
-- include: 01__copy_and_unpack_golden_image.yml
-## old ... - include: 01__extract_golden_image.yml
+- include: 01__copy_and_unpack.yml
+  become: true
 
-##### Configure EAP
-- include: 02__configure_rh_eap.yml
+#### Configure EAP
+- include: 02__configure.yml
+  become: true
 
 #### Create Service Account
-- include: 03__register_jboss_service.yml
+- include: 03__register_service.yml
+  become: true

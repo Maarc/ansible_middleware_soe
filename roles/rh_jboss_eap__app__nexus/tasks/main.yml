@@ -8,8 +8,8 @@
   become: true
   copy:
     remote_src: true
-    owner: "{{ jboss_eap_user }}"
-    group: "{{ jboss_eap_group }}"
+    owner: "{{ jboss.user }}"
+    group: "{{ jboss.group }}"
     src: "{{ download_dir }}/{{app_mvn_a}}"
     dest: "{{ jboss_eap_instance_deployment_dir }}/{{app_mvn_a}}"
   #notify: Restart JBoss EAP

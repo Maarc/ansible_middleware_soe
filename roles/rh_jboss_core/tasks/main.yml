@@ -17,9 +17,8 @@
   when: env == "dev"
   template:
     src: .bashrc.j2
-    dest: "/home/{{ user }}/.bashrc"
-    owner: "{{ user }}"
-    group: "{{ group }}"
+    dest: "/home/{{ remote_user }}/.bashrc"
+    owner: "{{ remote_user }}"
   register: bashrc_uploaded
 
 # Set in the DEV environment during the first setup

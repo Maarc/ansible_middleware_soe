@@ -27,7 +27,6 @@
       }
 
 - hosts: "dev-eap-group"
-  remote_user: "{{ user }}"
   roles:
     # JBoss EAP 6 instance for the petclinic application
     # Note: toggle role and app to deploy from Nexus
@@ -46,7 +45,6 @@
       }
 
 - hosts: "dev-eap-group"
-  remote_user: "{{ user }}"
   roles:
     # JBoss EAP 7 instance for the jenkins application
     - {
