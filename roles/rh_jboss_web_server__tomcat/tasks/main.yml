@@ -23,6 +23,6 @@
   become: true
   service:
     name: "{{ jws_tomcat.service }}"
-    state: started
+    state: stopped
     enabled: yes
   register: jws_tomcat_start
