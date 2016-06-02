@@ -1,12 +1,12 @@
 ---
 
-- name: (02) Check existence of the JBoss EAP instance
+- name: "{{ jboss_eap_instance_name }} (02) Check existence of the JBoss EAP instance"
   stat:
     path: "{{ jboss_eap_instance_dir }}"
   register: instance_dir
 
 #### Copies a CLI file for configuring the target JBoss instance.
-- name: (02) Copy custom JBoss EAP CLI file
+- name: "{{ jboss_eap_instance_name }} (02) Copy custom JBoss EAP CLI file"
   copy:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
@@ -22,10 +22,10 @@
   # Todo ... extend CLI file to configuration and EAR files => immutable infrastructure
   # Todo ... add task configuring the server
   # Todo ... graceful shutdow of exising instance
-  - name: (02) Recreate JBoss EAP standalone directory for "{{ jboss_eap_instance_name }}"
+  - name: "{{ jboss_eap_instance_name }} (02) Recreate JBoss EAP standalone directory"
     shell: "rm -Rf {{ jboss_eap_instance_dir }} ; cp -Rfp {{ jboss_home }}/standalone {{ jboss_eap_instance_dir }}"
 
-  - name: (02) Create service directory
+  - name: "{{ jboss_eap_instance_name }} (02) Create service directory"
     file:
       path: "{{ jboss_eap_instance_service_dir }}"
       owner: "{{ jboss.user }}"
@@ -33,7 +33,7 @@
       state: directory
       mode: "755"
 
-  - name: (02) Copy instance specific standalone.conf
+  - name: "{{ jboss_eap_instance_name }} (02) Copy instance specific standalone.conf"
     copy:
       remote_src: true
       owner: "{{ jboss.user }}"
@@ -46,7 +46,7 @@
 
 #### Various other configurations done to the server
 # Todo ... check while not immutable
-- name: (02) Copying the management users properties files
+- name: "{{ jboss_eap_instance_name }} (02) Copying the management users properties files"
   copy:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
@@ -57,39 +57,39 @@
     - mgmt-groups.properties
     - mgmt-users.properties
 
-- name: (02) Set default binding address
+- name: "{{ jboss_eap_instance_name }} (02) Set default binding address ({{ jboss_eap_bind_ip_address_public }})"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address={{ jboss_eap_bind_ip_address_public }}"
   when: jboss_eap_instance_bind_web_interface
 
-- name: (02) Set management binding address
+- name: "{{ jboss_eap_instance_name }} (02) Set management binding address ({{ jboss_eap_bind_ip_address_management }})"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address.management={{ jboss_eap_bind_ip_address_management }}"
   when: jboss_eap_instance_bind_management_interface
 
 
-- name: (02) Set port offset and time zone
+- name: "{{ jboss_eap_instance_name }} (02) Set port offset ({{ jboss_eap_instance_port_offset }}) and time zone ({{ timezone }})"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     line: "JAVA_OPTS=\"$JAVA_OPTS -Duser.timezone={{ timezone }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }}\""
 
-- name: (02) Set JVM Xms
+- name: "{{ jboss_eap_instance_name }} (02) Set JVM Xms ({{ jvm_xm }})"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xms(\d+)m(.*)$'
     line: "\\1Xms{{ jvm_xm }}m\\3"
     backrefs: yes
 
-- name: (02) Set JVM Xmx
+- name: "{{ jboss_eap_instance_name }} (02) Set JVM Xmx ({{ jvm_xm }})"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*)Xmx(\d+)m(.*)$'
     line: "\\1Xmx{{ jvm_xm }}m\\3"
     backrefs: yes
 
-- name: (02) Remove JVM MaxPermSize
+- name: "{{ jboss_eap_instance_name }} (02) Remove JVM MaxPermSize"
   lineinfile:
     dest: "{{ jboss_eap_instance_runtime_conf_file }}"
     regexp: '^(.*) -XX:MaxPermSize=(\d+)m(.*)$'

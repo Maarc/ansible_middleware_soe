@@ -1,6 +1,6 @@
 ---
 
-- name: "(00) Create groups for EAP"
+- name: "{{ jboss_eap_instance_name }} (00) Create groups for EAP"
   group:
     name: "{{ item.group }}"
     system: yes
@@ -9,7 +9,7 @@
   with_items:
     - "{{ jboss }}"
 
-- name: "(00) Create users for EAP"
+- name: "{{ jboss_eap_instance_name }} (00) Create users for EAP"
   user:
     name: "{{ item.user }}"
     comment: "{{ item.user }} user"
@@ -20,7 +20,7 @@
   with_items:
     - "{{ jboss }}"
 
-- name: (00) Create .bashrc file for the EAP user
+- name: "{{ jboss_eap_instance_name }} (00) Create .bashrc file for the EAP user"
   template:
     owner: "{{ item.user }}"
     group: "{{ item.group }}"

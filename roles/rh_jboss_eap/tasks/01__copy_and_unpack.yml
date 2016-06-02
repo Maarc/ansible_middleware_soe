@@ -1,17 +1,17 @@
 ---
 
-- name: (01) Check existence of an installation
+- name: "{{ jboss_eap_instance_name }} (01) Check existence of an installation"
   stat:
     path: "{{ jboss_home + '/version.txt'}}"
   register: jboss_eap_exists
 
-- name: (01) Copy zipped JBoss EAP distribution
+- name: "{{ jboss_eap_instance_name }} (01) Copy zipped JBoss EAP distribution"
   copy:
     src: "{{ jboss_eap_zip_artifact_dl_src }}"
     dest: "{{ jboss_eap_zip_artifact_dl_dst }}"
   register: copy_zip_state
 
-- name: (01) Extract JBoss EAP zipped distribution
+- name: "{{ jboss_eap_instance_name }} (01) Extract JBoss EAP zipped distribution"
   # new version or no installation so far
   when: jboss_eap_exists.stat.exists == false or copy_zip_state.changed == true
   unarchive:
