@@ -10,3 +10,5 @@ jws_tomcat:
   admin_username: "admin"
   admin_password: "admin123"
   port_http: 8000
+  port_https: 8003
+  port_ajp: 8001

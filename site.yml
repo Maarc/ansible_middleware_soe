@@ -3,15 +3,10 @@
 - hosts: "dev-jws-group"
   roles:
     # Red Hat JWS Tomcat instance
-    - {
-        role: "rh_jboss_web_server__tomcat",
-        tags: ['jws_tomcat']
-      }
+    - {role: "rh_jboss_web_server__tomcat",tags: ['jws_tomcat']}
     # Red Hat JWS Apache instance
-    - {
-        role: "rh_jboss_web_server__apache",
-        tags: ['jws_apache']
-      }
+    # - {role: "rh_jboss_web_server__apache",tags: ['jws_apache']}
+
 
 - hosts: "dev-eap-group"
   roles:
@@ -26,8 +21,6 @@
         tags: ['tm']
       }
 
-- hosts: "dev-eap-group"
-  roles:
     # JBoss EAP 6 instance for the petclinic application
     # Note: toggle role and app to deploy from Nexus
     - {
@@ -44,8 +37,6 @@
         tags: "['pc']"
       }
 
-- hosts: "dev-eap-group"
-  roles:
     # JBoss EAP 7 instance for the jenkins application
     - {
         role: "rh_jboss_eap__app__direct_copy",
