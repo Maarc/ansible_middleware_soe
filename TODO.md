@@ -3,6 +3,13 @@ Here is a short todo-list:
 
 [priority 1]
 
+* Add defensive programming ... checking that the zip files are there before launching the installation
+
+* Add rh_jboss_web_server ... and a web application
+  -> cleanup httpd
+  -> add an application on Tomcat
+  -> configure httpd+mod_cluster to work with the EAP instances
+
 * Graceful orchestration
   - any change should imply a removal of the instance (the --check option of ansible is not an option. Better to have all files used for an instance checked and work with conditions)
   - updates (application 1.0 -> 1.2) / (application server 6.4 -> 7.0) / ...
@@ -13,10 +20,10 @@ Here is a short todo-list:
 
 * Add switch capability for applications to override the application server configuration by overriding standalone.xml or using a CLI script
 
-* Add rh_jboss_web_server ... and a web application
-
 
 [priority 2]
+* Add native libraries to downloads the EAP zips locally
+
 * Harden all profiles (./build -> run for all standalone-*) (easy to do once the prio 1 are done)
 
 * Prepare an example over several environments (dev/int/prod) on different types of machines
