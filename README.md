@@ -91,6 +91,8 @@ Here is a brief description of the structure of this projects:
 * **roles** contains the main roles of this SOE implementations:
  - **roles/rh_jboss_core** is the core role for all managed hosts.
  - **roles/rh_jboss_eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
- - **roles/rh_jboss_eap_pet-clinic** is a role extending rh_jboss_eap and deploying a simple application.
- - **roles/rh_jboss_eap_ticket-monster** is a role extending rh_jboss_eap and deploying a simple application.
+ - **roles/rh_jboss_eap__app__direct_copy** is a role extending rh_jboss_eap and deploying a simple application copying it from the host manager.
+ - **roles/rh_jboss_eap__app__nexus** is a role extending rh_jboss_eap and deploying a simple application retrieving it from Nexus.
+ - **roles/rh_jboss_web_server__apache** is a role installing a JWS apache (HTTPD) server.
+ - **roles/rh_jboss_web_server__tomcat** is a role installing a JWS Tomcat server.
 * **vagrant/Vagrantfile** contains a description of you virtual machines managed by vagrant.
