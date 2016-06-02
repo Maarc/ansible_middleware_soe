@@ -13,7 +13,7 @@
    - psmisc
 
 # Set in the DEV environment during the first setup
-- name: (00) DEV - Copy .bashrc
+- name: (00) {dev} Copy .bashrc
   when: env == "dev"
   template:
     src: .bashrc.j2
@@ -22,7 +22,7 @@
   register: bashrc_uploaded
 
 # Set in the DEV environment during the first setup
-- name: (00) DEV - Set server timezone
+- name: (00) {dev} Set server timezone
   become: true
   when: bashrc_uploaded.changed == True and env == "dev"
   command: "timedatectl set-timezone {{ timezone }}"
