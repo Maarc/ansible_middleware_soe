@@ -1,5 +1,5 @@
 ---
 # Cf. https://docs.ansible.com/ansible/playbooks_roles.html#task-include-files-and-encouraging-reuse
-allow_duplicates: yes
+allow_duplicates: no
 dependencies:
     - { role: rh_jboss_core }
