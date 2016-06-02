@@ -3,10 +3,9 @@
 - hosts: "dev-jws-group"
   roles:
     # Red Hat JWS Tomcat instance
-    - {role: "rh_jboss_web_server__tomcat",tags: ['jws_tomcat']}
+    - {role: "rh_jboss_web_server__tomcat", app_list: { "bin/java_binaries/tomcat-sample.war" }, tags: ['jws_tomcat']}
     # Red Hat JWS Apache instance
     # - {role: "rh_jboss_web_server__apache",tags: ['jws_apache']}
-
 
 - hosts: "dev-eap-group"
   roles:

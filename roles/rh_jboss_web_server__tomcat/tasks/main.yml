@@ -18,6 +18,10 @@
 - include: 03__register_service.yml
   become: true
 
+#### Deploy applications
+- include: 04__deploy_applications.yml
+  become: true
+
 #### Start JWS
 - name: (99) Ensure JWS Tomcat is running
   become: true

@@ -45,6 +45,12 @@
     src: "{{java_code_dir}}/tm/demo/target/ticket-monster.war"
     dest: "{{java_bin_dir}}/ticket-monster.war"
 
+- name: Download Tomcat sample
+  get_url:
+    url: "https://tomcat.apache.org/tomcat-8.0-doc/appdev/sample/sample.war"
+    dest: "{{java_bin_dir}}/tomcat-sample.war"
+
+
 #- name: Upload applications to nexus
 #  command: "curl -v -F r={{nexus_repository_id}} -F hasPom=false -F e=war -F g=com.redhat.jboss -F a={{item}} -F v=1.0 -F p=war -F file=@{{java_bin_dir}}/{{item}} -u {{nexus_user}}:{{nexus_password}} {{nexus_upload_url}}"
 #  with_items:
