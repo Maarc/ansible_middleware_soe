@@ -1,53 +1,50 @@
 # Note: no port forwarding is needed when using a private network. The VMs are reacheable directly.
 
-vm_01_name = 'nexus'
-vm_01_ip = '192.168.0.100'
-
-vm_02_name = 'host-dev-eap-01'
-vm_02_ip = '192.168.0.101'
-
-vm_03_name = 'tower'
-vm_03_ip = '192.168.0.200'
-
 name=''
 
 Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"
   config.vm.box_check_update = false
+  config.ssh.insert_key = false
+  config.ssh.forward_agent = true
+
+  {
+    'host-dev-eap-01' => '192.168.0.101',
+    'host-dev-eap-02' => '192.168.0.102',
+    'host-dev-eap-03' => '192.168.0.103',
+  }.each do |short_name, ip|
+    config.vm.define short_name do |host|
+      name = short_name
+      host.vm.network 'private_network', ip: ip
+      host.vm.hostname = short_name
+
+    end
+  end
 
   # Nexus 2.13 instead of 3 as currently recommended by Sonatype
-  config.vm.define vm_01_name, primary: true do |node|
-    name = vm_01_name
-    node.vm.hostname = name
-    node.vm.network "private_network", ip: vm_01_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2221, id: "ssh"
-    node.vm.provision "ansible" do |ansible|
+  config.vm.define 'nexus', primary: false do |host|
+    name = 'nexus'
+    host.vm.hostname = 'nexus'
+    host.vm.network "private_network", ip: '192.168.0.100'
+    host.vm.provision "ansible" do |ansible|
       ansible.playbook = "nexus/nexus_2.13.yml"
     end
   end
 
-  config.vm.define vm_02_name, primary: true do |node|
-    name = vm_02_name
-    node.vm.hostname = name
-    node.vm.network "private_network", ip: vm_02_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh"
-  end
-
-  config.vm.define vm_03_name, primary: false do |node|
+  config.vm.define 'tower', primary: false do |host|
     config.vm.box = "http://vms.ansible.com/ansible-tower-2.4.5-virtualbox.box"
-    name = vm_03_name
-    node.vm.hostname = name;
-    node.vm.network "private_network", ip: vm_03_ip
-    node.vm.network :forwarded_port, guest: 22, host: 2223, id: "ssh"
+    name = 'tower'
+    host.vm.hostname = 'tower';
+    host.vm.network "private_network", ip: '192.168.0.200'
   end
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = name
     # 33% of the CPU from the host
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "33"]
-    # 2048 MB RAM
-    vb.memory = 2048
+    # 1024 MB RAM
+    vb.memory = 1024
   end
 
 end
