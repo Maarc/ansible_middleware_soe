@@ -1,8 +1,0 @@
----
-- name: Restart JBoss EAP
-  when: jboss_eap_started is undefined or jboss_eap_started.changed == False
-  become: true
-  service:
-    name: "{{ jboss_eap_instance_service_name }}"
-    state: restarted
-    enabled: yes

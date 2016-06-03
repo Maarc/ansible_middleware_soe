@@ -1,22 +1,13 @@
+---
 
-# Downloads
-jboss_eap_zip_artifact_dl_src: "{{ jboss_eap_golden_image_dir + '/' + jboss_eap_golden_image_name + '.zip' }}"
-jboss_eap_zip_artifact_dl_dst: "{{ download_dir + '/' + jboss_eap_golden_image_name + '.zip' }}"
-jboss_eap_instance_cli_file: "{{ download_dir }}/{{ jboss_eap_instance_name + '___' + jboss_eap_instance_cli_file_name }}"
+# Directory containing the unpacked golden image.
+jboss_home: "{{ jboss.user_home }}/{{ jboss_eap_golden_image_name }}"
 
-# JBoss global
-jboss_home: "{{ jboss.user_home}}/{{ jboss_eap_golden_image_name }}"
+# Check directory (local copy of the instance directory to check changes and updates)
+jboss_eap_check_dir: "{{ download_dir }}/standalone_{{ jboss_eap_instance_name }}"
 
-# JBoss EAP instance-specific
-jboss_eap_instance_dir: "{{ jboss.user_home}}/standalone_{{ jboss_eap_instance_name }}"
-jboss_eap_instance_deployment_dir: "{{ jboss_eap_instance_dir }}/deployments"
-jboss_eap_instance_runtime_conf_dir: "{{ jboss_eap_instance_dir }}/configuration"
-jboss_eap_instance_service_dir: "{{ jboss_eap_instance_dir }}/service"
-jboss_eap_instance_log_dir: "{{ jboss_eap_instance_dir }}/log"
-jboss_eap_instance_tmp_dir: "{{ jboss_eap_instance_dir }}/tmp"
-jboss_eap_instance_runtime_conf_file: "{{ jboss_eap_instance_runtime_conf_dir }}/standalone.conf"
+# Directory for the target running instance
+jboss_eap_instance_dir: "{{ jboss.user_home }}/standalone_{{ jboss_eap_instance_name }}"
 
-# Service
+# JBoss EAP service name
 jboss_eap_instance_service_name: "jboss_{{ jboss_eap_instance_name }}"
-jboss_eap_instance_service_conf_file: "{{ jboss_eap_instance_service_dir}}/jboss-as.conf"
-jboss_eap_instance_service_file: "/etc/systemd/system/{{ jboss_eap_instance_service_name }}.service"

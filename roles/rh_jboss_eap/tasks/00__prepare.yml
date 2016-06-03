@@ -1,8 +1,8 @@
 ---
 
-- name: (00) Check "jboss_eap_instance_service_name" variable
-  fail: msg="This role requires jboss_eap_instance_service_name to be set and non empty."
-  when: jboss_eap_instance_service_name is not defined or jboss_eap_instance_service_name == ''
+- name: (00) Check "jboss_eap_instance_name" variable
+  fail: msg="This role requires jboss_eap_instance_name to be set and non empty."
+  when: jboss_eap_instance_name is not defined or jboss_eap_instance_name == ''
 
 - name: (00) Check "jboss_eap_golden_image_name" variable
   fail: msg="This role requires jboss_eap_golden_image_name to be set and non empty."
