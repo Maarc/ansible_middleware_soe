@@ -1,11 +1,11 @@
 
 # Downloads
-jboss_eap_zip_artifact_dl_src: "{{ jboss_eap_zip_artifact_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
-jboss_eap_zip_artifact_dl_dst: "{{ download_dir + '/' + jboss_eap_zip_artifact_name + '.zip' }}"
+jboss_eap_zip_artifact_dl_src: "{{ jboss_eap_golden_image_dir + '/' + jboss_eap_golden_image_name + '.zip' }}"
+jboss_eap_zip_artifact_dl_dst: "{{ download_dir + '/' + jboss_eap_golden_image_name + '.zip' }}"
 jboss_eap_instance_cli_file: "{{ download_dir }}/{{ jboss_eap_instance_name + '___' + jboss_eap_instance_cli_file_name }}"
 
 # JBoss global
-jboss_home: "{{ jboss.user_home}}/{{ jboss_eap_zip_artifact_name }}"
+jboss_home: "{{ jboss.user_home}}/{{ jboss_eap_golden_image_name }}"
 
 # JBoss EAP instance-specific
 jboss_eap_instance_dir: "{{ jboss.user_home}}/standalone_{{ jboss_eap_instance_name }}"

@@ -1,8 +1,11 @@
 ---
 
+# Directory containing the golden images
+jboss_eap_golden_image_dir: 'bin/rh_jboss_golden_images/builds'
+
+# All instances use the specified JBoss EAP golden image
+jboss_eap_golden_image_name: 'jboss-eap-6.4.8_GI'
+
 # Setting IP binding for all JBoss EAP instances
 jboss_eap_bind_ip_address_public: "{{ ansible_eth1.ipv4.address }}"
 jboss_eap_bind_ip_address_management: "{{ ansible_eth1.ipv4.address }}"
-
-# All instances use the specified JBoss EAP golden image
-jboss_eap_zip_artifact_name: jboss-eap-6.4.8_GI
