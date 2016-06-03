@@ -9,9 +9,9 @@
 
 - hosts: "dev-eap-group"
   roles:
-    # JBoss EAP 7 instance for the ticket-monster application
     - {
-        role: "rh_jboss_eap__app__direct_copy",
+        # JBoss EAP 7 instance for the ticket-monster application
+        role: "rh_jboss_eap",
         jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
         jboss_eap_instance_name: "ticket_monster",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
@@ -19,26 +19,19 @@
         app_list: { "bin/java_binaries/ticket-monster.war" },
         tags: ['tm']
       }
-
-    # JBoss EAP 6 instance for the petclinic application
-    # Note: toggle role and app to deploy from Nexus
     - {
-#        role: "rh_jboss_eap__app__nexus",
-        role: "rh_jboss_eap__app__direct_copy",
+        # JBoss EAP 6 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
+        role: "rh_jboss_eap",
         jboss_eap_instance_name: "petclinic",
         jboss_eap_instance_standalone_file: "standalone.xml",
         jboss_eap_instance_port_offset: "1000",
         app_list: { "bin/java_binaries/petclinic.war" },
-#        app_mvn_g: "com.redhat.jboss",
-#        app_mvn_a: "petclinic.war",
-#        app_mvn_v: "1.0",
-#        app_mvn_e: "war",
-        tags: "['pc']"
+        #app_mvn_list: [ { g: "com.redhat.jboss", a: "petclinic.war", v: "1.0", e: "war" } ],
+        tags: ['pc']
       }
-
-    # JBoss EAP 7 instance for the jenkins application
     - {
-        role: "rh_jboss_eap__app__direct_copy",
+        # JBoss EAP 7 instance for the jenkins application
+        role: "rh_jboss_eap",
         jboss_eap_zip_artifact_name: "jboss-eap-7.0.0_GI",
         jboss_eap_instance_name: "jenkins",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",

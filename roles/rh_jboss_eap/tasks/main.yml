@@ -12,6 +12,10 @@
 - include: 02__configure.yml
   become: true
 
+#### Provision configuration and applications 
+- include: 03__provision.yml
+  become: true
+
 #### Create Service Account
-- include: 03__register_service.yml
+- include: 04__register_service.yml
   become: true

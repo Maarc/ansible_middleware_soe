@@ -28,3 +28,6 @@ jboss_eap_instance_bind_management_interface: true
 
 # Todo: add a swith for selecting xml/cli/combined configuration (not used currently)
 jboss_eap_instance_cli_file_name: jboss_standalone.cli
+
+app_list: { }
+app_mvt_list: { }

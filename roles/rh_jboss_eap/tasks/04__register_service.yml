@@ -3,7 +3,7 @@
 # http://www.opensourcerers.org/how-to-setup-jboss-eap-with-rhel-7-systemd-linuxes/
 # http://www.dmartin.es/2014/07/jboss-eap-6-as-rhel-7-service/
 
-- name: "{{ jboss_eap_instance_name }} (03) Generate JBoss EAP service conf file"
+- name: "{{ jboss_eap_instance_name }} (04) Generate JBoss EAP service conf file"
   template:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
@@ -11,7 +11,7 @@
     dest: "{{ jboss_eap_instance_service_conf_file }}"
     mode: "755"
 
-- name: "{{ jboss_eap_instance_name }} (03) Generate JBoss EAP systemd unit file"
+- name: "{{ jboss_eap_instance_name }} (04) Generate JBoss EAP systemd unit file"
   template:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
@@ -20,12 +20,12 @@
     mode: "755"
   register: systemd_service_file
 
-- name: "{{ jboss_eap_instance_name }} (03) Check existence of the init.d script"
+- name: "{{ jboss_eap_instance_name }} (04) Check existence of the init.d script"
   stat:
     path: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
   register: jboss_as_standalone_sh
 
-- name: "{{ jboss_eap_instance_name }} (03) Copy init.d script"
+- name: "{{ jboss_eap_instance_name }} (04) Copy init.d script"
   when: jboss_as_standalone_sh.stat.exists == False
   copy:
     remote_src: true
@@ -36,7 +36,7 @@
     mode: "755"
 
 # Setting the correct JBOSS_CONF file
-- name: "{{ jboss_eap_instance_name }} (03) Update init.d script - Set JBOSS_CONF (1/4)"
+- name: "{{ jboss_eap_instance_name }} (04) Update init.d script - Set JBOSS_CONF (1/4)"
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     regexp: '^(.*)JBOSS_CONF=(.*)$'
@@ -44,7 +44,7 @@
     backrefs: yes
 
 # Setting the correct base directory
-- name: "{{ jboss_eap_instance_name }} (03) Update init.d script - Set jboss.server.base.dir (2/4)"
+- name: "{{ jboss_eap_instance_name }} (04) Update init.d script - Set jboss.server.base.dir (2/4)"
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     regexp: '(.*)JBOSS_SCRIPT=(.*)standalone.sh$'
@@ -54,7 +54,7 @@
 # Specific to the reload mechanism of JBoss EAP 6
 # Changing the "JBOSS_CONSOLE_LOG" to "JBOSS_SERVER_LOG" (prevents hanging at startup while the console log has been disabled)
 # grep 'JBAS015874:' $JBOSS_CONSOLE_LOG > /dev/null
-- name: "{{ jboss_eap_instance_name }} (03) Update init.d script - Set server.log directory (3/4)"
+- name: "{{ jboss_eap_instance_name }} (04) Update init.d script - Set server.log directory (3/4)"
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     regexp: '^(.*)JBAS015874(.*)\$JBOSS_CONSOLE_LOG(.*)$'
@@ -63,7 +63,7 @@
 
 # Specific to the reload mechanism of JBoss EAP 7
 # Set the startup-marker file to the instance specific folder
-- name: "{{ jboss_eap_instance_name }} (03) Update init.d script - Set startup-marker (4/4)"
+- name: "{{ jboss_eap_instance_name }} (04) Update init.d script - Set startup-marker (4/4)"
   lineinfile:
     dest: "{{ jboss_eap_instance_service_dir }}/jboss-as-standalone.sh"
     regexp: '^(.*)\$JBOSS_HOME/standalone/tmp/startup-marker(.*)$'
@@ -71,6 +71,15 @@
     backrefs: yes
 
 # Reloading systemd. Should be executed here and not as a handler.
-- name: "{{ jboss_eap_instance_name }} (03) Reload systemd"
+- name: "{{ jboss_eap_instance_name }} (04) Reload systemd"
   when: systemd_service_file.changed == true
   command: systemctl daemon-reload
+
+
+- name: "{{ jboss_eap_instance_name }} (04) Ensure JBoss EAP is running"
+  become: true
+  service:
+    name: "{{ jboss_eap_instance_service_name }}"
+    state: started
+    enabled: yes
+  register: jboss_eap_started
