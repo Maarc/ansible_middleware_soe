@@ -1,5 +1,18 @@
 ---
 
+- name: (00) Check "jboss_eap_instance_service_name" variable
+  fail: msg="This role requires jboss_eap_instance_service_name to be set and non empty."
+  when: jboss_eap_instance_service_name is not defined or jboss_eap_instance_service_name == ''
+
+- name: (00) Check "jboss_eap_golden_image_name" variable
+  fail: msg="This role requires jboss_eap_golden_image_name to be set and non empty."
+  when: jboss_eap_golden_image_name is not defined or jboss_eap_golden_image_name == ''
+
+- name: (00) Check "jboss_eap_golden_image_dir" variable
+  fail: msg="This role requires jboss_eap_golden_image_dir to be set and non empty."
+  when: jboss_eap_golden_image_dir is not defined or jboss_eap_golden_image_dir == ''
+
+
 - name: "{{ jboss_eap_instance_name }} (00) Create groups for EAP"
   group:
     name: "{{ item.group }}"
