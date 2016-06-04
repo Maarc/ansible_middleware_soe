@@ -1,0 +1,2 @@
+# Remove the unsecure interface
+/interface=unsecure/:remove()

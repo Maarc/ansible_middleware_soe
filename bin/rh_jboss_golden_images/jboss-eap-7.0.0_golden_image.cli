@@ -1,9 +1,0 @@
-# Removes the default ExampleDS
-/subsystem=datasources/data-source=ExampleDS:remove()
-
-# Removes the console logger
-/subsystem=logging/root-logger=ROOT:write-attribute(name=handlers,value=["FILE"])
-/subsystem=logging/console-handler=CONSOLE:remove()
-
-# Disables the deployment scanner
-/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-interval,value=0)

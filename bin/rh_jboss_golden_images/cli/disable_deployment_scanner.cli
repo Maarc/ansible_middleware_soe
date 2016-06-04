@@ -1,0 +1,4 @@
+# Disables the deployment scanner
+# /subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-interval,value=0)
+/subsystem=deployment-scanner/scanner=default:remove
+/subsystem=deployment-scanner:remove

@@ -1,0 +1,2 @@
+# Removes the default ExampleDS
+/subsystem=datasources/data-source=ExampleDS:remove()

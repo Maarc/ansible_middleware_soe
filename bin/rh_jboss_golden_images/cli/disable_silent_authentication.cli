@@ -1,0 +1,3 @@
+# Remove the silent authentication
+/core-service=management/security-realm=ManagementRealm/authentication=local:remove()
+/core-service=management/security-realm=ApplicationRealm/authentication=local:remove()

@@ -1,0 +1,2 @@
+# Removal of the CONSOLE logger
+/subsystem=logging/console-handler=CONSOLE/:remove()

@@ -1,0 +1,3 @@
+# Remove mail outbound connection
+/subsystem=mail/:remove()
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-smtp:remove()

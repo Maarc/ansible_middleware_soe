@@ -1,0 +1,18 @@
+# Configuration of the ASYNC_FILE logger
+/subsystem=logging/async-handler=ASYNC_FILE/:add(overflow-action=BLOCK,queue-length=2048,level=WARN,subhandlers=["FILE"])
+
+# Update of the FILE logger
+/subsystem=logging/periodic-rotating-file-handler=FILE:write-attribute(name="formatter", value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n")
+/subsystem=logging/periodic-rotating-file-handler=FILE:write-attribute(name="suffix", value=".yyyy-MM-dd'.log'")
+/subsystem=logging/periodic-rotating-file-handler=FILE:write-attribute(name=level,value=INFO)
+
+# Redirection of the ROOT logger to the ASYNC_FILE logger and reduction of the logging level
+/subsystem=logging/root-logger=ROOT/:write-attribute(name=handlers,value=["ASYNC_FILE"])
+/subsystem=logging/root-logger=ROOT/:write-attribute(name=level,value=WARN)
+
+# Log the "Started" and "Stopped" server events
+/subsystem=logging/async-handler=ASYNC_FILE_INFO/:add(overflow-action=BLOCK,queue-length=2048,level=INFO,subhandlers=["FILE"])
+/subsystem=logging/logger=org.jboss.as/:add(level=INFO,handlers=["ASYNC_FILE_INFO"],use-parent-handlers=false)
+
+# Change log level
+/subsystem=logging/logger=org.jboss.as.config/:change-log-level(level=WARN)

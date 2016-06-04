@@ -1,0 +1,4 @@
+# Sets a node name for mod_cluster
+/subsystem=web/:write-attribute(name=instance-id,value="${jboss.node.name}")
+# Disable welcome-root
+#/subsystem=web/virtual-server=default-host:write-attribute(name=enable-welcome-root,value=false)
