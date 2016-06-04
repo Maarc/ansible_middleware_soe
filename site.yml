@@ -17,6 +17,7 @@
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 0,
         app_list: { "bin/java_binaries/ticket-monster.war" },
+        cli_list: { "bin/cli/add_datasource.cli" },
         tags: ['tm']
       }
     - {
@@ -37,5 +38,6 @@
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 2000,
         app_list: { "bin/java_binaries/jenkins.war" },
+        cli_list: { "bin/cli/add_datasource.cli" },
         tags: ['jk']
       }
