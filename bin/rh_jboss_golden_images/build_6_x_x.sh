@@ -63,7 +63,7 @@ eval ${COMMAND}
 echo "\n[${VERSION}] Apply customizations\n${SEPARATOR}"
 
 echo '' > $FILE_CLI
-CLIS=( "delete_ExampleDS.cli" "delete_mail_outbound.cli" "enable_native_lib.cli" "disable_deployment_scanner.cli" "delete_unsecure_interface.cli" "update_web_subsystem.cli")
+CLIS=( "delete_ExampleDS_6.cli" "delete_mail_outbound.cli" "enable_native_lib_6.cli" "disable_deployment_scanner.cli" "delete_unsecure_interface_6.cli" "update_web_subsystem.cli")
 for CLI in "${CLIS[@]}"
 do
     cat $DIR_CURRENT/cli/$CLI >> $FILE_CLI

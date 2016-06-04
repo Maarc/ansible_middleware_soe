@@ -1,0 +1,5 @@
+# Removes the default ExampleDS
+/subsystem=datasources/data-source=ExampleDS:remove()
+
+# Undefine the default datasource
+/subsystem=ee/service=default-bindings/:undefine-attribute(name=datasource)
