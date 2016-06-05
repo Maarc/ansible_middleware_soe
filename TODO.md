@@ -5,14 +5,6 @@ Here is a short todo-list:
 * Add apache and cleanup httpd
   -> configure httpd+mod_cluster to work with the EAP instances
 
-* Add capability to use CLI to configure an instance (e.g. add datasource for ticket-monster application)
-  - should be done on a similar way than what has been done for the golden images
-  - use ticket-monster as test application (datasource ExampleDS needs to be added)
-
-  -> Harden all profiles (./build -> run for all standalone-*) (easy to do once the prio 1 are done)
-
-
-
 [priority 2]
 
 * Update according to ... http://hakunin.com/six-ansible-practices#teach-ansible-to-talk-to-github-on-your-behalf
@@ -32,8 +24,6 @@ Here is a short todo-list:
     -> Add native libraries (sabre1041.redhat-csp-download role) to downloads the EAP zips locally for Tower
 
 
-
-
 [priority 3]
 
 * Find other applications and cool use-cases over several application servers (cf. quick-start)
@@ -46,6 +36,8 @@ Here is a short todo-list:
 
 * Make sure that the "log" files are not deleted when a new version is installed ...
 
-* cleanup task removing the JBoss instances that are no more supposed to be there ...
+* cleanup task removing the JBoss instances that are no more supposed to be there (instance-inventory to be created ...)
 
 * Integrate with the ansible variable vault (https://docs.ansible.com/ansible/playbooks_best_practices.html)
+
+cf. for cleanup ... https://github.com/contiv/ansible/blob/master/roles/contiv_cluster/tasks/cleanup.yml
