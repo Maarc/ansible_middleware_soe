@@ -43,8 +43,8 @@ Vagrant.configure(2) do |config|
     vb.name = name
     # 33% of the CPU from the host
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "33"]
-    # 1024 MB RAM
-    vb.memory = 1024
+    # 2048 MB RAM
+    vb.memory = 2048
   end
 
 end
