@@ -76,6 +76,8 @@
     - "JAVA_OPTS=\"$JAVA_OPTS -Djboss.bind.address.management={{ jboss_eap_bind_ip_address_management }}\""
     # Set port offset and time zone
     - "JAVA_OPTS=\"$JAVA_OPTS -Duser.timezone={{ timezone }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }}\""
+    # Set node name
+    - "JAVA_OPTS=\"$JAVA_OPTS -Djboss.node.name={{ ansible_hostname }}__{{ jboss_eap_instance_name }}\""
   register: conf_04
 
 - name: "{{ jboss_eap_instance_name }} {{ info }} Update standalone.conf (2/2)"
