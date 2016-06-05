@@ -14,8 +14,13 @@
   when: service.changed
   command: systemctl daemon-reload
 
+- name: "{{ jboss_eap_instance_name }} (05) Execute CLI file(s)"
+  when: conf_11.changed
+  become_user: "{{ jboss.user }}"
+  shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep 10 && {{jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{jboss_eap_instance_cli_port}} --file="{{ jboss_eap_instance_dir }}/configuration/{{ item | basename }}" && pkill -TERM -f "^java(.*){{ jboss_eap_instance_dir }}"'
+  with_items: "{{ cli_list }}"
+
 - name: "{{ jboss_eap_instance_name }} (05) Ensure JBoss EAP is running"
-  become: true
   service:
     name: "{{ jboss_eap_instance_service_name }}"
     state: started

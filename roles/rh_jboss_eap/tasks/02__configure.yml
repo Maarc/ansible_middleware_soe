@@ -147,6 +147,16 @@
     - { dest: "{{ target_dir }}/configuration/mgmt-groups.properties", line: 'redhat=' }
   register: conf_10
 
+
+- name: "{{ jboss_eap_instance_name }} {{ info }} Copy CLI file from the file system"
+  copy:
+    owner: "{{ jboss.user }}"
+    group: "{{ jboss.group }}"
+    src: "{{ item }}"
+    dest: "{{ target_dir }}/configuration"
+  with_items: "{{ cli_list }}"
+  register: conf_11
+
 - name: "{{ jboss_eap_instance_name }} {{ info }} Set is_modified"
   set_fact:
-    is_modified: conf_01.changed or conf_02.changed or conf_03.changed or conf_04.changed or conf_05.changed or conf_06.changed or conf_07.changed or conf_08.changed or conf_09.changed or conf_10.changed
+    is_modified: distribution.changed or conf_01.changed or conf_02.changed or conf_03.changed or conf_04.changed or conf_05.changed or conf_06.changed or conf_07.changed or conf_08.changed or conf_09.changed or conf_10.changed or conf_11.changed

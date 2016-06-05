@@ -20,3 +20,4 @@
     copy: no
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
+  register: distribution

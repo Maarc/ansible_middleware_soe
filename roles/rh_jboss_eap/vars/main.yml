@@ -11,3 +11,6 @@ jboss_eap_instance_dir: "{{ jboss.user_home }}/standalone_{{ jboss_eap_instance_
 
 # JBoss EAP service name
 jboss_eap_instance_service_name: "jboss_{{ jboss_eap_instance_name }}"
+
+# Offsetted port used for CLI updates
+jboss_eap_instance_cli_port: "{{ jboss_eap_instance_cli_default_port|int + jboss_eap_instance_port_offset|int }}"

@@ -1,1 +1,1 @@
-/subsystem=datasources/data-source=ExampleDS/:add(jndi-name=java:jboss/datasources/ExampleDS,driver-name=h2,connection-url="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",password=sa,enabled=true,user-name=sa,use-java-context=true)
+/subsystem=datasources/data-source=ExampleDS/:add(jndi-name="java:jboss/datasources/ExampleDS",driver-name="h2",connection-url="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",password="sa",enabled="true",user-name="sa",use-java-context=true)
