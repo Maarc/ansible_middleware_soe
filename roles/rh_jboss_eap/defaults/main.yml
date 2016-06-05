@@ -15,8 +15,9 @@ jboss_eap_instance_name: default
 jboss_eap_instance_port_offset: 0
 
 # Default value for the used standane xml file
-jboss_eap_instance_standalone_file: standalone-full.xml
+jboss_eap_instance_standalone_file: standalone.xml
 
 # Application lists
 app_list: { }
 app_mvn_list: { }
+cli_list: { }
