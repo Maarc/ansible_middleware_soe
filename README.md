@@ -49,9 +49,9 @@ It might takes a while to create all virtual machines and provision them.
 
 The deployed test applications can be accessed here:
 
-* http://192.168.0.101:8080/ticket-monster/
-* http://192.168.0.101:9080/petclinic/
-* http://192.168.0.101:10080/jenkins/
+* http://192.168.0.102:8080/ticket-monster/
+* http://192.168.0.102:9080/petclinic/
+* http://192.168.0.102:10080/jenkins/
 
 
 ## Troubleshooting
