@@ -11,6 +11,8 @@
    - net-tools
    # for pstree
    - psmisc
+   # for vimdiff
+   - vim
 
 # Set in the DEV environment during the first setup
 - name: (00) {dev} Copy .bashrc
