@@ -18,7 +18,6 @@
         jboss_eap_instance_port_offset: 0,
         app_list: { "bin/java_binaries/ticket-monster.war" },
         cli_list: { "bin/cli/add_datasource.cli" },
-        tags: ['tm']
       }
     - {
         # JBoss EAP 6 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
@@ -28,7 +27,6 @@
         jboss_eap_instance_port_offset: "1000",
         app_list: { "bin/java_binaries/petclinic.war" },
         #app_mvn_list: [ { g: "com.redhat.jboss", a: "petclinic.war", v: "1.0", e: "war" } ],
-        tags: ['pc']
       }
     - {
         # JBoss EAP 7 instance for the jenkins application
@@ -39,5 +37,4 @@
         jboss_eap_instance_port_offset: 2000,
         app_list: { "bin/java_binaries/jenkins.war" },
         cli_list: { "bin/cli/add_datasource.cli" },
-        tags: ['jk']
       }
