@@ -28,7 +28,6 @@ readonly DIR_TARGET_EAP="${DIR_TARGET}/${TARGET_EAP}"
 readonly FILE_TARGET_EAP="${TARGET_EAP}.zip"
 readonly FILE_CLI="${DIR_CURRENT}/build.cli"
 readonly CMD_JBOSS_CLI="${DIR_TARGET_EAP}/bin/jboss-cli.sh"
-readonly PID="${DIR_CURRENT}/run.pid"
 
 declare COMMAND
 
@@ -63,7 +62,7 @@ eval ${COMMAND}
 echo "\n[${VERSION}] Apply customizations\n${SEPARATOR}"
 
 echo '' > $FILE_CLI
-CLIS=( "delete_ExampleDS_6.cli" "delete_mail_outbound.cli" "enable_native_lib_6.cli" "disable_deployment_scanner.cli" "delete_unsecure_interface_6.cli" "update_web_subsystem.cli")
+CLIS=( "delete_ExampleDS_6.cli" "delete_mail_outbound.cli" "enable_native_lib_6.cli" "disable_deployment_scanner.cli" "update_web_subsystem_6.cli")
 for CLI in "${CLIS[@]}"
 do
     cat $DIR_CURRENT/cli/$CLI >> $FILE_CLI
@@ -74,8 +73,7 @@ cat $FILE_CLI >> ${FILE_LOG}
 EAP_CONFIGURATIONS=( "standalone-full-ha.xml" )
 for EAP_CONFIG in "${EAP_CONFIGURATIONS[@]}"
 do
-  # Iteration on a "CLI" directory is optional / A separate profile might have to be chosen
-  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} & echo \\\$! > ${PID}\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG}; pkill -TERM -P \$(cat ${PID}); rm ${PID}"
+  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
   echo ${COMMAND}
   eval ${COMMAND}
 done
@@ -91,8 +89,7 @@ cat $FILE_CLI >> ${FILE_LOG}
 EAP_CONFIGURATIONS=( "standalone.xml" "standalone-full.xml" "standalone-ha.xml" )
 for EAP_CONFIG in "${EAP_CONFIGURATIONS[@]}"
 do
-  # Iteration on a "CLI" directory is optional / A separate profile might have to be chosen
-  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} & echo \\\$! > ${PID}\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG}; pkill -TERM -P \$(cat ${PID}); rm ${PID}"
+  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
   echo ${COMMAND}
   eval ${COMMAND}
 done

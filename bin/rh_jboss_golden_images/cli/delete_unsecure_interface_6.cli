@@ -1,2 +1,4 @@
 # Remove the unsecure interface
 /interface=unsecure/:remove()
+
+#Note: needs to be extended to also remove the references to this interface
