@@ -11,4 +11,4 @@ host-dev-eap-02
 host-dev-eap-03
 
 [dev-jws-group]
-host-dev-host-01
+host-dev-eap-01
