@@ -19,7 +19,7 @@ readonly DIR_SOURCE="${DIR_CURRENT}/../rh_jboss_binaries"
 readonly DIR_MODULES="${DIR_CURRENT}/eap_modules"
 readonly FILE_SOURCE_EAP="${DIR_SOURCE}/${FILE_EAP_BASIS}"
 readonly FILE_SOURCE_EAP_PATCH="${DIR_SOURCE}/${VERSION}-patch.zip"
-readonly FILE_SOURCE_EAP_NATIVE="${DIR_SOURCE}/jboss-eap-native-6.4.0-RHEL6-x86_64.zip"
+readonly FILE_SOURCE_EAP_NATIVE="${DIR_SOURCE}/jboss-eap-native-6.4.0-RHEL7-x86_64.zip"
 
 readonly DIR_TARGET="${DIR_CURRENT}/target"
 readonly FILE_LOG="${1}"

@@ -19,7 +19,7 @@ ansible-playbook local.yml
 
 echo "======================================================================================================"
 echo " Download and build Java applications ..."
-cd ${CURRENT}/bin/java_applications
+cd ${CURRENT}/bin/rh_jboss_golden_images
 ./build.sh
 
 # Backup and removes the ssh known_hosts (prevents issues with ssh)
