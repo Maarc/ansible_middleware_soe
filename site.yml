@@ -26,7 +26,6 @@
         jboss_eap_instance_standalone_file: "standalone.xml",
         jboss_eap_instance_port_offset: "1000",
         app_list: { "petclinic.war" },
-        #cli_list: { "add_datasource.cli" },
         #app_mvn_list: [ { g: "com.redhat.jboss", a: "petclinic.war", v: "1.0", e: "war" } ],
       }
     - {
