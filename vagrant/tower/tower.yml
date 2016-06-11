@@ -48,8 +48,8 @@
     become: true
     lineinfile:
       dest: "/etc/tower/settings.py"
-      regexp: '^AWX_PROOT_ENABLED=(.*)$'
-      line: "AWX_PROOT_ENABLED=False"
+      regexp: '^AWX_PROOT_ENABLED =(.*)$'
+      line: "AWX_PROOT_ENABLED = False"
       backrefs: yes
     register: conf_02
 
@@ -106,12 +106,12 @@
     command: "ssh-keygen -f {{tower.cred.ssh_key}} -t rsa -N ''"
 
   - name: Copy vagrant ssh password
-    when: ssh_key.stat.exists == false
-    command: 'echo vagrant > ~/p.txt'
+    #when: ssh_key.stat.exists == false
+    shell: 'echo vagrant > /home/vagrant/p.txt'
 
   - name: ssh-copy-id
-    when: ssh_key.stat.exists == false
-    shell: "sshpass -f ~/p.txt ssh-copy-id -i {{tower.cred.ssh_key}}.pub -o StrictHostKeyChecking=no {{item}}"
+    #when: ssh_key.stat.exists == false
+    shell: "sshpass -f /home/vagrant/p.txt ssh-copy-id -i {{tower.cred.ssh_key}}.pub -o StrictHostKeyChecking=no {{item}}"
     with_items:
       - 192.168.0.101
       - 192.168.0.102
