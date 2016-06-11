@@ -93,8 +93,11 @@ echo ${COMMAND}
 eval ${COMMAND}
 
 # Renaming for staying consistent with EAP 6.x
-#COMMAND="sed -i.bak s/jboss.management.http.port/'jboss.management.native.port'/g ${DIR_TARGET_EAP}/standalone/configuration/standalone*.xml"
-COMMAND="sed s/jboss.management.http.port/'jboss.management.native.port'/g ${DIR_TARGET_EAP}/standalone/configuration/standalone*.xml"
+COMMAND="sed -i.bak s/jboss.management.http.port/'jboss.management.native.port'/g ${DIR_TARGET_EAP}/standalone/configuration/standalone*.xml"
+echo ${COMMAND}
+eval ${COMMAND}
+
+COMMAND="rm -f ${DIR_TARGET_EAP}/standalone/configuration/*.bak 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND}
 eval ${COMMAND}
 
