@@ -63,19 +63,19 @@ To initialize the JBoss middleware Standard Operating Environment with Ansible T
 Using the credentials displayed at the end of the installation, you will be able to log into Ansible Tower (https://192.168.0.200/) and there:
 
 1. Import the current git repository as a project
-	 	- name: ansible_middleware_soe
-		- scm type: git
-		- scm url: git@github.com:Maarc/ansible_middleware_soe.git
-		- scm branch: master
+    - name: ansible_middleware_soe
+    - scm type: git
+    - scm url: git@github.com:Maarc/ansible_middleware_soe.git
+    - scm branch: master
 
 2. Define a job template
-		- name: Roll-out JBoss middleware
-		- job-type: Run
-		- inventory: Development virtual machines
-		- project: ansible_middleware_soe
-		- playbook: site.yml
-		- machine credential: Vagrant virtual machines (ssh)
-		- extra variables:  base_bin_dir: '/tmp/bin'
+    - name: Roll-out JBoss middleware
+    - job-type: Run
+    - inventory: Development virtual machines
+    - project: ansible_middleware_soe
+    - playbook: site.yml
+    - machine credential: Vagrant virtual machines (ssh)
+    - extra variables:  base_bin_dir: '/tmp/bin'
 
 3. Run the defined job template
 
