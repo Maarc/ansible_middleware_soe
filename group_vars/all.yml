@@ -1,9 +1,16 @@
 ---
 
+base_bin_dir: 'bin'
+
 # Local directory containing all Java applications
-app_dir: 'bin/java_binaries'
+app_dir: "{{base_bin_dir}}/java_binaries"
 # Local directory containing all CLI files
-cli_dir: 'bin/cli'
+cli_dir: "{{base_bin_dir}}/cli"
+# Local directory containing all installation binaries
+bin_dir: "{{base_bin_dir}}/rh_jboss_binaries"
+# Local directory containing all golden images
+gi_dir: "{{base_bin_dir}}/rh_jboss_golden_images/builds"
+
 
 # Directory containing all downloaded artifacts on the remote host
 download_dir: '/tmp'

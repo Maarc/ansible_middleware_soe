@@ -1,8 +1,5 @@
 ---
 
-# Directory containing the golden images
-jboss_eap_golden_image_dir: 'bin/rh_jboss_golden_images/builds'
-
 # All instances use the specified JBoss EAP golden image
 jboss_eap_golden_image_name: 'jboss-eap-6.4.8_GI'
 

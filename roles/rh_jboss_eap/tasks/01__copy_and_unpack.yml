@@ -7,8 +7,8 @@
 
 - name: "{{ jboss_eap_instance_name }} (01) Copy zipped JBoss EAP distribution"
   copy:
-    src: "{{ jboss_eap_golden_image_dir }}/{{ jboss_eap_golden_image_name }}.zip"
-    dest: "{{ download_dir }}/{{ jboss_eap_golden_image_name }}.zip"
+    src: "{{ gi_dir + '/' + jboss_eap_golden_image_name }}.zip"
+    dest: "{{ download_dir + '/' + jboss_eap_golden_image_name }}.zip"
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
   register: copy_zip_state

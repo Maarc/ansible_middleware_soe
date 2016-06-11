@@ -8,10 +8,13 @@
   fail: msg="This role requires jboss_eap_golden_image_name to be set and non empty."
   when: jboss_eap_golden_image_name is not defined or jboss_eap_golden_image_name == ''
 
-- name: (00) Check "jboss_eap_golden_image_dir" variable
-  fail: msg="This role requires jboss_eap_golden_image_dir to be set and non empty."
-  when: jboss_eap_golden_image_dir is not defined or jboss_eap_golden_image_dir == ''
+- name: (00) Check "bin_dir" variable
+  fail: msg="This role requires bin_dir to be set and non empty."
+  when: bin_dir is not defined or bin_dir == ''
 
+- name: (00) Check "gi_dir" variable
+  fail: msg="This role requires gi_dir to be set and non empty."
+  when: gi_dir is not defined or gi_dir == ''
 
 - name: "{{ jboss_eap_instance_name }} (00) Create groups for EAP"
   group:
