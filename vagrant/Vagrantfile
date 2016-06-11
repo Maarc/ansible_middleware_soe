@@ -10,15 +10,15 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   {
-    'host-dev-eap-01' => '192.168.0.101',
-    'host-dev-eap-02' => '192.168.0.102',
-    'host-dev-eap-03' => '192.168.0.103',
-  }.each do |short_name, ip|
+    'host-dev-01' => '101',
+    'host-dev-02' => '102',
+    'host-dev-03' => '103',
+  }.each do |short_name, id|
     config.vm.define short_name do |host|
       name = short_name
-      host.vm.network 'private_network', ip: ip
+      host.vm.network 'private_network', ip: '192.168.0.'+id
       host.vm.hostname = short_name
-
+      host.vm.network :forwarded_port, guest: 22, host: '2'+id, id: "ssh"
     end
   end
 
@@ -27,6 +27,7 @@ Vagrant.configure(2) do |config|
     name = 'nexus'
     host.vm.hostname = 'nexus'
     host.vm.network "private_network", ip: '192.168.0.100'
+    host.vm.network :forwarded_port, guest: 22, host: 2100, id: "ssh"
     host.vm.provision "ansible" do |ansible|
       ansible.playbook = "nexus/nexus_2.13.yml"
     end
@@ -37,6 +38,8 @@ Vagrant.configure(2) do |config|
     name = 'tower'
     host.vm.hostname = 'tower';
     host.vm.network "private_network", ip: '192.168.0.200'
+    host.vm.network :forwarded_port, guest: 22, host: 2200, id: "ssh"
+    host.vm.synced_folder "../bin/", "/tmp/bin", create: true, group: "awx", owner: "awx"
   end
 
   config.vm.provider "virtualbox" do |vb|

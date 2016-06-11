@@ -8,9 +8,9 @@ CURRENT=$(pwd)
 echo "======================================================================================================"
 echo " Create and start the virtual machine(s) ..."
 cd ${CURRENT}/vagrant
-vagrant up host-dev-eap-01
-vagrant up host-dev-eap-02
-vagrant up host-dev-eap-03
+vagrant up host-dev-01
+vagrant up host-dev-02
+vagrant up host-dev-03
 #vagrant up nexus
 
 echo "======================================================================================================"

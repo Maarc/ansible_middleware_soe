@@ -1,14 +1,14 @@
-host-dev-eap-01 ansible_ssh_host=192.168.0.101 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
-host-dev-eap-02 ansible_ssh_host=192.168.0.102 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
-host-dev-eap-03 ansible_ssh_host=192.168.0.103 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
+host-dev-01 ansible_ssh_host=192.168.0.101 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
+host-dev-02 ansible_ssh_host=192.168.0.102 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
+host-dev-03 ansible_ssh_host=192.168.0.103 ansible_ssh_user="vagrant" ansible_ssh_private_key_file="~/.vagrant.d/insecure_private_key"
 
 [dev:children]
 dev-eap-group
 dev-jws-group
 
-[dev-eap-group]
-host-dev-eap-02
-host-dev-eap-03
-
 [dev-jws-group]
-host-dev-eap-01
+host-dev-01
+
+[dev-eap-group]
+host-dev-02
+host-dev-03

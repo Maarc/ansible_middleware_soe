@@ -6,7 +6,7 @@ Starting all virtual machines:
 
 Starting the Red Hat JBoss EAP host:
 
-  $ vagrant up host-dev-eap-01
+  $ vagrant up host-dev-01
 
 Starting Nexus OSS:
 
