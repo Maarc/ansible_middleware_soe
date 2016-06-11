@@ -9,6 +9,7 @@
 
 #### Copy binaries
 - include: 01__copy_and_unpack.yml
+  become: true
 
 #### Configure JWS
 - include: 02__configure.yml

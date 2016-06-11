@@ -4,11 +4,12 @@
   copy:
     src: "{{ jws_zip_artifact_dl_src }}"
     dest: "{{ jws_zip_artifact_dl_dst }}"
+    owner: "{{ jws_tomcat.user }}"
+    group: "{{ jws_tomcat.group }}"
 
 - name: (01) Extract JBoss Web Server zipped distribution
   # new version or no installation so far
   #when: copy_jws_zip_state.changed == true
-  become: true
   unarchive:
     src: "{{ jws_zip_artifact_dl_dst }}"
     dest: "{{ jws_tomcat.user_home }}"
@@ -18,7 +19,6 @@
     group: "{{ jws_tomcat.group }}"
 
 - name: (01) Updating owners
-  become: true
   file: path={{item.user_home}}/jws-3.0 owner={{item.user}} group={{item.group}}
   with_items:
     - "{{jws_tomcat}}"
