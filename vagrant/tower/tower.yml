@@ -6,7 +6,7 @@
     tower:
       orga:
         name: "Giraffe Group"
-        desc: "International organization promoting Giraffes."
+        desc: "A group of giraffes is called a tower, according to the Northern Prairie Wildlife Research Center."
       inv:
         name: "Development Virtual Machines"
         desc: "This inventory contains all hosts and groups managed by Vagrant."
