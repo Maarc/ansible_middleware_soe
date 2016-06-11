@@ -1,0 +1,128 @@
+# Post-installation with various configuration elements for the Vagrant image.
+
+- hosts: tower
+
+  vars:
+    tower:
+      orga:
+        name: "Giraffe Group"
+        desc: "International organization promoting Giraffes."
+      inv:
+        name: "Development Virtual Machines"
+        desc: "This inventory contains all hosts and groups managed by Vagrant."
+      cred:
+        name: "Vagrant Virtual Machines (ssh)"
+        ssh_key: "~/.ssh/id_rsa"
+
+  tasks:
+
+  # Checking if a license has been copied locally
+  - name: Stat local tower license file
+    local_action: stat path="./tower/license"
+    register: license
+
+  - name: Check existence of the local tower license file
+    fail: msg="Please copy your Ansible Tower license file in ./vagrant/tower"
+    when: license.stat.exists == false
+
+  - name: Copy the Tower license file
+    become: true
+    copy: owner="awx" group="awx" src="license" dest="/etc/tower/license" mode="644"
+    register: conf_01
+
+  # Install prerequisites for Ansible Tower CLI
+  - name: Install Pip
+    become: true
+    yum: name={{ item }} state=present
+    with_items:
+     - python-pip
+     - python-wheel
+
+  - name: Install Ansible Tower CLI
+    become: true
+    pip: name=ansible-tower-cli
+
+  # Disable PRoot to prevent issues accessing the local file system
+  # https://docs.ansible.com/ansible-tower/2.2.0/html/administration/troubleshooting.html
+  - name: Disable PRoot
+    become: true
+    lineinfile:
+      dest: "/etc/tower/settings.py"
+      regexp: '^AWX_PROOT_ENABLED=(.*)$'
+      line: "AWX_PROOT_ENABLED=False"
+      backrefs: yes
+    register: conf_02
+
+  - name: Restart Tower
+    become: true
+    when: conf_01.changed or conf_02.changed
+    command: "ansible-tower-service restart"
+
+  - name: "Read Tower user"
+    command: "grep -oP '(?<=Username: )[^ \"]*' /etc/profile.d/ansible-tower.sh"
+    register: user_out
+
+  - name: "Read Tower password"
+    command: "grep -oP '(?<=Password: )[^ \"]*' /etc/profile.d/ansible-tower.sh"
+    register: password_out
+
+  - name: "Set user and password"
+    set_fact:
+       user: "{{user_out.stdout_lines[0]}}"
+       password: "{{password_out.stdout_lines[0]}}"
+
+########## Create an organization (retrives organization id)
+  - name: "Ansible Tower CLI - Create organization"
+    shell: "tower-cli organization create --name \"{{tower.orga.name}}\" --description \"{{tower.orga.desc}}\" --insecure -u {{user}} -p {{password}} | grep -oP '([0-9])*'"
+    register: orga_id
+
+#  - debug: var=orga_id.stdout
+
+########## Create an inventory (using the organization id)
+  - name: "Ansible Tower CLI - Create inventory"
+    command: "tower-cli inventory create --name \"{{tower.inv.name}}\" --description \"{{tower.inv.desc}}\" --organization \"{{orga_id.stdout}}\" --insecure -u {{user}} -p {{password}}"
+
+########## Fill the inventory
+  - name: Copy inventory file
+    become: true
+    copy: owner="awx" group="awx" src="../../inventory/hosts-dev-tower" dest="/etc/tower" mode="644"
+
+  - name: Import inventory
+    become: true
+    command: "tower-manage inventory_import --inventory-name=\"{{tower.inv.name}}\" --source=/etc/tower/hosts-dev-tower"
+    register: inv
+
+#  - debug: var=inv
+
+########## Configure the ssh connectivity
+
+  - name: "Check ssh key"
+    stat:
+      path: "{{tower.cred.ssh_key}}"
+    register: ssh_key
+
+  - name: Create ssh key
+    when: ssh_key.stat.exists == false
+    command: "ssh-keygen -f {{tower.cred.ssh_key}} -t rsa -N ''"
+
+  - name: Copy vagrant ssh password
+    when: ssh_key.stat.exists == false
+    command: 'echo vagrant > ~/p.txt'
+
+  - name: ssh-copy-id
+    when: ssh_key.stat.exists == false
+    shell: "sshpass -f ~/p.txt ssh-copy-id -i {{tower.cred.ssh_key}}.pub -o StrictHostKeyChecking=no {{item}}"
+    with_items:
+      - 192.168.0.101
+      - 192.168.0.102
+      - 192.168.0.103
+
+########## Create Tower credentials using the ssh key
+  - name: "Ansible Tower CLI - Create credential"
+    command: "tower-cli credential create --name \"{{tower.cred.name}}\" --kind ssh --ssh-key-data {{tower.cred.ssh_key}} --username vagrant --become-username root --become-method sudo --insecure -u {{user}} -p {{password}}"
+
+
+########## Displays the credentials
+  - name: "Display credentials"
+    debug:
+      msg: "User: {{ user }} - Password: {{ password }}"
