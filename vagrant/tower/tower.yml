@@ -53,9 +53,20 @@
       backrefs: yes
     register: conf_02
 
+  # https://docs.ansible.com/ansible-tower/latest/html/administration/troubleshooting.html
+  - name: Set WebSockets port for live events
+    become: true
+    lineinfile:
+      dest: "/var/lib/awx/public/static/local_settings.json"
+      line: '{"websocket_port": 8080}'
+      owner: awx
+      group: awx
+      create: yes
+    register: conf_03
+
   - name: Restart Tower
     become: true
-    when: conf_01.changed or conf_02.changed
+    when: conf_01.changed or conf_02.changed or conf_03.changed
     command: "ansible-tower-service restart"
 
   - name: "Read Tower user"
