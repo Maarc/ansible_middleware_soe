@@ -5,7 +5,7 @@
   copy:
     owner: "{{ jws_tomcat.user }}"
     group: "{{ jws_tomcat.group }}"
-    src: "{{ item }}"
+    src: "{{ app_dir +'/'+ item }}"
     dest: "{{ jws_tomcat.deployment_dir }}"
   with_items: "{{ app_list }}"
   notify: Restart JWS Tomcat

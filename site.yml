@@ -3,7 +3,7 @@
 - hosts: "dev-jws-group"
   roles:
     # Red Hat JWS Tomcat instance
-    - {role: "rh_jboss_web_server__tomcat", app_list: { "bin/java_binaries/tomcat-sample.war" }, tags: ['jws_tomcat']}
+    - {role: "rh_jboss_web_server__tomcat", app_list: { "tomcat-sample.war" }, tags: ['jws_tomcat']}
     # Red Hat JWS Apache instance
     # - {role: "rh_jboss_web_server__apache",tags: ['jws_apache']}
 
@@ -16,8 +16,8 @@
         jboss_eap_instance_name: "ticket_monster",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 0,
-        app_list: { "bin/java_binaries/ticket-monster.war" },
-        cli_list: { "bin/cli/add_datasource.cli" },
+        app_list: { "ticket-monster.war" },
+        cli_list: { "add_datasource.cli" },
       }
     - {
         # JBoss EAP 6 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
@@ -25,7 +25,8 @@
         jboss_eap_instance_name: "petclinic",
         jboss_eap_instance_standalone_file: "standalone.xml",
         jboss_eap_instance_port_offset: "1000",
-        app_list: { "bin/java_binaries/petclinic.war" },
+        app_list: { "petclinic.war" },
+        #cli_list: { "add_datasource.cli" },
         #app_mvn_list: [ { g: "com.redhat.jboss", a: "petclinic.war", v: "1.0", e: "war" } ],
       }
     - {
@@ -35,6 +36,6 @@
         jboss_eap_instance_name: "jenkins",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 2000,
-        app_list: { "bin/java_binaries/jenkins.war" },
-        cli_list: { "bin/cli/add_datasource.cli" },
+        app_list: { "jenkins.war" },
+        cli_list: { "add_datasource.cli" },
       }

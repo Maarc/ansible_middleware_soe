@@ -1,5 +1,10 @@
 ---
 
+# Local directory containing all Java applications
+app_dir: 'bin/java_binaries'
+# Local directory containing all CLI files
+cli_dir: 'bin/cli'
+
 # Directory containing all downloaded artifacts on the remote host
 download_dir: '/tmp'
 

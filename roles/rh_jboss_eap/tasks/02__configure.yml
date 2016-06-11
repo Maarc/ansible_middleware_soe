@@ -9,7 +9,7 @@
 - block:
 
   - name: "{{ jboss_eap_instance_name }} {{ info }} Copy the JBoss EAP standalone directory "
-    command: "cp -Rfp {{ jboss_home }}/standalone {{ target_dir }}"
+    shell: "cp -Rfp {{ jboss_home }}/standalone {{ target_dir }}; chown {{ jboss.user }}:{{ jboss.group }} -R {{ target_dir }}"
     register: conf_01
 
   - name: "{{ jboss_eap_instance_name }} {{ info }} Copy instance specific standalone.conf"
@@ -99,7 +99,7 @@
   copy:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
-    src: "{{ item }}"
+    src: "{{ app_dir +'/'+ item }}"
     dest: "{{ target_dir }}/deployments"
   with_items: "{{ app_list }}"
   register: conf_06
@@ -152,7 +152,7 @@
   copy:
     owner: "{{ jboss.user }}"
     group: "{{ jboss.group }}"
-    src: "{{ item }}"
+    src: "{{ cli_dir +'/'+ item }}"
     dest: "{{ target_dir }}/configuration"
   with_items: "{{ cli_list }}"
   register: conf_11
