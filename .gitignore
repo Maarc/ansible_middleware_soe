@@ -8,3 +8,4 @@ bin/java_code
 vagrant/.vagrant
 vagrant/tower/license
 *.retry
+TODO.md
