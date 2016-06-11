@@ -8,13 +8,10 @@ To get started quickly with your SOE, you will need to install Ansible, Vagrant 
 
 ### Ansible
 
-Ansible 2 or newer is required.
+Ansible 2.0.0.0 to 2.0.1.0 is required. Please do not use Ansible 2.1.0.0 yet.
 
-Centos / RHEL / Other::
-Please follow [the official](https://docs.ansible.com/ansible/intro_installation.html) instructions.
-
-MacOS::
-Please follow [those instructions](https://valdhaus.co/writings/ansible-mac-osx/) to install Ansible.
+* *Centos / RHEL / Other* - Please follow [the official](https://docs.ansible.com/ansible/intro_installation.html) instructions.
+* *MacOS* - Please follow [those instructions](https://valdhaus.co/writings/ansible-mac-osx/).
 
 ### Vagrant
 
