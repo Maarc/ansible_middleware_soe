@@ -38,7 +38,7 @@
 
 - name: Build ticket-monster
   when: tm_exists.stat.exists == false
-  command: "mvn clean package -f {{java_code_dir}}/tm/demo"
+  command: "mvn -T 4 clean package -f {{java_code_dir}}/tm/demo"
 
 - name: Copy ticket-monster
   copy:
