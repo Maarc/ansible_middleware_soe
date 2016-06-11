@@ -24,21 +24,13 @@ cd ${CURRENT}/vagrant
 vagrant up host-dev-01
 vagrant up host-dev-02
 vagrant up host-dev-03
+vagrant up tower
 #vagrant up nexus
 
 echo "======================================================================================================"
-echo " Provision the virtual machine(s) with ansible..."
-cd ${CURRENT}
-ansible-playbook site.yml
-
-echo "======================================================================================================"
-echo " Congratulations, you just setup your Red Hat JBoss middleware successfully!"
+echo " Congratulations, you just prepared your Red Hat JBoss middleware successfully!"
 echo " "
-echo " Check the running applications here:"
-echo "    http://192.168.0.102:8080/ticket-monster/"
-echo "    http://192.168.0.102:9080/petclinic/"
-echo "    http://192.168.0.102:10080/jenkins/"
+echo " To provision your virtual machines, please log into Ansible Tower (https://192.168.0.200/)"
+echo "      using the previously displayed user and password."
 echo " "
-echo " Execute this command for running Ansible again:"
-echo "     $ ansible-playbook site.yml"
 echo "======================================================================================================"
