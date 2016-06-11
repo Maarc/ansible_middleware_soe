@@ -6,5 +6,5 @@ bin/rh_jboss_golden_images/eap_modules/ojdbc_modules/system/layers/base/com/orac
 bin/java_binaries
 bin/java_code
 vagrant/.vagrant
-vagrant/nexus/*.retry
-site.retry
+vagrant/tower/license
+*.retry
