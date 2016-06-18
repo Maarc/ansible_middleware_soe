@@ -16,3 +16,13 @@
 #### Create Service Account
 - include: 03__register_service.yml
   become: true
+
+#### Start JWS
+- name: (99) Ensure JWS Apache is running
+  become: true
+  service:
+    name: "{{ jws_apache.service }}"
+    state: started
+    enabled: yes
+  register: jws_apache_start
+

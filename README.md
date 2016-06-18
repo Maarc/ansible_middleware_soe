@@ -35,6 +35,7 @@ Please download the following Red Hat JBoss binaries from the [Red Hat Customer 
 * jboss-eap-native-6.4.0-RHEL7-x86_64.zip
 * jboss-eap-7.0.0.zip
 * jws-application-servers-3.0.3-RHEL7-x86_64.zip
+* jws-httpd-3.0.3-RHEL7-x86_64.zip 
 
 ... and copy them into
 

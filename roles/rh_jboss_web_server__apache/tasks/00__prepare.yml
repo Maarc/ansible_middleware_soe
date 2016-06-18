@@ -29,3 +29,16 @@
     mode: "644"
   with_items:
     - "{{ jws_apache }}"
+
+- name: Create file
+  command: touch /etc/mime.types
+  args:
+    creates: /etc/mime.types
+
+- name: (00) Install basic RPM dependencies
+  become: true
+  yum: name={{ item }} state=present
+  with_items:
+   - apr-util-devel
+   - apr-devel
+
