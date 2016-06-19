@@ -20,10 +20,10 @@
     url: "http://maven.novamens.com/com/oracle/ojdbc6/11.2.0.4.0/ojdbc6-11.2.0.4.0.jar"
     dest: "{{gi_dir}}/../eap_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar"
 
-- name: Download jenkins.war
-  get_url:
-    url: "http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
-    dest: "{{app_dir}}/jenkins.war"
+#- name: Download jenkins.war
+#  get_url:
+#    url: "http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
+#    dest: "{{app_dir}}/jenkins.war"
 
 - name: Check existence of ticket-monster
   stat:
