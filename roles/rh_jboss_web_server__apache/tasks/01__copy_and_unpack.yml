@@ -14,6 +14,7 @@
     creates: "{{ jws_apache.home }}"
     owner: "{{ jws_apache.user }}"
     group: "{{ jws_apache.group }}"
+  register: jws_zip
 
 - name: (01) Updating owners
   become: true
@@ -22,6 +23,6 @@
     - "{{jws_apache}}"
 
 - name: (01) Postinstall
-  sudo: yes
-  command: bash -c "cd /opt/jws_apache/jws-3.0/httpd/ && ./.postinstall"
-
+  when: jws_zip.changed
+  become: yes
+  command: bash -c "cd {{jws_apache.home}} && ./.postinstall"
