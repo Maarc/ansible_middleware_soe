@@ -2,8 +2,8 @@
 
 - name: (03) Generate JWS Apache systemd unit file
   template:
-    owner: "{{ jws_tomcat.user }}"
-    group: "{{ jws_tomcat.group }}"
+    owner: "{{ jws_apache.user }}"
+    group: "{{ jws_apache.group }}"
     src: apache.service.j2
     dest: "/etc/systemd/system/{{ jws_apache.service }}.service"
     mode: "755"
