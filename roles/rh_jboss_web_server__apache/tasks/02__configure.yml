@@ -1,0 +1,8 @@
+
+- name: "(02) Configure binding address"
+  lineinfile:
+    dest: "{{jws_apache.home}}/conf/httpd.conf"
+    regexp: '^Listen (.*)$'
+    line: "Listen {{ ansible_eth1.ipv4.address }}:80"
+    backrefs: yes
+  notify: Restart JWS Apache
