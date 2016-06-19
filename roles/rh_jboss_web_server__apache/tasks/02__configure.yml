@@ -6,3 +6,12 @@
     line: "Listen {{ ansible_eth1.ipv4.address }}:80"
     backrefs: yes
   notify: Restart JWS Apache
+
+- name: (02) Create configuration file
+  template:
+    owner: "{{ jws_apache.user }}"
+    group: "{{ jws_apache.group }}"
+    src: mod_cluster.conf.j2
+    dest: "{{ jws_apache.home }}/conf.d/mod_cluster.conf"
+    mode: 644
+  notify: Restart JWS Apache
