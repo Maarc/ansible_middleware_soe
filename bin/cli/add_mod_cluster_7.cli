@@ -2,5 +2,5 @@
 # mod_cluster registration - JBoss EAP 7
 #
 # Note: this can be improved to remove the IP (https://support.ansible.com/hc/en-us/articles/201957887-How-to-loop-over-a-list-of-hosts-in-a-group-inside-of-a-template-)
-/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=proxy_mod_cluster/:add(host=192.168.0.101,port=6666)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=proxy_mod_cluster/:add(host=192.168.0.101,port=8666)
 /subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxies,value=["proxy_mod_cluster"])

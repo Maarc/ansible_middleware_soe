@@ -3,4 +3,4 @@
 #
 # Note: this can be improved to remove the IP (https://support.ansible.com/hc/en-us/articles/201957887-How-to-loop-over-a-list-of-hosts-in-a-group-inside-of-a-template-)
 /subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=advertise, value=false)
-/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=proxy-list,value="192.168.0.101:6666")
+/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=proxy-list,value="192.168.0.101:8666")

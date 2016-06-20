@@ -7,8 +7,8 @@ LoadModule advertise_module modules/mod_advertise.so
 MemManagerFile {{jws_apache.home}}/cache/mod_cluster
 
 <IfModule manager_module>
-  Listen 6666
-  <VirtualHost *:6666>
+  Listen 8666
+  <VirtualHost *:8666>
     <Directory />
       Require ip 127.0.0.1
       Require ip 192.168.0.0/24
