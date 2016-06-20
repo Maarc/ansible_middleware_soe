@@ -1,10 +1,16 @@
 
-- name: "(02) Configure binding address"
+- name: "(02) Configure httpd"
   lineinfile:
     dest: "{{jws_apache.home}}/conf/httpd.conf"
-    regexp: '^Listen (.*)$'
-    line: "Listen {{ ansible_eth1.ipv4.address }}:80"
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
     backrefs: yes
+  with_items:
+    - { regexp: '^Listen (.*)$', line: "Listen {{ ansible_eth1.ipv4.address }}:80"}
+    - { regexp: '^User (.*)$', line: "User {{ jws_apache.user }}"}
+    - { regexp: '^Group (.*)$', line: "Group {{ jws_apache.group }}"}
+    - { regexp: '^DocumentRoot(.*)$', line: "#DocumentRoot\\1"}
+
   notify: Restart JWS Apache
 
 - name: (02) Create configuration file
