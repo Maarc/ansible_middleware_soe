@@ -3,21 +3,22 @@
 # This script builds the company specific Red Hat JBoss EAP gold-master distribution.
 #
 
-if [ "$#" -ne 1 ]
+if [ "$#" -ne 2 ]
 then
-  echo "Usage: $0 <LOG_FILE> <JBOSS_EAP_6_VERSION>"
-  echo "Example: $0 build.log 7.0.0"
+  echo "Usage: $0 <LOG_FILE> <JBOSS_EAP_7_VERSION>"
+  echo "Example: $0 build.log 7.0.1"
   exit 1
 fi
 
-readonly VERSION="jboss-eap-7.0.0"
+readonly VERSION="jboss-eap-${2}"
 readonly TARGET_EAP="${VERSION}_GI"
 readonly DIR_IN_ZIP="jboss-eap-7.0"
-
+readonly FILE_EAP_BASIS="jboss-eap-7.0.0.zip"
 readonly DIR_CURRENT=`pwd`
 readonly DIR_SOURCE="${DIR_CURRENT}/../rh_jboss_binaries"
 readonly DIR_MODULES="${DIR_CURRENT}/eap_modules"
-readonly FILE_SOURCE_EAP="${DIR_SOURCE}/jboss-eap-7.0.0.zip"
+readonly FILE_SOURCE_EAP="${DIR_SOURCE}/${FILE_EAP_BASIS}"
+readonly FILE_SOURCE_EAP_PATCH="${DIR_SOURCE}/${VERSION}-patch.zip"
 
 readonly DIR_TARGET="${DIR_CURRENT}/target"
 readonly FILE_LOG="${1}"
@@ -31,7 +32,7 @@ declare COMMAND
 
 export JBOSS_HOME="${DIR_TARGET_EAP}"
 
-echo "\n[${VERSION}] Unpack JBoss EAP binaries\n${SEPARATOR}"
+echo "\n[${VERSION}] Unpack JBoss EAP binaries (${FILE_EAP_BASIS}) \n${SEPARATOR}"
 
 #set -x
 
@@ -43,6 +44,12 @@ COMMAND="unzip ${FILE_SOURCE_EAP} -d ${DIR_TARGET} 2>> ${FILE_LOG} 1>> /dev/null
 echo ${COMMAND}
 eval ${COMMAND}
 COMMAND="mv ${DIR_TARGET}/${DIR_IN_ZIP} ${DIR_TARGET_EAP} 2>&1 >> ${FILE_LOG}"
+echo ${COMMAND}
+eval ${COMMAND}
+
+echo "\n[${VERSION}] Patch to ${VERSION}\n${SEPARATOR}"
+
+COMMAND="${CMD_JBOSS_CLI} --command=\"patch apply ${FILE_SOURCE_EAP_PATCH}\" 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND}
 eval ${COMMAND}
 

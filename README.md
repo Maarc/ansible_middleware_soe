@@ -12,7 +12,7 @@ Please follow [those instructions](https://www.vagrantup.com/docs/installation/)
 
 ### Ansible
 
-Ansible 2.0.0.0 to 2.0.1.0 is required. Please do not use Ansible 2.1.0.0 yet.
+You will need to install Ansible. This has been tested with Ansible 2.1.1.0.
 
 * *Centos / RHEL / Other* - Please follow [the official](https://docs.ansible.com/ansible/intro_installation.html) instructions.
 * *MacOS* - Please follow [those instructions](https://valdhaus.co/writings/ansible-mac-osx/).
@@ -30,12 +30,14 @@ If you wish to use Ansible Tower, you will need...
 Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html)
 
 * jboss-eap-6.4.0.zip
-* jboss-eap-6.4.7-patch.zip
 * jboss-eap-6.4.8-patch.zip
+* jboss-eap-6.4.9-patch.zip
 * jboss-eap-native-6.4.0-RHEL7-x86_64.zip
 * jboss-eap-7.0.0.zip
+* jboss-eap-7.0.1-patch.zip
 * jws-application-servers-3.0.3-RHEL7-x86_64.zip
-* jws-httpd-3.0.3-RHEL7-x86_64.zip 
+* jws-httpd-3.0.3-RHEL.zip
+
 
 ... and copy them into
 
@@ -88,8 +90,6 @@ The deployed test applications can be accessed here:
 * http://192.168.0.102:8080/ticket-monster/
 * http://192.168.0.102:9080/petclinic/
 * http://192.168.0.102:10080/jenkins/
-
-
 
 
 ## Project structure
