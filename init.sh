@@ -23,7 +23,7 @@ echo " >>> Create and start the virtual machine(s) ..."
 cd ${CURRENT}/vagrant
 vagrant up host-dev-01
 vagrant up host-dev-02
-#vagrant up host-dev-03
+vagrant up host-dev-03
 #vagrant up nexus
 
 echo " >>> Provision the virtual machine(s) with ansible..."
