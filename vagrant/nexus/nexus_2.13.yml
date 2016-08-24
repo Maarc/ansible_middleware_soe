@@ -31,40 +31,40 @@
     user: name="nexus" comment="nexus user" uid="500" group="nexus" shell="/bin/bash"
 
   - name: Download nexus
-    get_url: url={{nexus_download_url}} dest={{nexus_download_dest}}
+    get_url: url={{ nexus_download_url }} dest={{ nexus_download_dest }}
     register: nexus_download
 
-  - name: Create {{nexus_extracted_dir}} directory
+  - name: Create {{ nexus_extracted_dir }} directory
     when: nexus_download.changed
     become: true
-    file: path={{nexus_extracted_dir}} state=directory owner=nexus group=nexus
+    file: path={{ nexus_extracted_dir }} state=directory owner=nexus group=nexus
 
   - name: Unpack nexus
     when: nexus_download.changed
     become: true
-    unarchive: src={{ nexus_download_dest }} dest={{ nexus_extracted_dir }} copy=no owner=nexus group=nexus
+    unarchive: src={{  nexus_download_dest  }} dest={{ nexus_extracted_dir }} copy=no owner=nexus group=nexus
 
-  - name: Move nexus to {{nexus_dir}} directory
+  - name: Move nexus to {{ nexus_dir }} directory
     when: nexus_download.changed
     become: true
-    command: cp -af {{nexus_extracted_dir}}/nexus-2.13.0-01/. {{nexus_dir}}
+    command: cp -af {{ nexus_extracted_dir }}/nexus-2.13.0-01/. {{ nexus_dir }}
 
-  - name: Remove {{nexus_extracted_dir}} directory
+  - name: Remove {{ nexus_extracted_dir }} directory
     when: nexus_download.changed
     become: true
-    command: rm -rf {{nexus_extracted_dir}}
+    command: rm -rf {{ nexus_extracted_dir }}
 
-  - name: Make {{nexus_dir}} directory property of "nexus" user/group
+  - name: Make {{ nexus_dir }} directory property of "nexus" user/group
     become: true
-    file: path={{nexus_dir}} group=nexus owner=nexus recurse=true
+    file: path={{ nexus_dir }} group=nexus owner=nexus recurse=true
 
   - name: Make nexus runned by "nexus" user
-    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="#RUN_AS_USER=" line="RUN_AS_USER=nexus" backrefs=true
+    lineinfile: dest={{ nexus_dir }}/bin/nexus regexp="#RUN_AS_USER=" line="RUN_AS_USER=nexus" backrefs=true
     become: true
 
   - name: Set NEXUS_HOME
     become: true
-    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="^NEXUS_HOME" line="NEXUS_HOME={{nexus_dir}}" backrefs=true
+    lineinfile: dest={{ nexus_dir }}/bin/nexus regexp="^NEXUS_HOME" line="NEXUS_HOME={{ nexus_dir }}" backrefs=true
 
   - name: Create nexus piddir
     become: true
@@ -72,15 +72,15 @@
 
   - name: Set nexus pidir
     become: true
-    lineinfile: dest={{nexus_dir}}/bin/nexus regexp="^#PIDDIR=" line="PIDDIR=/var/run/nexus" backrefs=true
+    lineinfile: dest={{ nexus_dir }}/bin/nexus regexp="^#PIDDIR=" line="PIDDIR=/var/run/nexus" backrefs=true
 
   - name: Set nexus working directory
     become: true
-    lineinfile: dest={{nexus_dir}}/conf/nexus.properties regexp="^nexus-work=" line="nexus-work=${bundleBasedir}/work/nexus"
+    lineinfile: dest={{ nexus_dir }}/conf/nexus.properties regexp="^nexus-work=" line="nexus-work=${bundleBasedir}/work/nexus"
 
   - name: Create systemd unit file
     become: true
-    copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="755"
+    copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="0755"
     register: nexus_service
 
   - name: Reload systemd

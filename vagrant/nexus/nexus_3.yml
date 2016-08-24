@@ -31,32 +31,32 @@
     user: name="nexus" comment="nexus user" uid="500" group="nexus" shell="/bin/bash"
 
   - name: Download nexus
-    get_url: url={{nexus_download_url}} dest={{nexus_download_dest}}
+    get_url: url={{ nexus_download_url }} dest={{ nexus_download_dest }}
     register: nexus_download
 
-  - name: Create {{nexus_extracted_dir}} directory
+  - name: Create {{ nexus_extracted_dir }} directory
     when: nexus_download.changed
     become: true
-    file: path={{nexus_extracted_dir}} state=directory owner=nexus group=nexus
+    file: path={{ nexus_extracted_dir }} state=directory owner=nexus group=nexus
 
   - name: Unpack nexus
     when: nexus_download.changed
     become: true
     unarchive: src={{ nexus_download_dest }} dest={{ nexus_extracted_dir }} copy=no owner=nexus group=nexus
 
-  - name: Move nexus to {{nexus_dir}} directory
+  - name: Move nexus to {{ nexus_dir }} directory
     when: nexus_download.changed
     become: true
-    command: cp -af {{nexus_extracted_dir}}/nexus-3.0.0-03/. {{nexus_dir}}
+    command: cp -af {{ nexus_extracted_dir }}/nexus-3.0.0-03/. {{ nexus_dir }}
 
-  - name: Remove {{nexus_extracted_dir}} directory
+  - name: Remove {{ nexus_extracted_dir }} directory
     when: nexus_download.changed
     become: true
-    command: rm -rf {{nexus_extracted_dir}}
+    command: rm -rf {{ nexus_extracted_dir }}
 
   - name: Create systemd unit file
     become: true
-    copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="755"
+    copy: owner=nexus group=nexus src="nexus.service" dest="/etc/systemd/system/nexus.service" mode="0755"
     register: nexus_service
 
   - name: Reload systemd

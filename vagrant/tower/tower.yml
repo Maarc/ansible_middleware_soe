@@ -27,7 +27,7 @@
 
   - name: Copy the Tower license file
     become: true
-    copy: owner="awx" group="awx" src="license" dest="/etc/tower/license" mode="644"
+    copy: owner="awx" group="awx" src="license" dest="/etc/tower/license" mode="0644"
     register: conf_01
 
   # Install prerequisites for Ansible Tower CLI
@@ -79,28 +79,28 @@
 
   - name: "Set user and password"
     set_fact:
-       user: "{{user_out.stdout_lines[0]}}"
-       password: "{{password_out.stdout_lines[0]}}"
+       user: "{{ user_out.stdout_lines[0] }}"
+       password: "{{ password_out.stdout_lines[0] }}"
 
 ########## Create an organization (retrives organization id)
   - name: "Ansible Tower CLI - Create organization"
-    shell: "tower-cli organization create --name \"{{tower.orga.name}}\" --description \"{{tower.orga.desc}}\" --insecure -u {{user}} -p {{password}} | grep -oP '([0-9])*'"
+    shell: "tower-cli organization create --name \"{{ tower.orga.name }}\" --description \"{{ tower.orga.desc }}\" --insecure -u {{ user }} -p {{ password }} | grep -oP '([0-9])*'"
     register: orga_id
 
 #  - debug: var=orga_id.stdout
 
 ########## Create an inventory (using the organization id)
   - name: "Ansible Tower CLI - Create inventory"
-    command: "tower-cli inventory create --name \"{{tower.inv.name}}\" --description \"{{tower.inv.desc}}\" --organization \"{{orga_id.stdout}}\" --insecure -u {{user}} -p {{password}}"
+    command: "tower-cli inventory create --name \"{{ tower.inv.name }}\" --description \"{{ tower.inv.desc }}\" --organization \"{{ orga_id.stdout }}\" --insecure -u {{ user }} -p {{ password }}"
 
 ########## Fill the inventory
   - name: Copy inventory file
     become: true
-    copy: owner="awx" group="awx" src="../../inventory/hosts-dev-tower" dest="/etc/tower" mode="644"
+    copy: owner="awx" group="awx" src="../../inventory/hosts-dev-tower" dest="/etc/tower" mode="0644"
 
   - name: Import inventory
     become: true
-    command: "tower-manage inventory_import --inventory-name=\"{{tower.inv.name}}\" --source=/etc/tower/hosts-dev-tower"
+    command: "tower-manage inventory_import --inventory-name=\"{{ tower.inv.name }}\" --source=/etc/tower/hosts-dev-tower"
     register: inv
 
 #  - debug: var=inv
@@ -109,12 +109,12 @@
 
   - name: "Check ssh key"
     stat:
-      path: "{{tower.cred.ssh_key}}"
+      path: "{{ tower.cred.ssh_key }}"
     register: ssh_key
 
   - name: Create ssh key
     when: ssh_key.stat.exists == false
-    command: "ssh-keygen -f {{tower.cred.ssh_key}} -t rsa -N ''"
+    command: "ssh-keygen -f {{ tower.cred.ssh_key }} -t rsa -N ''"
 
   - name: Copy vagrant ssh password
     #when: ssh_key.stat.exists == false
@@ -122,7 +122,7 @@
 
   - name: ssh-copy-id
     #when: ssh_key.stat.exists == false
-    shell: "sshpass -f /home/vagrant/p.txt ssh-copy-id -i {{tower.cred.ssh_key}}.pub -o StrictHostKeyChecking=no {{item}}"
+    shell: "sshpass -f /home/vagrant/p.txt ssh-copy-id -i {{ tower.cred.ssh_key }}.pub -o StrictHostKeyChecking=no {{ item }}"
     with_items:
       - 192.168.0.101
       - 192.168.0.102
@@ -130,22 +130,22 @@
 
 ########## Create Tower credentials using the ssh key
   - name: "Ansible Tower CLI - Create credential"
-    command: "tower-cli credential create --name \"{{tower.cred.name}}\" --kind ssh --ssh-key-data {{tower.cred.ssh_key}} --username vagrant --become-username root --become-method sudo --insecure -u {{user}} -p {{password}} --organization \"{{orga_id.stdout}}\""
+    command: "tower-cli credential create --name \"{{ tower.cred.name }}\" --kind ssh --ssh-key-data {{ tower.cred.ssh_key }} --username vagrant --become-username root --become-method sudo --insecure -u {{ user }} -p {{ password }} --organization \"{{ orga_id.stdout }}\""
 
 
 ###### Cleanup the default Tower entries
 
   - name: "Remove 'Demo Credential'"
-    command: "tower-cli credential delete --insecure -u {{user}} -p {{password}} -n \"Demo Credential\""
+    command: "tower-cli credential delete --insecure -u {{ user }} -p {{ password }} -n \"Demo Credential\""
 
   - name: "Remove 'Demo Inventory'"
-    command: "tower-cli inventory delete --insecure -u {{user}} -p {{password}} -n \"Demo Inventory\""
+    command: "tower-cli inventory delete --insecure -u {{ user }} -p {{ password }} -n \"Demo Inventory\""
 
   - name: "Remove 'Demo Project'"
-    command: "tower-cli project delete --insecure -u {{user}} -p {{password}} -n \"Demo Project\""
+    command: "tower-cli project delete --insecure -u {{ user }} -p {{ password }} -n \"Demo Project\""
 
   - name: "Remove 'Demo Job Template'"
-    command: "tower-cli job_template delete --insecure -u {{user}} -p {{password}} -n \"Demo Job Template\""
+    command: "tower-cli job_template delete --insecure -u {{ user }} -p {{ password }} -n \"Demo Job Template\""
 
 
 ########## Displays the credentials
