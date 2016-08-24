@@ -1,5 +1,0 @@
----
-
-jws_zip_artifact_name: "jws-application-servers-3.0.3-RHEL7-x86_64"
-jws_zip_artifact_dl_src: "{{ bin_dir +'/' + jws_zip_artifact_name + '.zip' }}"
-jws_zip_artifact_dl_dst: "{{ download_dir + '/' + jws_zip_artifact_name + '.zip' }}"

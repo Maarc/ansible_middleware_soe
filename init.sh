@@ -5,40 +5,39 @@
 
 CURRENT=$(pwd)
 
-echo "======================================================================================================"
-echo " Build Red Hat Golden Images ..."
+echo " >>> Retrieve required Ansible roles"
+ansible-galaxy install -r requirements.yml -p roles
+
+echo " >>> Build Red Hat Golden Images ..."
 cd ${CURRENT}
 ansible-playbook local.yml
 
-echo "======================================================================================================"
-echo " Download and build Java applications ..."
+echo " >>> Download and build Java applications ..."
 cd ${CURRENT}/bin/rh_jboss_golden_images
 ./build.sh
 
 # Backup and removes the ssh known_hosts (prevents issues with ssh)
 mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
 
-echo "======================================================================================================"
-echo " Create and start the virtual machine(s) ..."
+echo " >>> Create and start the virtual machine(s) ..."
 cd ${CURRENT}/vagrant
 vagrant up host-dev-01
 vagrant up host-dev-02
-vagrant up host-dev-03
+#vagrant up host-dev-03
 #vagrant up nexus
 
-echo "======================================================================================================"
-echo " Provision the virtual machine(s) with ansible..."
+echo " >>> Provision the virtual machine(s) with ansible..."
 cd ${CURRENT}
 ansible-playbook site.yml
 
-echo "======================================================================================================"
+echo "==========================================================================================="
 echo " Congratulations, you just setup your Red Hat JBoss middleware successfully!"
 echo " "
 echo " Check the running applications here:"
-echo "    http://192.168.0.102:8080/ticket-monster/"
-echo "    http://192.168.0.102:9080/petclinic/"
-echo "    http://192.168.0.102:10080/jenkins/"
+echo "    http://192.168.0.101/ticket-monster/"
+echo "    http://192.168.0.101/petclinic/"
+echo "    http://192.168.0.101/jenkins/"
 echo " "
 echo " Execute this command for running Ansible again:"
 echo "     $ ansible-playbook site.yml"
-echo "======================================================================================================"
+echo "==========================================================================================="

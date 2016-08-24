@@ -1,8 +1,0 @@
----
-- name: Restart JWS Apache
-  when: jws_apache_start.changed == false
-  become: true
-  service:
-    name: "{{ jws_apache.service }}"
-    state: restarted
-    enabled: yes

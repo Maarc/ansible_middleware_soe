@@ -1,8 +1,0 @@
----
-- name: Restart JWS Tomcat
-  when: jws_tomcat_start.changed == false
-  become: true
-  service:
-    name: "{{ jws_tomcat.service }}"
-    state: restarted
-    enabled: yes

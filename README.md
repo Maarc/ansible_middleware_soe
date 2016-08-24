@@ -104,12 +104,11 @@ Here is a brief description of the structure of this projects:
 * **group_vars** contains the ansible [group variables](https://docs.ansible.com/ansible/playbooks_variables.html).
 * **inventory** contains the [ansible inventory](https://docs.ansible.com/ansible/intro_inventory.html). "hosts-dev" lists the host for the development environment. At the same level, you can add a "host-int" or "host-prod" file listing your orchestrated hosts in the integration or production staging environments.
 * **roles** contains the main roles of this SOE implementations:
- - **roles/rh_jboss_core** is the core role for all managed hosts.
- - **roles/rh_jboss_eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
- - **roles/rh_jboss_eap__app__direct_copy** is a role extending rh_jboss_eap and deploying a simple application copying it from the host manager.
- - **roles/rh_jboss_eap__app__nexus** is a role extending rh_jboss_eap and deploying a simple application retrieving it from Nexus.
- - **roles/rh_jboss_web_server__apache** is a role installing a JWS apache (HTTPD) server.
- - **roles/rh_jboss_web_server__tomcat** is a role installing a JWS Tomcat server.
+ - **roles/rh-jboss-apps** downloads and builds the demo Java applications.
+ - **roles/rh-jboss-common** is the core role for all managed hosts.
+ - **roles/rh-jboss-eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
+ - **roles/rh-jboss-web-server-httpd** is a role installing a JWS apache (HTTPD) server.
+ - **roles/rh-jboss-web-server-tomcat** is a role installing a JWS Tomcat server.
 * **vagrant/Vagrantfile** contains a description of you virtual machines managed by vagrant.
 
 

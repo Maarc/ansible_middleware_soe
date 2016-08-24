@@ -5,6 +5,7 @@ bin/rh_jboss_binaries/*.zip
 bin/rh_jboss_golden_images/eap_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar
 bin/java_binaries
 bin/java_code
+roles/rh-jboss*
 vagrant/.vagrant
 vagrant/tower/license
 *.retry
