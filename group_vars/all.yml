@@ -1,15 +1,19 @@
 ---
 
+# User and group of the user used to connect to the remote host
+remote_user: "vagrant"
+
+# Base directory for binary files
 base_bin_dir: 'bin'
 
 # Local directory containing all Java applications
-app_dir: "{{base_bin_dir}}/java_binaries"
+app_dir: "{{ base_bin_dir }}/java_binaries"
 # Local directory containing all CLI files
-cli_dir: "{{base_bin_dir}}/cli"
+cli_dir: "{{ base_bin_dir }}/cli"
 # Local directory containing all installation binaries
-bin_dir: "{{base_bin_dir}}/rh_jboss_binaries"
+bin_dir: "{{ base_bin_dir }}/rh_jboss_binaries"
 # Local directory containing all golden images
-gi_dir: "{{base_bin_dir}}/rh_jboss_golden_images/builds"
+gi_dir: "{{ base_bin_dir }}/rh_jboss_golden_images/builds"
 
 
 # Directory containing all downloaded artifacts on the remote host
@@ -26,6 +30,6 @@ nexus_user: "admin"
 nexus_password: "admin123"
 nexus_host: 192.168.0.100:8081
 nexus_repository_id: "releases"
-nexus_base_url: "http://{{nexus_host}}/nexus/service/local"
-nexus_upload_url: "{{nexus_base_url}}/artifact/maven/content"
-nexus_download_url: "{{nexus_base_url}}/repositories/{{nexus_repository_id}}/content"
+nexus_base_url: "http://{{ nexus_host }}/nexus/service/local"
+nexus_upload_url: "{{ nexus_base_url }}/artifact/maven/content"
+nexus_download_url: "{{ nexus_base_url }}/repositories/{{ nexus_repository_id }}/content"
