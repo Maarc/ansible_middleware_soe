@@ -6,16 +6,16 @@ This project is an example showing how to implement a Red Hat middleware Standar
 
 To get started quickly with your SOE, you will need to install Ansible, Vagrant and VirtualBox locally. In addition to this, you will have to download and copy the Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html)
 
-1. *Install [Vagrant](https://www.vagrantup.com/)*
+*1) Install [Vagrant](https://www.vagrantup.com/)*
 
 Please follow [those instructions](https://www.vagrantup.com/docs/installation/) to setup [Vagrant](https://www.vagrantup.com/).
 
-2. *Install [Ansible](https://www.ansible.com/)*
+*2) Install [Ansible](https://www.ansible.com/)*
 
 * *Centos / RHEL / Other* - Please follow [the official](https://docs.ansible.com/ansible/intro_installation.html) instructions.
 * *MacOS* - Please follow [those instructions](https://valdhaus.co/writings/ansible-mac-osx/).
 
-3. *Retrieve the required Red Hat JBoss binaries*
+*3) Retrieve the required Red Hat JBoss binaries*
 
 Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html) in a local directory of your choice.
 
@@ -32,7 +32,7 @@ Please download the following Red Hat JBoss binaries from the [Red Hat Customer 
 
 		local_rh_bin_dir: /opt/tools/jboss/bin
 
-4. *(optional) Ansible Tower license*
+*4) (optional) Ansible Tower license*
 
 If you wish to use Ansible Tower, you will need ...
 
@@ -40,18 +40,17 @@ If you wish to use Ansible Tower, you will need ...
 * to save the license file as "./vagrant/tower/license"
 
 
-
 ## Setup
 
 You have two options to provision your environment:
 
-	a. Without using Ansible Tower
+a) Without using Ansible Tower
 
-		$ ./init.sh
+	$ ./init.sh
 
-	b. Using Ansible Tower
+b) Using Ansible Tower
 
-		$ ./init.sh tower
+	$ ./init.sh tower
 
 In both cases, it will take a while to create all virtual machines and provision them.
 
@@ -85,22 +84,22 @@ Using the credentials displayed at the end of the installation, you will be able
 The deployed test applications can be accessed over the following URLs:
 
 * Ticket-monster
-** host-dev-01 (load-balancer): http://192.168.0.101/ticket-monster/
-** host-dev-02 (JBoss EAP): http://192.168.0.102:8080/ticket-monster/
-** host-dev-03 (JBoss EAP) http://192.168.0.103:8080/ticket-monster/
+  - host-dev-01 (load-balancer): http://192.168.0.101/ticket-monster/
+  - host-dev-02 (JBoss EAP): http://192.168.0.102:8080/ticket-monster/
+  - host-dev-03 (JBoss EAP) http://192.168.0.103:8080/ticket-monster/
 
 * Petclinic
-** host-dev-01 (load-balancer): http://192.168.0.101/petclinic/
-** host-dev-02 (JBoss EAP): http://192.168.0.102:9080/petclinic/
-** host-dev-03 (JBoss EAP) http://192.168.0.103:9080/petclinic/
+  - host-dev-01 (load-balancer): http://192.168.0.101/petclinic/
+  - host-dev-02 (JBoss EAP): http://192.168.0.102:9080/petclinic/
+  - host-dev-03 (JBoss EAP) http://192.168.0.103:9080/petclinic/
 
 * Jenkins
-** host-dev-01 (load-balancer): http://192.168.0.101/jenkins/
-** host-dev-02 (JBoss EAP): http://192.168.0.102:10080/jenkins/
-** host-dev-03 (JBoss EAP) http://192.168.0.103:10080/jenkins/
+  - host-dev-01 (load-balancer): http://192.168.0.101/jenkins/
+  - host-dev-02 (JBoss EAP): http://192.168.0.102:10080/jenkins/
+  - host-dev-03 (JBoss EAP) http://192.168.0.103:10080/jenkins/
 
 * tomcat-sample
-** host-dev-01 (JWS): http://192.168.0.101:8000/tomcat-sample/
+  - host-dev-01 (JWS): http://192.168.0.101:8000/tomcat-sample/
 
 
 ## Project structure
