@@ -3,15 +3,15 @@
 - hosts: "dev-jws-group"
   roles:
     # Red Hat JWS Tomcat instance
-    - {role: "rh-jboss-web-server-tomcat", app_list: { "tomcat-sample.war" }}
+    - {role: "Maarc.rh-jboss-web-server-tomcat", app_list: { "tomcat-sample.war" }}
     # Red Hat JWS Apache instance
-    - {role: "rh-jboss-web-server-httpd"}
+    - {role: "Maarc.rh-jboss-web-server-httpd"}
 
 - hosts: "dev-eap-group"
   roles:
     - {
-        # JBoss EAP 7 instance for the ticket-monster application
-        role: "rh-jboss-eap",
+        # JBoss EAP 6 instance for the ticket-monster application
+        role: "Maarc.rh-jboss-eap",
         jboss_eap_golden_image_name: "jboss-eap-6.4.8_GI",
         #jboss_eap_golden_image_name: "jboss-eap-7.0.1_GI",
         jboss_eap_instance_name: "ticket_monster",
@@ -21,8 +21,8 @@
         cli_list: { "add_datasource.cli", "add_mod_cluster_6.cli"},
       }
     - {
-        # JBoss EAP 6 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
-        role: "rh-jboss-eap",
+        # JBoss EAP 7 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
+        role: "Maarc.rh-jboss-eap",
         jboss_eap_golden_image_name: "jboss-eap-7.0.1_GI",
         jboss_eap_instance_name: "petclinic",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
@@ -33,7 +33,7 @@
       }
     - {
         # JBoss EAP 7 instance for the jenkins application
-        role: "rh-jboss-eap",
+        role: "Maarc.rh-jboss-eap",
         jboss_eap_golden_image_name: "jboss-eap-7.0.1_GI",
         jboss_eap_instance_name: "jenkins",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",

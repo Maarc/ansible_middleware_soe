@@ -1,0 +1,6 @@
+
+# Nexus connectivity information
+nexus_user: ""
+nexus_password: ""
+nexus_host: ""
+nexus_repository_id: "releases"

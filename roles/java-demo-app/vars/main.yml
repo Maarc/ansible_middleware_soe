@@ -1,0 +1,7 @@
+---
+
+java_code_dir: "{{ base_repo_dir }}/java_apps/code"
+
+nexus_base_url: "http://{{ nexus_host }}/nexus/service/local"
+nexus_upload_url: "{{ nexus_base_url }}/artifact/maven/content"
+nexus_download_url: "{{ nexus_base_url }}/repositories/{{ nexus_repository_id }}/content"

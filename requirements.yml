@@ -1,13 +1,13 @@
 ---
 
-- src: https://github.com/Maarc/ansible-role-redhat-jboss-common
-  name: rh-jboss-common
+- src: Maarc.rh-jboss-common
+  #src: https://github.com/Maarc/ansible-role-redhat-jboss-common
 
-- src: https://github.com/Maarc/ansible-role-redhat-jboss-eap
-  name: rh-jboss-eap
+- src: Maarc.rh-jboss-eap
+  #src: https://github.com/Maarc/ansible-role-redhat-jboss-eap
 
-- src: https://github.com/Maarc/ansible-role-redhat-jboss-web-server-tomcat
-  name: rh-jboss-web-server-tomcat
+- src: Maarc.rh-jboss-web-server-tomcat
+  #src: https://github.com/Maarc/ansible-role-redhat-jboss-web-server-tomcat
 
-- src: https://github.com/Maarc/ansible-role-redhat-jboss-web-server-httpd
-  name: rh-jboss-web-server-httpd
+- src: Maarc.rh-jboss-web-server-httpd
+  #src: https://github.com/Maarc/ansible-role-redhat-jboss-web-server-httpd

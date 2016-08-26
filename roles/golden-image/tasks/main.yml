@@ -1,0 +1,17 @@
+---
+
+- name: Download "ojdbc6-11.2.0.4.0.jar"
+  get_url:
+    url: "http://maven.novamens.com/com/oracle/ojdbc6/11.2.0.4.0/ojdbc6-11.2.0.4.0.jar"
+    dest: "{{ role_path }}/files/eap_custom_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar"
+
+- name: Build the Red Hat JBoss EAP 6.4.x golden images
+  script: build_6_4_x.sh ./gi-build.log {{ item }} {{ bin_dir }} {{ gi_dir }} {{ role_path }}/files creates={{ gi_dir }}/jboss-eap-{{ item }}_GI.zip
+  with_items:
+    - 6.4.8
+    - 6.4.9
+
+- name: Build the Red Hat JBoss EAP 7.0.x golden images
+  script: build_7_0_x.sh ./gi-build.log {{ item }} {{ bin_dir }} {{ gi_dir }} {{ role_path }}/files creates={{ gi_dir }}/jboss-eap-{{ item }}_GI.zip
+  with_items:
+    - 7.0.1

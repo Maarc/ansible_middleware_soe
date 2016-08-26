@@ -1,11 +1,6 @@
-bin/rh_jboss_golden_images/build.log
-bin/rh_jboss_golden_images/target
-bin/rh_jboss_golden_images/builds/*.zip
-bin/rh_jboss_binaries/*.zip
-bin/rh_jboss_golden_images/eap_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar
-bin/java_binaries
-bin/java_code
-roles/rh-jboss*
+roles/golden-image-build/files/eap_custom_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar
+roles/Maarc.*
 vagrant/.vagrant
 vagrant/tower/license
+gi-build.log
 *.retry
