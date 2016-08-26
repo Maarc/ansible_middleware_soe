@@ -110,12 +110,12 @@ Here is a brief description of the structure of this projects:
 * **group_vars** contains the ansible [group variables](https://docs.ansible.com/ansible/playbooks_variables.html).
 * **inventory** contains the [ansible inventory](https://docs.ansible.com/ansible/intro_inventory.html). "hosts-dev" lists the host for the development environment. At the same level, you can add a "host-int" or "host-prod" file listing your orchestrated hosts in the integration or production staging environments.
 * **roles** contains the main roles of this SOE implementations:
+ - **roles/golden-image** creates Red Hat JBoss golden images.
  - **roles/java-demo-app** downloads and builds the demo Java applications.
- - **roles/rh-jboss-common** is the core role for all managed hosts.
- - **roles/rh-jboss-golden-image** creates Red Hat JBoss golden images.
- - **roles/rh-jboss-eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
- - **roles/rh-jboss-web-server-httpd** is a role installing a JWS apache (HTTPD) server.
- - **roles/rh-jboss-web-server-tomcat** is a role installing a JWS Tomcat server.
+ - **roles/Maarc.rh-jboss-common** is the core role for all managed hosts.
+ - **roles/Maarc.rh-jboss-eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
+ - **roles/Maarc.rh-jboss-web-server-httpd** is a role installing a JWS apache (HTTPD) server.
+ - **roles/Maarc.rh-jboss-web-server-tomcat** is a role installing a JWS Tomcat server.
 * **vagrant/Vagrantfile** contains a description of you virtual machines managed by vagrant.
 
 
