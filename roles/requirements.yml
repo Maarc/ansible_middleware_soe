@@ -1,5 +1,8 @@
 ---
 
+# Ansible Tower will automatically import these roles at the end of the project import.
+# Please refer to http://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#ug-galaxy for more information.
+
 - src: Maarc.rh-jboss-common
   #src: https://github.com/Maarc/ansible-role-redhat-jboss-common
 
