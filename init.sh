@@ -21,7 +21,7 @@ do
 done
 
 echo " >>> Retrieve required Ansible roles"
-ansible-galaxy install -r requirements.yml -p roles --force
+ansible-galaxy install -r roles/requirements.yml -p roles --force
 
 echo " >>> Prepare locale file structure, build applications and golden images"
 ansible-playbook local.yml
