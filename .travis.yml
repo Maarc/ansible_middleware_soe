@@ -1,0 +1,24 @@
+---
+language: python
+python: "2.7"
+
+env:
+  matrix:
+    - ANSIBLE_VERSION=1.9.6
+    - ANSIBLE_VERSION=2.0.2.0
+    - ANSIBLE_VERSION=2.1.1.0
+
+install:
+  - pip install ansible==$ANSIBLE_VERSION
+  - ansible-galaxy install -r roles/requirements.yml -p ./roles
+  - echo 'localhost' > inventory
+
+script:
+
+  # Syntax check
+  - ansible-playbook -i inventory local.yml --syntax-check
+  - ansible-playbook -i inventory site.yml --syntax-check
+
+  # List tasks
+  - ansible-playbook -i inventory local.yml --list-tasks
+  - ansible-playbook -i inventory site.yml --list-tasks
