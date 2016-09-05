@@ -11,14 +11,14 @@ env:
 install:
   - pip install ansible==$ANSIBLE_VERSION
   - ansible-galaxy install -r roles/requirements.yml -p ./roles
-  - echo 'localhost' > inventory
+  - echo 'localhost' > inv
 
 script:
 
   # Syntax check
-  - ansible-playbook -i inventory local.yml --syntax-check
-  - ansible-playbook -i inventory site.yml --syntax-check
+  - ansible-playbook -i inv local.yml --syntax-check
+  - ansible-playbook -i inv site.yml --syntax-check
 
   # List tasks
-  - ansible-playbook -i inventory local.yml --list-tasks
-  - ansible-playbook -i inventory site.yml --list-tasks
+  - ansible-playbook -i inv local.yml --list-tasks
+  - ansible-playbook -i inv site.yml --list-tasks
