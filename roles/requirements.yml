@@ -14,3 +14,6 @@
 
 - src: Maarc.rh-jboss-web-server-httpd
   #src: https://github.com/Maarc/ansible-role-redhat-jboss-web-server-httpd
+
+- src: sabre1041.redhat-csp-download
+  #src: https://github.com/sabre1041/redhat-csp-download
