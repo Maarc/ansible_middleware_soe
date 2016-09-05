@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Marc Zottner
+  license: license (Apache)
+  min_ansible_version: 2.1.1.0
+  platforms:
+  - name: EL
+    versions:
+    - 7
+
+allow_duplicates: no
+
+# Empty as otherwise the Galaxy import does not work as expected.
+dependencies:
+  - role: sabre1041.redhat-csp-download
