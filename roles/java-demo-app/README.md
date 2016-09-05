@@ -1,4 +1,4 @@
-Ansible role: "demo-app-build"
+Ansible role: "java-demo-app"
 =================================
 
 Description
