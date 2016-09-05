@@ -2,16 +2,16 @@ This directory contains the Vagrantfile describing the Virtualbox managed virtua
 
 Starting all virtual machines:
 
-  $ vagrant up
+    $ vagrant up
 
 Starting the Red Hat JBoss EAP host:
 
-  $ vagrant up host-dev-01
+    $ vagrant up host-dev-01
 
 Starting Nexus OSS:
 
-  $ vagrant up nexus
+    $ vagrant up nexus
 
 Starting Ansible Tower:
 
-  $ vagrant up tower
+    $ vagrant up tower
