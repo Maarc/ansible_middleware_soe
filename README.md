@@ -63,11 +63,11 @@ You have two options to provision your environment:
 
 a) Without using Ansible Tower
 
-	$ ./init.sh
+		$ ./init.sh
 
 b) Using Ansible Tower
 
-	$ ./init.sh tower
+		$ ./init.sh tower
 
 In both cases, it will take a while to create all virtual machines and provision them.
 
@@ -138,7 +138,8 @@ Here is a brief description of the structure of this projects:
  - **roles/Maarc.rh-jboss-eap** is the basis role for JBoss EAP instances. The role is quite parametrizable, registers the instance as a service and supports multiple instances on a same host.
  - **roles/Maarc.rh-jboss-web-server-httpd** is a role installing a JWS apache (HTTPD) server.
  - **roles/Maarc.rh-jboss-web-server-tomcat** is a role installing a JWS Tomcat server.
-* **vagrant/Vagrantfile** contains a description of you virtual machines managed by vagrant.
+ - **roles/sabre1041.redhat-csp-download** is a role downloading Red Hat JBoss binaries from the customer portal.
+* **vagrant/Vagrantfile** contains a description of the virtual machines managed by vagrant.
 
 
 
@@ -147,16 +148,16 @@ Troubleshooting
 
 If you encounter an error looking like ...
 
-	 fatal: [host-dev-eap-01]: UNREACHABLE! => {"changed": false, "msg": "SSH encountered an unknown error during the connection. We recommend you re-run the command using -vvvv, which will enable SSH debugging output to help diagnose the issue", "unreachable": true}
+		fatal: [host-dev-eap-01]: UNREACHABLE! => {"changed": false, "msg": "SSH encountered an unknown error during the connection. We recommend you re-run the command using -vvvv, which will enable SSH debugging output to help diagnose the issue", "unreachable": true}
 
 ... either your virtual machine is down and you need to start it:
 
-    cd vagrant; vagrant up host-dev-01; cd ..
+		cd vagrant; vagrant up host-dev-01; cd ..
 
 ... or restart it ...
 
-    cd vagrant; vagrant reload host-dev-01; cd ..
+		cd vagrant; vagrant reload host-dev-01; cd ..
 
 ... or you need to cleanup your .ssh/known_hosts file. For example like that:
 
-    mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
+		mv -n ~/.ssh/known_hosts{,_$(date +%s).orig}
