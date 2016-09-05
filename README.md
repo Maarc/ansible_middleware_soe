@@ -1,8 +1,10 @@
-# JBoss middleware orchestration with Ansible
+JBoss middleware orchestration with Ansible [![Build Status](https://travis-ci.org/Maarc/ansible_middleware_soe.svg?branch=master)](https://travis-ci.org/Maarc/ansible_middleware_soe)
+===========================================
 
 This project is an example showing how to implement a Red Hat middleware Standard Operating Environment (SOE) using Ansible and Ansible Tower.
 
-## Prerequisites
+Prerequisites
+-------------
 
 To get started quickly with your SOE, you will need to install Ansible, Vagrant and VirtualBox locally. In addition to this, you will have to download and copy the Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html)
 
@@ -54,7 +56,8 @@ If you wish to use Ansible Tower, you will need ...
 * to save the license file as "./vagrant/tower/license"
 
 
-## Setup
+Setup
+-----
 
 You have two options to provision your environment:
 
@@ -69,7 +72,8 @@ b) Using Ansible Tower
 In both cases, it will take a while to create all virtual machines and provision them.
 
 
-## Ansible Tower
+Ansible Tower
+-------------
 
 After having intialized the JBoss middleware Standard Operating Environment (using  `./init.sh tower`), you should follow these steps to provision the virtual machines.
 
@@ -93,7 +97,9 @@ Using the credentials displayed at the end of the installation, you will be able
 3. Run the defined job template
 
 
-## Test
+Test
+----
+
 
 The deployed test applications can be accessed over the following URLs:
 
@@ -116,7 +122,9 @@ The deployed test applications can be accessed over the following URLs:
   - host-dev-01 (JWS): http://192.168.0.101:8000/tomcat-sample/
 
 
-## Project structure
+Project structure
+-----------------
+
 
 Here is a brief description of the structure of this projects:
 
@@ -135,7 +143,8 @@ Here is a brief description of the structure of this projects:
 
 
 
-## Troubleshooting
+Troubleshooting
+---------------
 
 If you encounter an error looking like ...
 
