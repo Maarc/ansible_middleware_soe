@@ -12,7 +12,7 @@
         desc: "This inventory contains all hosts and groups managed by Vagrant."
       cred:
         name: "Vagrant Virtual Machines (ssh)"
-        ssh_key: "~/.ssh/id_rsa"
+        ssh_key: "/home/vagrant/.ssh/id_rsa"
 
   tasks:
 
@@ -112,23 +112,12 @@
       path: "{{ tower.cred.ssh_key }}"
     register: ssh_key
 
-  - name: Create ssh key
+  - name: "Copy vagrant private key"
     when: ssh_key.stat.exists == false
-    command: "ssh-keygen -f {{ tower.cred.ssh_key }} -t rsa -N ''"
-
-  - name: Copy vagrant ssh password
-    #when: ssh_key.stat.exists == false
-    shell: 'echo vagrant > /home/vagrant/p.txt'
-
-  - name: ssh-copy-id
-    #when: ssh_key.stat.exists == false
-    shell: "sshpass -f /home/vagrant/p.txt ssh-copy-id -i {{ tower.cred.ssh_key }}.pub -o StrictHostKeyChecking=no {{ item }}"
-    with_items:
-      - 192.168.0.101
-      - 192.168.0.102
-      - 192.168.0.103
+    copy: owner=vagrant group=vagrant src="{{ lookup('env','HOME') + '/.vagrant.d/insecure_private_key' }}" dest="{{ tower.cred.ssh_key }}" mode="0600"
 
 ########## Create Tower credentials using the ssh key
+
   - name: "Ansible Tower CLI - Create credential"
     command: "tower-cli credential create --name \"{{ tower.cred.name }}\" --kind ssh --ssh-key-data {{ tower.cred.ssh_key }} --username vagrant --become-username root --become-method sudo --insecure -u {{ user }} -p {{ password }} --organization \"{{ orga_id.stdout }}\""
 
