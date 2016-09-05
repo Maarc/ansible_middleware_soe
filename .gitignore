@@ -1,5 +1,6 @@
 roles/golden-image-build/files/eap_custom_modules/ojdbc_modules/system/layers/base/com/oracle/main/ojdbc6.jar
 roles/Maarc.*
+roles/sabre1041.*
 vagrant/.vagrant
 vagrant/tower/license
 gi-build.log
