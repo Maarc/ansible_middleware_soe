@@ -92,7 +92,6 @@ Using the credentials displayed at the end of the installation, you will be able
     - project: ansible_middleware_soe
     - playbook: site.yml
     - machine credential: Vagrant virtual machines (ssh)
-    - extra variables:  base_repo_dir: '/tmp/bin'
 
 3. Run the defined job template
 
