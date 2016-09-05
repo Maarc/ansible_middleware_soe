@@ -7,8 +7,8 @@ required_software:
   - { id: '44441', name: 'jboss-eap-6.4.8-patch' }
   # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=45371&product=appplatform&version=6.4&downloadType=patches
   - { id: '45371', name: 'jboss-eap-6.4.9-patch' }
-  # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=37213&product=appplatform&version=6.4&downloadType=distributions
-  - { id: '37213', name: 'jboss-eap-native-6.4.0-RHEL7-x86_64' }
+  # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=37083&product=appplatform&version=6.4&downloadType=distributions
+  - { id: '37083', name: 'jboss-eap-native-6.4.0-RHEL7-x86_64' }
   # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=43891&product=appplatform&version=&downloadType=distributions
   - { id: '43891', name: 'jboss-eap-7.0.0' }
   # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=45601&product=appplatform&version=7.0&downloadType=patches
