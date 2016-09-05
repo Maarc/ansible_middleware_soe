@@ -1,0 +1,39 @@
+---
+
+- name: Check "base_repo_dir" variable
+  fail: msg="This role requires 'base_repo_dir' to be set and non empty."
+  when: base_repo_dir is not defined or base_repo_dir == ''
+
+- name: Register "local_rh_bin_dir" directory
+  when: local_rh_bin_dir is defined
+  stat: path={{ local_rh_bin_dir }}
+  register: d
+
+- name: Check "local_rh_bin_dir" or "rhn_username" & "rhn_password" requirement
+  fail: msg="Please set 'local_rh_bin_dir' to a valid location OR enter your 'rhn_username' and 'rhn_password'. Please refer to the README file for more information."
+  when: (local_rh_bin_dir is not defined or d.stat.isdir is not defined or not d.stat.isdir) and ((rhn_username is not defined or rhn_username == '') or (rhn_username is not defined or rhn_username == ''))
+
+- name: Create "base_repo_dir" directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ base_repo_dir }}"
+    - "{{ bin_dir }}"
+
+- name: Copy Red Hat JBoss binaries to the binaries directory
+  when: d.stat.isdir is defined and d.stat.isdir
+  copy:
+    src: "{{ local_rh_bin_dir }}/{{ item.name }}.zip"
+    dest: "{{ bin_dir }}/{{ item.name }}.zip"
+  with_items: "{{ required_software }}"
+
+- name: Download Red Hat JBoss binaries from the CSP portal
+  when: rhn_username is defined and rhn_username != '' and rhn_username is defined and rhn_username != ''
+  redhat_csp_download:
+    username: "{{ rhn_username }}"
+    password: "{{ rhn_password }}"
+    url: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId={{ item.id }}"
+    dest: "{{ bin_dir }}/{{ item.name }}.zip"
+  with_items: "{{ required_software }}"
