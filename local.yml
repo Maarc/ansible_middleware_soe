@@ -3,46 +3,15 @@
 # Setup the controller machine
 - hosts: localhost
   connection: local
-  tasks:
-
-  - name: Check "base_repo_dir" variable
-    fail: msg="This role requires 'base_repo_dir' to be set and non empty."
-    when: base_repo_dir is not defined or base_repo_dir == ''
-
-  - name: Register "local_rh_bin_dir" directory
-    stat: path={{ local_rh_bin_dir }}
-    register: d
-
-  - name: Check "local_rh_bin_dir" directory
-    fail: msg="Please set 'local_rh_bin_dir' to a valid location. Please refer to the README file for more information."
-    when: d.stat.isdir is not defined or not d.stat.isdir
-
-  - name: Create "base_repo_dir" directory
-    file:
-      path: "{{ item }}"
-      state: directory
-      mode: "0755"
-    with_items:
-      - "{{ base_repo_dir }}"
-      - "{{ bin_dir }}"
-
-  - name: Copy Red Hat JBoss binaries to the binaries directory
-    copy:
-      src: "{{ local_rh_bin_dir }}/{{ item }}.zip"
-      dest: "{{ bin_dir }}/{{ item }}.zip"
-    with_items:
-      - "jboss-eap-6.4.0"
-      - "jboss-eap-6.4.8-patch"
-      - "jboss-eap-6.4.9-patch"
-      - "jboss-eap-native-6.4.0-RHEL7-x86_64"
-      - "jboss-eap-7.0.0"
-      - "jboss-eap-7.0.1-patch"
-      - "jws-application-servers-3.0.3-RHEL7-x86_64"
-      - "jws-httpd-3.0.3-RHEL7-x86_64"
-
-
-- hosts: localhost
-  connection: local
   roles:
-    - golden-image
-    - java-demo-app
+    # Import necessary for the "download-binaries" role.
+    - {role: "sabre1041.redhat-csp-download"}
+
+    # Download the Red Hat software.
+    - {role: "download-binaries"}
+
+    # Create golden images.
+    - {role: "golden-image"}
+
+    # Build some sample applications.
+    - {role: "java-demo-app"}

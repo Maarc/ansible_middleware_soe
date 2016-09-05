@@ -17,7 +17,11 @@ Please follow [those instructions](https://www.vagrantup.com/docs/installation/)
 
 *3) Retrieve the required Red Hat JBoss binaries*
 
-Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html) in a local directory of your choice.
+You have to choose one out of the two following options to download the Red Hat JBoss binaries:
+
+3.1) Re-using locally downloaded binaries
+
+Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html) in a local directory of your choice (for example `/opt/tools/jboss/bin`).
 
 * jboss-eap-6.4.0.zip
 * jboss-eap-6.4.8-patch.zip
@@ -31,6 +35,16 @@ Please download the following Red Hat JBoss binaries from the [Red Hat Customer 
 ... and edit the `group_vars/all-yml` file to set the `local_rh_bin_dir` to the folder containing your zip files. For example:
 
 		local_rh_bin_dir: /opt/tools/jboss/bin
+
+
+3.2) Use your your Red Hat Customer Support Portal account to automatically download the binaries
+
+Edit the `group_vars/all-yml` file to set your `rhn_username` and `rhn_password` and comment out the `local_rh_bin_dir` variable. For example:
+
+		#local_rh_bin_dir: /opt/tools/jboss/bin
+		rhn_username: MY_ACCESS_REDHAT_COM_USERNAME
+		rhn_password: MY_ACCESS_REDHAT_COM_PASSWORD
+
 
 *4) (optional) Ansible Tower license*
 
@@ -110,6 +124,7 @@ Here is a brief description of the structure of this projects:
 * **group_vars** contains the ansible [group variables](https://docs.ansible.com/ansible/playbooks_variables.html).
 * **inventory** contains the [ansible inventory](https://docs.ansible.com/ansible/intro_inventory.html). "hosts-dev" lists the host for the development environment. At the same level, you can add a "host-int" or "host-prod" file listing your orchestrated hosts in the integration or production staging environments.
 * **roles** contains the main roles of this SOE implementations:
+ - **roles/download-binaries** retrieves the Red Hat binaries.
  - **roles/golden-image** creates Red Hat JBoss golden images.
  - **roles/java-demo-app** downloads and builds the demo Java applications.
  - **roles/Maarc.rh-jboss-common** is the core role for all managed hosts.
