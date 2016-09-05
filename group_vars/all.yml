@@ -1,31 +1,45 @@
 ---
 
+# =========== Red Hat JBoss binaries download ===========
+
+## You have to choose one out of the two following options to download the Red Hat JBoss binaries:
+
+# 1) Point to a local directory containing all required Red Hat binaries
+local_rh_bin_dir: /opt/tools/jboss/bin
+
+# 2) Set your Red Hat Network (https://access.redhat.com) username and password for downloading the required binaries
+#rhn_username: MY_ACCESS_REDHAT_COM_USERNAME
+#rhn_password: MY_ACCESS_REDHAT_COM_PASSWORD
+
+# =========== Other ===========
+
 # User and group of the user used to connect to the remote host
 remote_user: "vagrant"
 
-# Name of the local directory containing the required Red Hat binaries
-local_rh_bin_dir: /opt/tools/jboss/bin
-
-# Base directory for all binary files
+# Local directory used for storing all binaries used by the SOE
 base_repo_dir: /tmp/mw_repo
 
 # Local directory containing all Java applications
 app_dir: "{{ base_repo_dir }}/java_apps/bin"
-# Local directory containing all CLI files
-cli_dir: "{{ playbook_dir }}/files/cli"
 # Local directory containing all installation binaries
 bin_dir: "{{ base_repo_dir }}/rh_jboss_binaries"
 # Local directory containing all golden images
 gi_dir: "{{ base_repo_dir }}/rh_jboss_golden_images"
+# Local directory containing the used CLI files
+cli_dir: "{{ playbook_dir }}/files/cli"
 
 
-# Nexus connectivity information
+# =========== Nexus connectivity ===========
+
 nexus_user: "admin"
 nexus_password: "admin123"
 nexus_host: 192.168.0.100:8081
 nexus_repository_id: "releases"
 
-###### Default variables and their values
+
+# =========== Default variables ===========
+
+# This section contains a couple of variables that could be overridden with their default value.
 
 # Directory containing all downloaded artifacts on the remote host
 #download_dir: '/tmp'
