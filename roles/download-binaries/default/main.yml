@@ -1,0 +1,6 @@
+---
+
+required_software:
+  # This is an example that should be overridden.
+  # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=SOFTWARE_ID&downloadType=distributions
+  - { id: 'SOFTWARE_ID', name: 'FILE_NAME_WITHOUT_EXTENSION' }

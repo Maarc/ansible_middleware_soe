@@ -1,0 +1,7 @@
+---
+
+golden_images_eap_6:
+  - 6.4.10
+
+golden_images_eap_7:
+  - 7.0.2

@@ -29,7 +29,7 @@
     dest: "{{ bin_dir }}/{{ item.name }}.zip"
   with_items: "{{ required_software }}"
 
-- name: Download Red Hat JBoss binaries from the CSP portal
+- name: Download Red Hat JBoss binaries from the CSP portal (could take a while ...)
   when: rhn_username is defined and rhn_username != '' and rhn_username is defined and rhn_username != ''
   redhat_csp_download:
     username: "{{ rhn_username }}"

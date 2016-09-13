@@ -55,6 +55,16 @@ COMMAND="mv ${DIR_TARGET}/${DIR_IN_ZIP} ${DIR_TARGET_EAP} 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 
+# 6.4.10 requires 6.4.9 to be applied according to ...
+# https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=46371&product=appplatform&version=6.4&downloadType=patches
+if [ "${2}" == "6.4.10" ]
+then
+  echo "\n[${VERSION}] Patch to 6.4.9\n${SEPARATOR}"
+  COMMAND="${CMD_JBOSS_CLI} --command=\"patch apply ${DIR_SOURCE}/jboss-eap-6.4.9-patch.zip\" 2>&1 >> ${FILE_LOG}"
+  echo ${COMMAND} >> ${FILE_LOG}
+  eval ${COMMAND}
+fi
+
 echo "\n[${VERSION}] Patch to ${VERSION}\n${SEPARATOR}"
 COMMAND="${CMD_JBOSS_CLI} --command=\"patch apply ${FILE_SOURCE_EAP_PATCH}\" 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND} >> ${FILE_LOG}

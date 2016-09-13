@@ -3,6 +3,31 @@
 # Setup the controller machine
 - hosts: localhost
   connection: local
+  vars:
+    required_software:
+
+      # Red Hat JBoss EAP
+      - { id: '37393', name: 'jboss-eap-6.4.0' }
+      #- { id: '44441', name: 'jboss-eap-6.4.8-patch' }
+      - { id: '45371', name: 'jboss-eap-6.4.9-patch' }
+      # Note: jboss-eap-6.4.10-patch requires jboss-eap-6.4.9-patch
+      - { id: '46371', name: 'jboss-eap-6.4.10-patch' }
+      - { id: '37083', name: 'jboss-eap-native-6.4.0-RHEL7-x86_64' }
+      - { id: '43891', name: 'jboss-eap-7.0.0' }
+      #- { id: '45601', name: 'jboss-eap-7.0.1-patch' }
+      - { id: '46431', name: 'jboss-eap-7.0.2-patch' }
+
+      # Red Hat JBoss Web Server
+      - { id: '44391', name: 'jws-application-servers-3.0.3-RHEL7-x86_64' }
+      - { id: '44321', name: 'jws-httpd-3.0.3-RHEL7-x86_64' }
+
+    golden_images_eap_6:
+      - 6.4.9
+      - 6.4.10
+
+    golden_images_eap_7:
+      - 7.0.2
+
   roles:
     # Import necessary for the "download-binaries" role.
     - {role: "sabre1041.redhat-csp-download"}

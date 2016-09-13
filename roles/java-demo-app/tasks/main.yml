@@ -30,6 +30,7 @@
     repo: "https://github.com/jboss-developer/ticket-monster.git"
     dest: "{{ java_code_dir }}/tm"
     version: "2.7.0.Final"
+    force: yes
 
 - name: Build "ticket-monster.war"
   when: tm_exists.stat.exists == false
