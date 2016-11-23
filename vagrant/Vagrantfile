@@ -58,6 +58,6 @@ Vagrant.configure(2) do |config|
     # 2048 MB RAM
     lv.memory = 2048
     # Uncomment if you want to use a specific storage pool with enough space
-    #libvirt.storage_pool_name = "MYPOOL"
+    #lv.storage_pool_name = "MYPOOL"
   end
 end
