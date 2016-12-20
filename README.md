@@ -26,11 +26,11 @@ You have to choose one out of the two following options to download the Red Hat 
 Please download the following Red Hat JBoss binaries from the [Red Hat Customer Support Portal](https://www.redhat.com/wapps/sso/login.html?redirect=https%3A%2F%2Faccess.redhat.com%2Fjbossnetwork%2Frestricted%2FlistSoftware.html) in a local directory of your choice (for example `/opt/tools/jboss/bin`).
 
 * jboss-eap-6.4.0.zip
-* jboss-eap-6.4.8-patch.zip
 * jboss-eap-6.4.9-patch.zip
+* jboss-eap-6.4.11-patch.zip
 * jboss-eap-native-6.4.0-RHEL7-x86_64.zip
 * jboss-eap-7.0.0.zip
-* jboss-eap-7.0.1-patch.zip
+* jboss-eap-7.0.3-patch.zip
 * jws-application-servers-3.0.3-RHEL7-x86_64.zip
 * jws-httpd-3.0.3-RHEL.zip
 
