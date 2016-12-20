@@ -1,0 +1,1 @@
+/subsystem=web/configuration=jsp-configuration:write-attribute(name=development,value=false)

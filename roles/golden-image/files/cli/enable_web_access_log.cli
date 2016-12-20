@@ -1,0 +1,5 @@
+/subsystem=web/virtual-server=default-host/configuration=access-log:add
+/subsystem=web/virtual-server=default-host/configuration=access-log:write-attribute(name="pattern",value="%h %l %u %t \\"%r\\" %s %b %S %T")
+/subsystem=web/virtual-server=default-host/configuration=access-log/setting=directory:add
+/subsystem=web/virtual-server=default-host/configuration=access-log/setting=directory:write-attribute(name="path",value="./")
+/subsystem=web/virtual-server=default-host/configuration=access-log/setting=directory:write-attribute(name="relative-to",value="jboss.server.log.dir")

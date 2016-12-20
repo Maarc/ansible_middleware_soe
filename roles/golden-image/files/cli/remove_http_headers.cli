@@ -1,0 +1,3 @@
+/system-property=org.apache.coyote.http11.Http11Protocol.SERVER:add(value="SuperSecureServer")
+/system-property=org.apache.catalina.connector.X_POWERED_BY:add(value="false")
+/subsystem=web/configuration=jsp-configuration:write-attribute(name=x-powered-by,value=false)

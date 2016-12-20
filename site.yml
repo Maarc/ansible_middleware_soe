@@ -12,8 +12,7 @@
     - {
         # JBoss EAP 6 instance for the ticket-monster application
         role: "Maarc.rh-jboss-eap",
-        jboss_eap_golden_image_name: "jboss-eap-6.4.10_GI",
-        #jboss_eap_golden_image_name: "jboss-eap-7.0.2_GI",
+        jboss_eap_golden_image_name: "jboss-eap-6.4.11_GI",
         jboss_eap_instance_name: "ticket_monster",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 0,
@@ -23,7 +22,7 @@
     - {
         # JBoss EAP 7 instance for the petclinic application (note: toggle role and app to deploy from Nexus)
         role: "Maarc.rh-jboss-eap",
-        jboss_eap_golden_image_name: "jboss-eap-7.0.2_GI",
+        jboss_eap_golden_image_name: "jboss-eap-7.0.3_GI",
         jboss_eap_instance_name: "petclinic",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: "1000",
@@ -34,7 +33,7 @@
     - {
         # JBoss EAP 7 instance for the jenkins application
         role: "Maarc.rh-jboss-eap",
-        jboss_eap_golden_image_name: "jboss-eap-7.0.2_GI",
+        jboss_eap_golden_image_name: "jboss-eap-7.0.3_GI",
         jboss_eap_instance_name: "jenkins",
         jboss_eap_instance_standalone_file: "standalone-full-ha.xml",
         jboss_eap_instance_port_offset: 2000,
