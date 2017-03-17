@@ -34,7 +34,7 @@
 
 - name: Build "ticket-monster.war"
   when: tm_exists.stat.exists == false
-  command: "mvn -T 4 clean package -f {{ java_code_dir }}/tm/demo"
+  command: "mvn -T 4 clean package -f {{ java_code_dir }}/tm/demo/pom.xml"
 
 - name: Copy "ticket-monster.war"
   copy:
