@@ -1,0 +1,2 @@
+# Enable RBAC
+/core-service=management/access=authorization:write-attribute(name=provider, value=rbac)

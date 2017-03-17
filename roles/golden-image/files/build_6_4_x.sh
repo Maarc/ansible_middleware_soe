@@ -6,7 +6,7 @@
 if [ "$#" -ne 5 ]
 then
   echo "Usage: $0 <LOG_FILE> <JBOSS_EAP_6_VERSION> <DIR_SOURCE> <DIR_TARGET> <DIR_CONF>"
-  echo "Example: $0 build.log 6.4.9 /tmp/mw_repo/rh_jboss_binaries /tmp/mw_repo/conf /tmp/mw_repo/rh_jboss_golden_images"
+  echo "Example: $0 build.log 6.4.11 /tmp/mw_repo/rh_jboss_binaries /tmp/mw_repo/conf /tmp/mw_repo/rh_jboss_golden_images"
   exit 1
 fi
 
@@ -39,89 +39,90 @@ declare COMMAND
 
 export JBOSS_HOME="${DIR_TARGET_EAP}"
 
-echo "\n[${VERSION}] Unpack JBoss EAP binaries (${FILE_EAP_BASIS}) \n${SEPARATOR}"
+echo "\n[${VERSION}] Unpack JBoss EAP binaries (${FILE_EAP_BASIS}) \n${SEPARATOR}" >> "${FILE_LOG}"
 
 #set -x
 
 COMMAND="rm -Rf ${DIR_TARGET}; mkdir -p ${DIR_TARGET}"
-echo ${COMMAND} >> ${FILE_LOG}
+echo ${COMMAND} >> "${FILE_LOG}"
 eval ${COMMAND}
 
 COMMAND="unzip ${FILE_SOURCE_EAP} -d ${DIR_TARGET} 2>> ${FILE_LOG} 1>> /dev/null"
-echo ${COMMAND} >> ${FILE_LOG}
+echo ${COMMAND} >> "${FILE_LOG}"
 eval ${COMMAND}
 
 COMMAND="mv ${DIR_TARGET}/${DIR_IN_ZIP} ${DIR_TARGET_EAP} 2>&1 >> ${FILE_LOG}"
-echo ${COMMAND} >> ${FILE_LOG}
+echo ${COMMAND} >> "${FILE_LOG}"
 eval ${COMMAND}
 
-# 6.4.10 requires 6.4.9 to be applied according to ...
+# 6.4.10 and 6.4.11 require 6.4.9 to be applied according to ...
 # https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=46371&product=appplatform&version=6.4&downloadType=patches
-if [ "${2}" == "6.4.10" ]
+if [ "${2}" == "6.4.10" ] || [ "${2}" == "6.4.11" ]
 then
-  echo "\n[${VERSION}] Patch to 6.4.9\n${SEPARATOR}"
+  echo "\n[${VERSION}] Patch to 6.4.9\n${SEPARATOR}" >> ${FILE_LOG}
   COMMAND="${CMD_JBOSS_CLI} --command=\"patch apply ${DIR_SOURCE}/jboss-eap-6.4.9-patch.zip\" 2>&1 >> ${FILE_LOG}"
   echo ${COMMAND} >> ${FILE_LOG}
   eval ${COMMAND}
 fi
 
-echo "\n[${VERSION}] Patch to ${VERSION}\n${SEPARATOR}"
+echo "\n[${VERSION}] Patch to ${VERSION}\n${SEPARATOR}" >> "${FILE_LOG}"
 COMMAND="${CMD_JBOSS_CLI} --command=\"patch apply ${FILE_SOURCE_EAP_PATCH}\" 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 
 COMMAND="unzip ${FILE_SOURCE_EAP_NATIVE} -d ${DIR_TARGET} 2>> ${FILE_LOG} 1>> /dev/null"
-echo ${COMMAND} >> ${FILE_LOG}
+echo ${COMMAND} >> "${FILE_LOG}"
 eval ${COMMAND}
 
-echo "\n[${VERSION}] Apply customizations\n${SEPARATOR}"
+echo "\n[${VERSION}] Apply customizations\n${SEPARATOR}" >> "${FILE_LOG}"
 
-echo '' > ${FILE_CLI}
-CLIS=( "delete_ExampleDS_6.cli" "delete_mail_outbound.cli" "enable_native_lib_6.cli" "disable_deployment_scanner.cli" "update_web_subsystem_6.cli")
+echo '' > "${FILE_CLI}"
+CLIS=( "delete_ExampleDS_6.cli" "delete_mail_outbound.cli" "enable_native_lib_6.cli" "disable_deployment_scanner.cli" "update_web_subsystem_6.cli" "enable_rbac.cli" "delete_http_interface.cli" "remove_http_headers.cli" "disable_jsp_regeneration" "remove_patching_history.cli" )
 for CLI in "${CLIS[@]}"
 do
-    cat ${DIR_CONF}/cli/$CLI >> ${FILE_CLI}
-    echo "----->>>  ${DIR_CONF}/cli/$CLI" >> ${FILE_LOG}
+    cat "${DIR_CONF}/cli/$CLI" >> "${FILE_CLI}"
+    echo "----->>>  ${DIR_CONF}/cli/$CLI" >> "${FILE_LOG}"
 done
 
 echo ">>>>> Executed CLI " >> ${FILE_LOG}
-cat ${FILE_CLI} >> ${FILE_LOG}
+cat "${FILE_CLI}" >> "${FILE_LOG}"
 echo "<<<<< Executed CLI " >> ${FILE_LOG}
 
 EAP_CONFIGURATIONS=( "standalone-full-ha.xml" )
 for EAP_CONFIG in "${EAP_CONFIGURATIONS[@]}"
 do
-  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
+  COMMAND="bash -c \"nohup \"${JBOSS_HOME}/bin/standalone.sh\" -c \"${EAP_CONFIG}\" --admin-only 2>>\"${FILE_LOG}\" 1>>\"${FILE_LOG}\" &\" && sleep 10 && \"${CMD_JBOSS_CLI}\" -c --file=\"${FILE_CLI}\" 2>>\"${FILE_LOG}\" 1>>\"${FILE_LOG}\" && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
   echo ${COMMAND} >> ${FILE_LOG}
   eval ${COMMAND}
 done
 
-CLIS=( "delete_console_logger.cli" )
+CLIS=( "delete_console_logger.cli"  )
 for CLI in "${CLIS[@]}"
 do
-    cat ${DIR_CONF}/cli/$CLI >> ${FILE_CLI}
-    echo "----->>>  ${DIR_CONF}/cli/$CLI" >> ${FILE_LOG}
+    cat "${DIR_CONF}/cli/$CLI" >> "${FILE_CLI}"
+    echo "----->>>  ${DIR_CONF}/cli/$CLI" >> "${FILE_LOG}"
 done
 
 echo ">>>>> Executed CLI " >> ${FILE_LOG}
-cat ${FILE_CLI} >> ${FILE_LOG}
+cat "${FILE_CLI}" >> "${FILE_LOG}"
 echo "<<<<< Executed CLI " >> ${FILE_LOG}
 
 EAP_CONFIGURATIONS=( "standalone.xml" "standalone-full.xml" "standalone-ha.xml" )
 for EAP_CONFIG in "${EAP_CONFIGURATIONS[@]}"
 do
-  COMMAND="bash -c \"nohup ${JBOSS_HOME}/bin/standalone.sh -c ${EAP_CONFIG} --admin-only 2>>${FILE_LOG} 1>>${FILE_LOG} &\" && sleep 10 && ${CMD_JBOSS_CLI} -c --file=${FILE_CLI} 2>&1 >> ${FILE_LOG} && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
-  echo ${COMMAND} >> ${FILE_LOG}
+  COMMAND="bash -c \"nohup \"${JBOSS_HOME}/bin/standalone.sh\" -c \"${EAP_CONFIG}\" --admin-only 2>>\"${FILE_LOG}\" 1>>\"${FILE_LOG}\" &\" && sleep 10 && \"${CMD_JBOSS_CLI}\" -c --file=\"${FILE_CLI}\" 2>>\"${FILE_LOG}\" 1>>\"${FILE_LOG}\" && pkill -TERM -f \"(.*)standalone(.*)admin-only\""
+  echo ${COMMAND} >> "${FILE_LOG}"
   eval ${COMMAND}
 done
 
 rm ${FILE_CLI}
 
+# Copy custom JBoss Modules
 COMMAND="cp -Rfp ${DIR_MODULES}/ojdbc_modules/* ${JBOSS_HOME}/modules/. 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 
-echo "\n[${VERSION}] Package and cleanup\n${SEPARATOR}"
+echo "\n[${VERSION}] Package and cleanup\n${SEPARATOR}" >> "${FILE_LOG}"
 
 # Domain mode excluded
 COMMAND="rm -Rf ${DIR_TARGET_EAP}/domain 2>&1 >> ${FILE_LOG}"
@@ -129,12 +130,12 @@ echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 
 # Generated file
-COMMAND="rm -Rf ${DIR_TARGET_EAP}/standalone/configuration/logging.properties 2>&1 >> ${FILE_LOG}"
+COMMAND="rm -Rf '${DIR_TARGET_EAP}/standalone/configuration/logging.properties' 2>&1 >> ${FILE_LOG}"
 echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 
 # Folder cleanup
-COMMAND="rm -Rf ${DIR_TARGET_EAP}/standalone/log/* ${DIR_TARGET_EAP}/standalone/data/* ${DIR_TARGET_EAP}/standalone/deployments/*  ${DIR_TARGET_EAP}/standalone/configuration/standalone_xml_history"
+COMMAND="rm -Rf '${DIR_TARGET_EAP}/standalone/log/*' '${DIR_TARGET_EAP}/standalone/data/*' '${DIR_TARGET_EAP}/standalone/deployments/*' '${DIR_TARGET_EAP}/standalone/configuration/standalone_xml_history'"
 echo ${COMMAND} >> ${FILE_LOG}
 eval ${COMMAND}
 

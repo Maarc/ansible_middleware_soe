@@ -1,2 +1,2 @@
-# Enables native connectors
+# Enable native connectors
 /subsystem=web/:write-attribute(name=native,value=true)

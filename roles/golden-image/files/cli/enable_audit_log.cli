@@ -1,0 +1,2 @@
+/subsystem=logging/periodic-rotating-file-handler=AUDIT/:add(suffix=.yyyy-MM-dd,formatter=%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n,level=TRACE,file={"relative-to" => "jboss.server.log.dir","path" => "audit.log"})
+/subsystem=logging/logger=org.jboss.security.audit/:add(level=TRACE,category=org.jboss.security.audit,handlers=["AUDIT"])

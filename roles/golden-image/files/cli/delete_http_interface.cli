@@ -1,0 +1,2 @@
+# Remove HTTP management interface
+/core-service=management/management-interface=http-interface:remove()
